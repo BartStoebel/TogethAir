@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class PersonServiceRemoteTest extends AbstractRemoteIntegrationTest {
     @Test
     public void testPersonServiceCanBeAccessedRemotely() throws Exception {
-        PersonServiceRemote personService = lookup("jee7-jsf-08-validation-solution/PersonServiceBean!com.realdolmen.course.service.PersonServiceRemote");
+        PersonServiceRemote personService = lookup("TogethAir/PersonServiceBean!com.realdolmen.course.service.PersonServiceRemote");
         List<Person> people = personService.findAll();
         assertEquals(5, people.size());
         for (Person person : people) {
