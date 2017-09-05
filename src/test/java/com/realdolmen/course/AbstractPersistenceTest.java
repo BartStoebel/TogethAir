@@ -18,7 +18,7 @@ public abstract class AbstractPersistenceTest {
 
     @BeforeClass
     public static void initializeEntityManagerFactory() {
-        emf = Persistence.createEntityManagerFactory("CandyShopPersistenceUnit");
+        emf = Persistence.createEntityManagerFactory("TogethAirPersistenceUnit");
     }
 
     @Before
