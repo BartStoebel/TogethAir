@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        >
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="pageContent">
+            <h1>Fill in Person Data</h1>
+            <h:form>
+                <div class="form-group #{not component.findComponent('firstName').valid and facesContext.validationFailed ? 'has-error' : ''}">
+                    <h:outputLabel for="firstName">First Name</h:outputLabel>
+                    <h:inputText id="firstName" value="#{registrationFlowBean.person.firstName}" styleClass="form-control"/>
+                    <h:message for="firstName" errorClass="control-label has-error"/>
+                </div>
+                <div class="form-group #{not component.findComponent('lastName').valid and facesContext.validationFailed ? 'has-error' : ''}">
+                    <h:outputLabel for="lastName">Last Name</h:outputLabel>
+                    <h:inputText id="lastName" value="#{registrationFlowBean.person.lastName}" styleClass="form-control"/>
+                    <h:message for="lastName" errorClass="control-label has-error"/>
+                </div>
+                <div class="form-group #{not component.findComponent('birthDate').valid and facesContext.validationFailed ? 'has-error' : ''}">
+                    <h:outputLabel for="birthDate">Birth Date <small>(yyyy-MM-dd)</small></h:outputLabel>
+                    <h:inputText id="birthDate" value="#{registrationFlowBean.person.birthDate}" styleClass="form-control">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:inputText>
+                    <h:message for="birthDate" errorClass="control-label has-error"/>
+                </div>
+                <h:commandButton styleClass="btn btn-primary" value="Next page" action="register-address"/> <!-- Action is id of <view> -->
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
