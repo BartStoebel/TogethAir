@@ -2,6 +2,7 @@ package com.realdolmen.course.repository;
 
 import com.realdolmen.course.AbstractPersistenceTest;
 import com.realdolmen.course.domain.Address;
+import com.realdolmen.course.domain.Company;
 import com.realdolmen.course.domain.User;
 import com.realdolmen.course.enums.Role;
 import com.realdolmen.course.utils.DateUtils;
@@ -49,7 +50,11 @@ public class UserRepositoryTest extends AbstractPersistenceTest {
                 ),
                 "+326598875421",
                 DateUtils.createDate("1990-12-12 12:12:12"),
-                Role.CLIENT
+                Role.CLIENT,
+                new Company(
+                        "FlightAirlines",
+                        "This is the best airline in the world"
+                )
         );
         ur.save(u);
         assertNotNull("User ID is not supposed to be null after saving", u.getId());

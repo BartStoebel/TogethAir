@@ -36,10 +36,13 @@ public class User implements Serializable{
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToOne
+    private Company company;
+
     public User() {
     }
 
-    public User(String firstName, String lastName, String password, String email, Address address, String phoneNumber, Date birthDate, Role role) {
+    public User(String firstName, String lastName, String password, String email, Address address, String phoneNumber, Date birthDate, Role role, Company company) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -48,6 +51,15 @@ public class User implements Serializable{
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
         this.role = role;
+        this.company = company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Company getCompany() {
+        return company;
     }
 
     public void setFirstName(String firstName) {
