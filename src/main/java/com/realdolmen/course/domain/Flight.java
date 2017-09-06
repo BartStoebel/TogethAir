@@ -52,10 +52,16 @@ public class Flight implements Serializable {
 	private Date arrivalTime;
 	
 	@ElementCollection
-	@CollectionTable(name = "availableSeats")
+	@CollectionTable(name = "availableSeatsPerBudgetClass")
 	@MapKeyColumn(name = "budgetClass")
 	@Column(name  = "available")
 	private Map<BudgetClass, Integer> availableSeats = new HashMap<>();
+	
+	@ElementCollection
+	@CollectionTable (name = "pricePerBudgetClass")
+	@MapKeyColumn(name = "budgetClass")
+	@Column(name = "price_id")
+	private Map<BudgetClass, Price> prices = new HashMap<>();
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	private Company company;
