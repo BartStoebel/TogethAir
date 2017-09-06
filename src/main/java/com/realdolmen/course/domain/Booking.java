@@ -60,6 +60,10 @@ public class Booking implements Serializable {
 
     // Start Methods
 
+    /**
+     * Will calculate and return the final price without the discounts that had been applied before.
+     * @return BigDecimal
+     */
     public BigDecimal calcFinalPriceWithoutDiscounts(){
         BigDecimal dc = finalPrice;
         if (paymentChoice == PaymentChoice.CREDIT_CARD && discountCC != null) dc = dc.add(discountCC);

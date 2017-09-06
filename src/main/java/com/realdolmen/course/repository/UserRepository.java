@@ -20,9 +20,11 @@ public class UserRepository {
     @PersistenceContext
     EntityManager em;
 
-    public User save(User u){
+    public Long save(User u){
+        if (u.getCompany() != null) em.persist(u.getCompany());
         em.persist(u);
-        return u;
+        em.flush();
+        return u.getId();
     }
 
     public User findById(Long id){
