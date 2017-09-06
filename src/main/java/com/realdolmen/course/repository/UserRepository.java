@@ -35,7 +35,7 @@ public class UserRepository {
 
     public List<User> findByRole(Role r){
         Query q = em.createQuery("select u from User u where role = :role order by u.lastName, u.firstName", User.class);
-        q.setParameter("role", r.name());
+        q.setParameter("role", r);
         return q.getResultList();
     }
 
