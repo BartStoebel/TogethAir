@@ -13,8 +13,19 @@ insert into flight(id, name, departureTime, arrivalTime, company_id, version) va
 insert into flight(id, name, departureTime, arrivalTime, company_id, version) values(2, 'AB17', '2017-03-03 21:00:30', '2017-03-03 12:12:30', 2, 1);
 insert into flight(id, name, departureTime, arrivalTime, company_id, version) values(3, 'BB17', '2017-03-03 21:00:30', '2016-03-03 12:12:30', 1, 1);
 
-insert into availableseats(Flight_id, budgetClass, available) values (2, 2, 30);
-insert into availableseats(Flight_id, budgetClass, available) values (2, 1, 3);
-insert into availableseats(Flight_id, budgetClass, available) values (2, 0, 20);
-insert into availableseats(Flight_id, budgetClass, available) values (1, 1, 5);
-insert into availableseats(Flight_id, budgetClass, available) values (1, 2, 7);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 2, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 1, 3);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 0, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (1, 1, 5);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (1, 2, 7);
+
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (1, 213.24, 5, 33.67, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (1, 23.24, 5, 30.67, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (1, 213.2, 5, 3.67, 2);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (2, 13.24, 5, 353.67, 2);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (2, 21.24, 5, 23.67, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (2, 213.24, 5, 0, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (3, 2130.24, 7, 0, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (3, 2143.24, 10, 0, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (3, 113.24, 5, 0, 2);
+

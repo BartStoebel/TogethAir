@@ -1,7 +1,6 @@
 package com.realdolmen.course.domain;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,8 +10,6 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +26,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.realdolmen.course.enums.BudgetClass;
 
 /**
- * These are the flights provided by the companies. They provide the data, including a baseprice and VolumeDiscounts . 
+ * These are the flights provided by the companies. The companies will provide this data, 
+ * including a baseprice (in Price) and VolumeDiscounts . 
  * TogethAir sells them with profit. 
  * 
  * @author BSEBF08
@@ -60,7 +58,7 @@ public class Flight implements Serializable {
 	@ElementCollection
 	@CollectionTable (name = "pricePerBudgetClass")
 	@MapKeyColumn(name = "budgetClass")
-	@Column(name = "price_id")
+	//@Column(name = "prices_id")
 	private Map<BudgetClass, Price> prices = new HashMap<>();
 	
 	@ManyToOne (fetch = FetchType.LAZY)
@@ -121,14 +119,41 @@ public class Flight implements Serializable {
 	public Map<BudgetClass, Integer> getAvailableSeats() {
 		return Collections.unmodifiableMap(availableSeats);
 	}
+	
+	
+	public Map<BudgetClass, Price> getPrices() {
+		return (prices);
+	}
 
-	public void setAvailableSeatsPerBudgetClass(BudgetClass budgetClass, int aantal) {
-		this.availableSeats.put(budgetClass, aantal) ;
+	/**
+	 * To set the available seats per BudgetClass. If availableSeats is already present, this method 
+	 * will overwrite this value!
+	 * @param budgetClass
+	 * @param count
+	 */
+	public void setAvailableSeatsPerBudgetClass(BudgetClass budgetClass, int count) {
+		this.availableSeats.put(budgetClass, count) ;
 	}
 	
-	public void bookSeats(BudgetClass budgetClass, int aantal) {
-		this.availableSeats.put(budgetClass, availableSeats.get(budgetClass) - aantal);
+	/**
+	 * To book a number of seats in a certain budgetClass. This is an enumeration of possible
+	 * tickets (BudgetClass.ECONOMY, ...)
+	 * @param budgetClass
+	 * @param count
+	 */
+	public void bookSeats(BudgetClass budgetClass, int count) {
+		this.availableSeats.put(budgetClass, availableSeats.get(budgetClass) - count);
 	}
+	/**
+	 * To set the price per BudgetClass (cfr. BudgetClass.ECONOMY). If the price is already present
+	 * for this budgetclass, this method will overwrite this value!
+	 * @param budgetClass
+	 * @param price
+	 */
+	public void setPricePerBudgetClass(BudgetClass budgetClass, Price price) {
+		this.prices.put(budgetClass, price);
+	}
+	
 	
 	
 }
