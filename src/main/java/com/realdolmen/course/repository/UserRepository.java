@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 /**
- * Repository that will managed all instances of User
+ * Repository that will manage all instances of User
  * @author JBCBF07
  */
 

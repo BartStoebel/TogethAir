@@ -15,6 +15,7 @@
         <class>com.realdolmen.course.domain.User</class>
         <class>com.realdolmen.course.domain.Company</class>
         <class>com.realdolmen.course.domain.Flight</class>
+        <class>com.realdolmen.course.domain.Booking</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

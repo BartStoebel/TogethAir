@@ -22,3 +22,8 @@ insert into availableseats(Flight_id, budgetClass, available) values (2, 1, 3);
 insert into availableseats(Flight_id, budgetClass, available) values (2, 0, 20);
 insert into availableseats(Flight_id, budgetClass, available) values (1, 1, 5);
 insert into availableseats(Flight_id, budgetClass, available) values (1, 2, 7);
+
+insert into booking(id, bookingStatus, createdOn, discountCC, discountVolume, finalPrice, paymentChoice, user_id) values (1, 'PAID', '1912-12-12 12:12:12', NULL, 12.21, 541.20, 'ENDORSEMENT', 1);
+insert into booking(id, bookingStatus, createdOn, discountCC, discountVolume, finalPrice, paymentChoice, user_id) values (2, 'RESERVED', '1912-12-12 12:12:12', 76.95, NULL, 754.21, 'CREDIT_CARD', 2);
+insert into booking(id, bookingStatus, createdOn, discountCC, discountVolume, finalPrice, paymentChoice, user_id) values (3, 'PAID', '1912-12-12 12:12:12', NULL, NULL, 1125.20, 'ENDORSEMENT', 3);
+insert into booking(id, bookingStatus, createdOn, discountCC, discountVolume, finalPrice, paymentChoice, user_id) values (4, 'PAYMENT_PENDING', '1912-12-12 12:12:12', 76.95, 88.20, 1754.21, 'CREDIT_CARD', 1);
