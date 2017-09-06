@@ -17,7 +17,9 @@ public class FlightRepository {
 	EntityManager em;	
 	
 	public Flight save(Flight flight) {
+		em.persist(flight.getCompany());
 		em.persist(flight);
+		em.flush();
 		return flight;
 	}
 	public Flight findById(Long id) {
@@ -33,5 +35,6 @@ public class FlightRepository {
         em.remove(em.getReference(Flight.class, flightId));
     }
 	
+    
 
 }

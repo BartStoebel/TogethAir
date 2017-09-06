@@ -1,21 +1,23 @@
 package com.realdolmen.course.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.realdolmen.course.AbstractPersistenceTest;
-import com.realdolmen.course.domain.Address;
 import com.realdolmen.course.domain.Company;
 import com.realdolmen.course.domain.Flight;
-import com.realdolmen.course.domain.Person;
+import com.realdolmen.course.domain.Price;
 import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.utils.DateUtils;
 
 public class FlightRepositoryTest extends AbstractPersistenceTest{
-	private static final long TEST_FLIGHT_ID = 1;
+    private static final long TEST_FLIGHT_ID = 2L;
+
 	private FlightRepository flightRepository;
 	
 	@Before
@@ -23,25 +25,77 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		flightRepository = new FlightRepository();
 		flightRepository.em = em;
 	}
-	
+	/**
+	 * Save a Flight, with prices and availableSeats. Afterwards, retrieve this Flight,
+	 * and check if the values are correct.
+	 */
 	@Test
-    public void shouldSaveAFlight() {
+    public void shouldSaveAndRetrieveAFlight() {
 		Flight flight = new Flight("AH47", DateUtils.createDate("2016-01-01 00:00"),
-        		DateUtils.createDate("2016-01-01 00:00"), new Company("Lufthansa", "Test"));
-        System.out.println(flight.getArrivalTime());
-        flightRepository.save(flight);
-        //em.flush();
-		assertNotNull("FlightId is not supposed to be null after saving", flight.getId());
-    }
-	
+	    		DateUtils.createDate("2016-01-01 00:00"), new Company("Lufthansa", "Test"));
+		Price price = new Price();
+	    price.setBase(BigDecimal.valueOf(126.32));
+	    price.setProfitPercentage(BigDecimal.valueOf(6));
+	    flight.setPricePerBudgetClass(BudgetClass.ECONOMY, price);
+	    price = new Price();
+	    price.setBase(BigDecimal.valueOf(126.32));
+	    price.setFixBonus(BigDecimal.valueOf(55));
+	    flight.setPricePerBudgetClass(BudgetClass.BUSINESS, price);
+	    flight.setAvailableSeatsPerBudgetClass(BudgetClass.ECONOMY, 25);
+	    flight.setAvailableSeatsPerBudgetClass(BudgetClass.BUSINESS, 5);
+		flight = flightRepository.save(flight);
+		Flight savedFlight = flightRepository.findById(flight.getId());
+		
+		assertNotNull("FlightId is not supposed to be null after saving", savedFlight.getId());
+		assertTrue(BigDecimal.valueOf(126.32 * 1.06) 
+				.compareTo(savedFlight.getPrices().get(BudgetClass.ECONOMY).calculatePrice()) == 0);
+		assertTrue(BigDecimal.valueOf(126.32 + 55) 
+				.compareTo(savedFlight.getPrices().get(BudgetClass.BUSINESS).calculatePrice()) == 0);
+		assertEquals((Integer)5, savedFlight.getAvailableSeats().get(BudgetClass.BUSINESS));
+		assertEquals((Integer)25, savedFlight.getAvailableSeats().get(BudgetClass.ECONOMY));
+    }	
 	@Test
-	public void shouldGetAvailableInEconomyClass() {
+	public void updateAFlight() {
+		Flight flight = flightRepository.findById(TEST_FLIGHT_ID);
+		flight.setAvailableSeatsPerBudgetClass(BudgetClass.ECONOMY, 13);
+		flight.setArrivalTime(DateUtils.createDate("2014-01-01 00:00"));
+		Price price = flight.getPrices().get(BudgetClass.BUSINESS);
+		price.setBase(BigDecimal.valueOf(100));
+		price.setFixBonus(BigDecimal.valueOf(356));
+		flight.setPricePerBudgetClass(BudgetClass.BUSINESS, price);
+		flight = flightRepository.save(flight);
+		Flight flightUpdated = flightRepository.findById(TEST_FLIGHT_ID);
+		assertEquals((Integer)13, flightUpdated.getAvailableSeats().get(BudgetClass.ECONOMY));
+		assertTrue(BigDecimal.valueOf(100 + 356) 
+				.compareTo(flightUpdated.getPrices().get(BudgetClass.BUSINESS).calculatePrice()) == 0);
+		assertEquals((Long)2L, flightUpdated.getId());
+	}
+	@Test
+	public void shouldReturnAllFlights() {
+		List<Flight> flights = flightRepository.findAll();
+		assertNotNull(flights);
+		assertEquals(3, flights.size());
+	}
+	@Test
+	public void shouldReturnAFlight() {
+		Flight flight = flightRepository.findById(TEST_FLIGHT_ID);
+		assertNotNull(flight);
+		assertNotNull(flight.getId());
+		assertEquals("AB17", flight.getName());
+	}
+	@Test
+	public void shouldRemoveAFlight() {
+		flightRepository.remove(TEST_FLIGHT_ID);
+		assertEquals(2, count(Flight.class));
+	}
+	@Test
+	public void shouldGetAvailableSeatsInEconomyClass() {
 		Flight flight = flightRepository.findById(2L);
 		Integer availableEconomy = flight.getAvailableSeats().get(BudgetClass.ECONOMY);
 		assertEquals((Integer)20, availableEconomy);
 	}
 	@Test
-	public void shouldGetAvailableInBusinessClass() {
+	public void shouldGetAvailableSeatsInBusinessClass() {
 		Flight flight = flightRepository.findById(2L);
 		flight.bookSeats(BudgetClass.BUSINESS, 10); //originally 30, becomes 20
 		flight = flightRepository.save(flight);
@@ -50,6 +104,7 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		Integer availableBusiness = flight2.getAvailableSeats().get(BudgetClass.BUSINESS);
 		assertEquals((Integer)20, availableBusiness);
 	}
+	
 	
 	
 }
