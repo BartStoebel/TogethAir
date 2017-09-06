@@ -26,7 +26,7 @@ public class PersonRepositoryTest extends AbstractPersistenceTest {
     @Test
     public void shouldSaveAPerson() {
         Person p = new Person("Theo", "Tester", DateUtils.createDate("1970-01-01"));
-        Address a = new Address("TheStreet", "123", "9876", "TheCity");
+        Address a = new Address("TheStreet", "123", "9876", "TheCity", "");
         p.setAddress(a);
         personRepository.save(p);
         assertNotNull("Person ID is not supposed to be null after saving", p.getId());
