@@ -1,7 +1,20 @@
 package com.realdolmen.course.domain;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 /**
- * Created by JBCBF07 on 6/09/2017.
+ * Subclass of User. Employee of the TogethAir company.
+ * @author JBCBF07
  */
-public class TogethAirEmployee {
+
+@Entity
+@DiscriminatorValue("T")
+public class TogethAirEmployee extends User {
+    public TogethAirEmployee() {
+    }
+
+    public TogethAirEmployee(String firstName, String lastName, String password, String email, Integer version) {
+        super(firstName, lastName, password, email, version);
+    }
 }
