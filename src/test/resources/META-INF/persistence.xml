@@ -10,6 +10,7 @@
 
         <class>com.realdolmen.course.domain.Person</class>
         <class>com.realdolmen.course.domain.Address</class>
+        <class>com.realdolmen.course.domain.User</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
