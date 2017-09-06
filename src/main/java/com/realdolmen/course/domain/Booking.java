@@ -41,6 +41,9 @@ public class Booking implements Serializable {
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
 
+    @Version
+    private Integer version;
+
     public Booking() {
     }
 
@@ -125,5 +128,9 @@ public class Booking implements Serializable {
 
     public User getUser() {
         return user;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 }

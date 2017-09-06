@@ -1,27 +1,12 @@
 package com.realdolmen.course.domain;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -59,9 +44,9 @@ public class Flight implements Serializable {
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	private Company company;
-	
+
 	@Version
-	private Long version;
+	private Integer version;
 	
 	//Constructors
 	public Flight() {
@@ -116,6 +101,10 @@ public class Flight implements Serializable {
 		return Collections.unmodifiableMap(availableSeats);
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
 	public void setAvailableSeatsPerBudgetClass(BudgetClass budgetClass, int aantal) {
 		this.availableSeats.put(budgetClass, aantal) ;
 	}
@@ -123,6 +112,8 @@ public class Flight implements Serializable {
 	public void bookSeats(BudgetClass budgetClass, int aantal) {
 		this.availableSeats.put(budgetClass, availableSeats.get(budgetClass) - aantal);
 	}
+
+
 	
 	
 }

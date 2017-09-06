@@ -2,12 +2,7 @@ package com.realdolmen.course.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -30,7 +25,7 @@ public class Company implements Serializable{
 	@Column(nullable = true, length = 200)
 	@Size(max = 200)
 	private String description;
-	
+
 	@Version
 	private Integer version;
 	
