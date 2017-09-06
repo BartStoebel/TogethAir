@@ -3,6 +3,7 @@ package com.realdolmen.course.domain;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,10 +13,11 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * 
- * @author BSEBF08
  * Extern flightCompany, providing flights in our system.
+ * @author BSEBF08
+ * 
  */
+@Entity
 public class Company implements Serializable{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +27,8 @@ public class Company implements Serializable{
 	@NotBlank @Size(max = 40)
 	private String name;
 	
-	@Column(nullable = false, length = 200)
-	@NotBlank @Size(max = 200)
+	@Column(nullable = true, length = 200)
+	@Size(max = 200)
 	private String description;
 	
 	@Version
