@@ -1,0 +1,41 @@
+
+body{
+    background-color: white;
+}
+
+#search-box-div{
+    color: #fff;
+}
+
+#search-box-div h1{
+    display: flex;
+    justify-content: center;
+    font-size: 4em;
+        margin-bottom: 50px;
+        margin-top: 30px;
+}
+
+.navbar a{
+    color: #847e80;
+}
+
+.navbar a:hover{
+    color: #514e51;
+    text-decoration: none;
+}
+
+#search-box-div label{
+    margin-top: 3px;
+}
+
+#backgroundimage{
+    left: 0;
+    margin: 0;
+    height: 700px;
+    min-width: 674px;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}

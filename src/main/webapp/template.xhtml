@@ -10,8 +10,10 @@
         <h:outputScript library="jquery-2.2.1" name="jquery.js"/>
         <h:outputScript library="bootstrap-3.3.6" name="/js/bootstrap.js"/>
         <ui:insert name="customScripts"/>
-        <h:outputStylesheet library="bootstrap-3.3.6" name="/css/bootstrap-jsf.css"/>
+        <!--<h:outputStylesheet library="bootstrap-3.3.6" name="/css/bootstrap-jsf.css"/>-->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+        <link href="resources/style.css" rel="stylesheet"/>
         <ui:insert name="customStylesheets"/>
     </h:head>
     <h:body>
@@ -22,14 +24,11 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar">
                         <i class="fa fa-bars" aria-hidden="true"></i>
                     </button>
-                    <span class="navbar-brand">Company Name</span>
+                    <span class="navbar-brand"><h:link value="#{msgs['page.title']}" action="index"/> </span>
                 </div>
                 <div class="collapse navbar-collapse" id="top-navbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#products">Products</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><h:link value="#{msgs['menu.search']}" action="index"/></li>
                     </ul>
                 </div>
             </div>

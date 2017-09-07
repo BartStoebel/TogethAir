@@ -7,11 +7,62 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="pageContent">
-            <h1>Home</h1>
-            <p>Welcome to the RealDolmen JEE7 Starter Project.</p>
-            <h:outputText value="#{searchFlightsBean.from}"/>
-            <h:link outcome="people" styleClass="btn btn-default">List of people by JSF</h:link>
-            <h:link value="Register here" outcome="registration" styleClass="btn btn-default"/>
+            <div id="search-box-div">
+
+                <img id="backgroundimage" src="resources/images/chile-1477188_1920.jpg" border="0" alt=""/>
+
+                <h1>Find your flight</h1>
+
+                <h:form>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>#{msgs['from']}</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['to']}</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-plane"></i></span>
+                                <h:inputText value="#{searchFlightsBean.to}" styleClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['number.of.passengers']}</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-male"></i></span>
+                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['departure.date']}</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['return.date']}</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['travelling.class']}</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <h:commandButton value="#{msgs['button.search']}"  styleClass="btn btn-primary btn-block" id="btn_search"/>
+                </h:form>
+
+            </div>
         </ui:define>
     </ui:composition>
 
