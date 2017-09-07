@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 /**
- * Repository that will managed all instances of User
+ * Repository that will manage all instances of User
  * @author JBCBF07
  */
 
@@ -20,9 +20,11 @@ public class UserRepository {
     @PersistenceContext
     EntityManager em;
 
-    public User save(User u){
+    public Long save(User u){
+        if (u.getCompany() != null) em.persist(u.getCompany());
         em.persist(u);
-        return u;
+        em.flush();
+        return u.getId();
     }
 
     public User findById(Long id){

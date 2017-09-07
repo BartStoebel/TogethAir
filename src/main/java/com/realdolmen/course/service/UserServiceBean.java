@@ -20,7 +20,7 @@ public class UserServiceBean {
     @EJB
     UserRepository ur;
 
-    public User save(User u){
+    public Long save(User u){
         return ur.save(u);
     }
 

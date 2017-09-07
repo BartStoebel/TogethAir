@@ -1,12 +1,12 @@
 package com.realdolmen.course.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -29,7 +29,7 @@ import com.realdolmen.course.enums.BudgetClass;
 
 /**
  * These are the flights provided by the companies. The companies will provide this data, 
- * including a baseprice (in Price) and VolumeDiscounts . 
+ * including a baseprice (in Price) and VolumeDiscounts.
  * TogethAir sells them with profit. 
  * 
  * @author BSEBF08
@@ -65,13 +65,13 @@ public class Flight implements Serializable {
 	
 	@ElementCollection
 	@CollectionTable(name = "discountPerVolume")
-	private List<VolumeDiscount> volumeDiscounts = new ArrayList<>();
+	private Set<VolumeDiscount> volumeDiscounts = new TreeSet();
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	private Company company;
 	
 	@Version
-	private Long version;
+	private Integer version;
 	
 	//Constructors
 	public Flight() {
@@ -125,11 +125,11 @@ public class Flight implements Serializable {
 	public Map<BudgetClass, Integer> getAvailableSeats() {
 		return Collections.unmodifiableMap(availableSeats);
 	}
-	
-	
-	public Map<BudgetClass, Price> getPrices() {
-		return (prices);
+
+	public Integer getVersion() {
+		return version;
 	}
+
 
 	/**
 	 * To set the available seats per BudgetClass. If availableSeats is already present, this method 
@@ -159,7 +159,9 @@ public class Flight implements Serializable {
 	public void setPricePerBudgetClass(BudgetClass budgetClass, Price price) {
 		this.prices.put(budgetClass, price);
 	}
-	
-	
-	
+
+
+	public Map<BudgetClass,Price> getPrices() {
+		return prices;
+	}
 }

@@ -15,31 +15,44 @@ import java.util.Date;
 
 @Entity
 public class User implements Serializable{
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank @Size(max = 200) @Column(nullable = false, length = 200)
     private String firstName;
+
     @NotBlank @Size(max = 200) @Column(nullable = false, length = 200)
     private String lastName;
+
     @NotBlank @Size(max = 200) @Column(nullable = false, length = 200)
     private String password;
+
     @NotBlank @Size(max = 200) @Column(nullable = false, length = 200, unique = true)
     private String email;
+
     @Embedded
     private Address address;
+
     @Size(min = 5, max = 22) @Column(length = 25)
     private String phoneNumber;
+
     @Temporal(TemporalType.DATE)
     private Date birthDate;
-    @Version
-    private Integer version;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @ManyToOne
+    private Company company;
+
+    @Version
+    private Integer version;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String password, String email, Address address, String phoneNumber, Date birthDate, Role role) {
+    public User(String firstName, String lastName, String password, String email, Address address, String phoneNumber, Date birthDate, Role role, Company company) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -48,6 +61,15 @@ public class User implements Serializable{
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
         this.role = role;
+        this.company = company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Company getCompany() {
+        return company;
     }
 
     public void setFirstName(String firstName) {

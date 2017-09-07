@@ -2,6 +2,7 @@ package com.realdolmen.course.repository;
 
 import com.realdolmen.course.AbstractPersistenceTest;
 import com.realdolmen.course.domain.Address;
+import com.realdolmen.course.domain.Company;
 import com.realdolmen.course.domain.User;
 import com.realdolmen.course.enums.Role;
 import com.realdolmen.course.utils.DateUtils;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Testing the User Repository
@@ -49,10 +51,47 @@ public class UserRepositoryTest extends AbstractPersistenceTest {
                 ),
                 "+326598875421",
                 DateUtils.createDate("1990-12-12 12:12:12"),
-                Role.CLIENT
+                Role.CLIENT,
+                new Company(
+                        "FlightAirlines",
+                        "This is the best airline in the world"
+                )
+        );
+        Long userID = ur.save(u);
+        assertNotNull("User ID is not supposed to be null after saving", userID);
+        User test = ur.findById(userID);
+        assertNotNull(test);
+        assertNotNull(test.getId());
+        assertNotNull(test.getCompany());
+        assertNotNull(test.getCompany().getId());
+        assertEquals(u.getCompany().getId(), test.getCompany().getId());
+    }
+
+    @Test
+    public void shouldSaveUserWithoutCompany(){
+        User u = new User(
+                "Johnny",
+                "De Smedt",
+                "password",
+                "johnny@test.com",
+                new Address(
+                        "Belgium",
+                        "boekstraat",
+                        "25",
+                        "Antwerpen",
+                        "2000"
+                ),
+                "+326598875421",
+                DateUtils.createDate("1990-12-12 12:12:12"),
+                Role.CLIENT,
+                null
         );
         ur.save(u);
         assertNotNull("User ID is not supposed to be null after saving", u.getId());
+        User test = ur.findById(u.getId());
+        assertNotNull(test);
+        assertNotNull(test.getId());
+        assertNull(test.getCompany());
     }
 
     @Test
