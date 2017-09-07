@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="pageContent">
+		<div id="search-box-div">
+
+			<img id="backgroundimage"
+				src="resources/images/chile-1477188_1920.jpg" border="0" alt="" />
+
+			<h1>#{msgs['menu.login']}</h1>
+
+			<form>
+				<div class="row">
+					<div class="col-sm-4">
+
+						<label>#{msgs['menu.email']}</label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-user"></i>
+							</span> <input id="email" type="text" class="form-control" name="email"
+								placeholder="" />
+						</div>
+
+						<label>#{msgs['menu.password']}</label>
+						<div class="input-group">
+
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-lock"></i>
+							</span> <input id="password" type="password" class="form-control"
+								name="password" placeholder="" />
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>
