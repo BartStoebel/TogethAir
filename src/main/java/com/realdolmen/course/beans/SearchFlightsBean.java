@@ -1,11 +1,16 @@
 package com.realdolmen.course.beans;
 
 import com.realdolmen.course.enums.BudgetClass;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -17,11 +22,24 @@ import java.util.Date;
 public class SearchFlightsBean implements Serializable {
 
     private String from;
+
+
     private String to;
-    private Date depatureDate;
+
+
     private Integer numberOfPassengers;
+
+
+    private Date depatureDate;
+
+
     private Date returnDate;
+
+
     private BudgetClass budgetClass;
+
+
+    private BudgetClass[] budgetClasses = BudgetClass.values();
 
 
     // Start methods
@@ -40,6 +58,10 @@ public class SearchFlightsBean implements Serializable {
 
     public String getFrom() {
         return from;
+    }
+
+    public BudgetClass[] getBudgetClasses() {
+        return budgetClasses;
     }
 
     public void setFrom(String from) {

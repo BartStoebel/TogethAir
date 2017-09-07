@@ -3,9 +3,11 @@ body{
     background-color: white;
 }
 
-#search-box-div{
+#search-box-div p, #search-box-div label, #search-box-div h1{
     color: #fff;
 }
+
+
 
 #search-box-div h1{
     display: flex;
