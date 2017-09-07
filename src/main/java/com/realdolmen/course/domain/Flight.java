@@ -7,11 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -27,7 +22,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
-import org.hibernate.type.SortedSetType;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.realdolmen.course.enums.BudgetClass;
@@ -50,16 +44,18 @@ public class Flight implements Serializable {
 	@NotBlank @Size(max = 15)
 	private String name;
 	
+	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date departureTime;
 	
+	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date arrivalTime;
 	
 	@ElementCollection
 	@CollectionTable(name = "availableSeatsPerBudgetClass")
 	@MapKeyColumn(name = "budgetClass")
-	@Column(name  = "available")
+	@Column(name  = "available", nullable = false)
 	private Map<BudgetClass, Integer> availableSeats = new HashMap<>();
 	
 	@ElementCollection

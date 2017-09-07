@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import org.junit.Test;
 
@@ -17,6 +16,7 @@ import com.realdolmen.course.utils.DateUtils;
  * @author BSEBF08
  *
  */
+
 public class FlightTest {
 	@Test
     public void nameEqualsNameOnNewFlight() throws Exception {
