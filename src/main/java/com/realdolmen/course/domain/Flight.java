@@ -1,9 +1,11 @@
 package com.realdolmen.course.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
@@ -60,6 +62,10 @@ public class Flight implements Serializable {
 	@MapKeyColumn(name = "budgetClass")
 	//@Column(name = "prices_id")
 	private Map<BudgetClass, Price> prices = new HashMap<>();
+	
+	@ElementCollection
+	@CollectionTable(name = "discountPerVolume")
+	private List<VolumeDiscount> volumeDiscounts = new ArrayList<>();
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	private Company company;
