@@ -2,7 +2,8 @@ package com.realdolmen.course.beans;
 
 import com.realdolmen.course.enums.BudgetClass;
 
-import javax.faces.bean.SessionScoped;
+
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +22,17 @@ public class SearchFlightsBean implements Serializable {
     private Integer numberOfPassengers;
     private Date returnDate;
     private BudgetClass budgetClass;
+
+
+    // Start methods
+
+
+    public String search(){
+        return "test";
+    }
+
+
+    // End methods
 
 
     public SearchFlightsBean() {

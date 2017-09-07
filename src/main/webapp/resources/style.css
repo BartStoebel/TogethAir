@@ -19,7 +19,7 @@ body{
     color: #847e80;
 }
 
-.navbar a:hover{
+.navbar a:hover, .navbar a:active{
     color: #514e51;
     text-decoration: none;
 }

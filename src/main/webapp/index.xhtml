@@ -33,33 +33,33 @@
                             <label>#{msgs['number.of.passengers']}</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-male"></i></span>
-                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                                <!--<h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />-->
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label>#{msgs['departure.date']}</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                                <!--<h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />-->
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label>#{msgs['return.date']}</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                                <!--<h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />-->
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label>#{msgs['travelling.class']}</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                                <!--<h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />-->
                             </div>
                         </div>
                     </div>
                     <br/>
-                    <h:commandButton value="#{msgs['button.search']}"  styleClass="btn btn-primary btn-block" id="btn_search"/>
+                    <h:commandButton value="#{msgs['button.search']}" action="#{searchFlightsBean.search}" styleClass="btn btn-primary btn-block" id="btn_search"/>
                 </h:form>
 
             </div>
