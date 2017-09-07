@@ -12,6 +12,7 @@ import com.realdolmen.course.AbstractPersistenceTest;
 import com.realdolmen.course.domain.Company;
 import com.realdolmen.course.domain.Flight;
 import com.realdolmen.course.domain.Price;
+import com.realdolmen.course.domain.VolumeDiscount;
 import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.utils.DateUtils;
 
@@ -104,7 +105,18 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		Integer availableBusiness = flight2.getAvailableSeats().get(BudgetClass.BUSINESS);
 		assertEquals((Integer)20, availableBusiness);
 	}
-	
+	@Test
+	public void updateVolumeDiscounts() {
+		Flight flight = flightRepository.findById(TEST_FLIGHT_ID);
+		assertTrue(BigDecimal.valueOf(10).compareTo( flight.getVolumeDiscounts()
+				.get(1).getDiscountPercentage()) == 0);
+		VolumeDiscount volumeDiscount = new VolumeDiscount(5, BigDecimal.valueOf(17.25));
+		flight.addVolumeDiscount(volumeDiscount);
+		flight = flightRepository.save(flight);
+		assertTrue(BigDecimal.valueOf(17.25).compareTo( flight.getVolumeDiscounts()
+				.get(2).getDiscountPercentage()) == 0);
+		
+	}
 	
 	
 }
