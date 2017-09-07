@@ -15,29 +15,42 @@
 
 			<h1>#{msgs['menu.login']}</h1>
 
-			<form>
+			<h:form>
 				<div class="row">
+					<div class="col-sm-4"></div>
+
 					<div class="col-sm-4">
 
 						<label>#{msgs['menu.email']}</label>
 						<div class="input-group">
 							<span class="input-group-addon"> <i
 								class="glyphicon glyphicon-user"></i>
-							</span> <input id="email" type="text" class="form-control" name="email"
-								placeholder="" />
+							</span>
+							<h:message for="email"/>
+							<h:inputText id="email" type="text" class="form-control"
+								name="email" placeholder="#{loginBean.email}"
+								value="#{loginBean.email}" required="true" />
 						</div>
 
 						<label>#{msgs['menu.password']}</label>
 						<div class="input-group">
-
 							<span class="input-group-addon"> <i
 								class="glyphicon glyphicon-lock"></i>
-							</span> <input id="password" type="password" class="form-control"
-								name="password" placeholder="" />
+							</span>
+							<h:message for="password"/>
+							<h:inputSecret id="password" type="hidden" class="form-control"
+								name="password" placeholder="#{loginBean.password}"
+								required="true" value="#{loginBean.password}" />
 						</div>
+						<label></label>
+						<h:commandButton value="#{msgs['menu.login']}"
+							action="#{loginBean.search()}"
+							styleClass="btn btn-primary btn-block" id="btn_login" />
 					</div>
+					<div class="col-sm-4"></div>
 				</div>
-			</form>
+
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>
