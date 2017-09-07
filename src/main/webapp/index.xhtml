@@ -9,6 +9,7 @@
         <ui:define name="pageContent">
             <h1>Home</h1>
             <p>Welcome to the RealDolmen JEE7 Starter Project.</p>
+            <h:outputText value="#{searchFlightsBean.from}"/>
             <h:link outcome="people" styleClass="btn btn-default">List of people by JSF</h:link>
             <h:link value="Register here" outcome="registration" styleClass="btn btn-default"/>
         </ui:define>

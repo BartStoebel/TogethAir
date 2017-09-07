@@ -4,6 +4,7 @@ import com.realdolmen.course.domain.User;
 import com.realdolmen.course.enums.Role;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,7 +24,6 @@ public class UserRepository {
     public Long save(User u){
         if (u.getCompany() != null) em.persist(u.getCompany());
         em.persist(u);
-        em.flush();
         return u.getId();
     }
 

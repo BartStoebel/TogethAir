@@ -56,6 +56,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.4.191</version>
@@ -67,11 +73,22 @@
             <version>1.7.7</version> <!-- Version used by Wildfly 10.0.0.Final -->
             <scope>provided</scope>
         </dependency>
+<!--
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.faces</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<version>1.2</version>
+		</dependency>-->
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.0.7.Final</version> <!-- Version used by Wildfly 10.0.0.Final -->
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -136,7 +153,16 @@
 			<version>1.0.3</version> <!-- Version used by Wildfly 10.0.0.Final -->
 			<scope>test</scope>
 		</dependency>
-    </dependencies>
+
+
+		<!--
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>RELEASE</version>
+		</dependency> -->
+
+	</dependencies>
 
 	<build>
         <!--

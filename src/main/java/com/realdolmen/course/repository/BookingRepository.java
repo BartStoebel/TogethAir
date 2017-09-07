@@ -3,6 +3,7 @@ package com.realdolmen.course.repository;
 import com.realdolmen.course.domain.Booking;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -18,9 +19,19 @@ public class BookingRepository {
     @PersistenceContext
     EntityManager em;
 
-    public Booking save(Booking b){
+    private UserRepository userRepository;
+
+    public BookingRepository() {
+    }
+
+    public BookingRepository(UserRepository ur) {
+        userRepository = ur;
+    }
+
+    public Long save(Booking b){
+        userRepository.save(b.getUser());
         em.persist(b);
-        return b;
+        return b.getId();
     }
 
     public Booking findById(Long id){
