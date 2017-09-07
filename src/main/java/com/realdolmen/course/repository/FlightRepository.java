@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.persistence.PersistenceContext;
 
 import com.realdolmen.course.domain.Flight;
-import com.realdolmen.course.domain.Person;
 
 import javax.persistence.EntityManager;
 
