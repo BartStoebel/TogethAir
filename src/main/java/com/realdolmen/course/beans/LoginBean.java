@@ -31,10 +31,12 @@ public class LoginBean implements Serializable{
 	
 	private boolean userNotFound = false;
 	
-	@Email @NotBlank
+	@Email (message = "{req.email}")
+	@NotBlank (message = "{req.email}")
 	private String email;
 	
-	@NotBlank @Size(max=200) 
+	@NotBlank (message = "{req.password}")
+	@Size(max = 200, message = "{siz.password}")
 	private String password;
 	
 	//Constructor

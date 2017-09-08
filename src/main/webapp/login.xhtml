@@ -25,7 +25,8 @@
 
 					<div class="col-sm-4">
 						<c:if test="#{loginBean.userNotFound}"><label>#{err['user.notfound']}</label></c:if>
-						<label>#{msgs['menu.email']} <h:message for="email"/></label>
+						
+						<label>#{msgs['menu.email']}</label> <label><h:message styleClass="errMessage" for="email"/></label>
 						<div class="input-group">
 						
 							<span class="input-group-addon"> <i
@@ -33,16 +34,16 @@
 							</span>
 							<h:inputText id="email" type="text" class="form-control"
 								name="email" placeholder="#{loginBean.email}"
-								value="#{loginBean.email}" required="true" />
+								value="#{loginBean.email}" />
 						</div>
 
-						<label>#{msgs['menu.password']} <h:message for="password"/></label>
+						<label>#{msgs['menu.password']}</label> <label><h:message styleClass= "errMessage" for="password"/></label>
 						<div class="input-group">
 							<span class="input-group-addon"> <i
 								class="glyphicon glyphicon-lock"></i>
 							</span>
 							<h:inputSecret id="password" type="hidden" class="form-control"
-								name="password" required="true" value="#{loginBean.password}" />
+								name="password" value="#{loginBean.password}" />
 						</div>
 						<label></label>
 						<h:commandButton value="#{msgs['menu.login']}"
