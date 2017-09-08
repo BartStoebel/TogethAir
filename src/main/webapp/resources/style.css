@@ -41,3 +41,8 @@ body{
     width: 100%;
     z-index: -1;
 }
+
+.errMessage{
+    color: #ff3500;
+    margin-left: 15px;
+}

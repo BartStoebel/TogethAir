@@ -1,16 +1,13 @@
 package com.realdolmen.course.beans;
 
 import com.realdolmen.course.enums.BudgetClass;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
+import org.hibernate.validator.constraints.NotBlank;
 
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -21,18 +18,22 @@ import java.util.Date;
 @Named @SessionScoped
 public class SearchFlightsBean implements Serializable {
 
+    @NotBlank(message = "{req.start.location}")
     private String from;
 
-
+    @NotBlank(message = "{req.destination}")
     private String to;
 
-
+    //@Digits(integer = 2, fraction = 0, message = "{passengers.needs.number}")
+    @Min(1)
+    @NotNull(message = "{req.number.of.passengers}")
     private Integer numberOfPassengers;
 
+    @NotNull(message = "{please.enter.a.date}")
+    @Future(message = "{date.not.in.future}")
+    private Date departureDate;
 
-    private Date depatureDate;
-
-
+    //  @NotNull(message = "{please.enter.a.date}")
     private Date returnDate;
 
 
@@ -76,12 +77,12 @@ public class SearchFlightsBean implements Serializable {
         this.to = to;
     }
 
-    public Date getDepatureDate() {
-        return depatureDate;
+    public Date getDepartureDate() {
+        return departureDate;
     }
 
-    public void setDepatureDate(Date depatureDate) {
-        this.depatureDate = depatureDate;
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
     }
 
     public Integer getNumberOfPassengers() {

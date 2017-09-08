@@ -12,9 +12,13 @@ insert into user(id, city, country, number, street, zip, birthDate, email, first
 insert into user(id, city, country, number, street, zip, birthDate, email, firstName, lastName, password, phoneNumber, role, version, company_id) values  (2, 'Gent', 'Belgium', '56', 'grote markt', '9000', '2000-10-10 13:12:12', 'sam@test.com', 'Sam', 'Vermeulen', 'pass456', '+3245645687482', 'CLIENT', 1, NULL);
 insert into user(id, city, country, number, street, zip, birthDate, email, firstName, lastName, password, phoneNumber, role, version, company_id) values  (3, 'Brussel', 'Belgium', '125', 'boulevard de Mons', '1000', '1999-10-10 13:12:12', 'Jean@test.com', 'Jean', 'Claes', 'pass789', '+325446642', 'AIRLINE_EMPLOYEE', 1, 2);
 
-insert into flight(id, name, departureTime, arrivalTime, company_id, version) values(1, 'AH17', '2017-03-03 12:12:30', '2017-03-03 12:12:30', 1, 1);
-insert into flight(id, name, departureTime, arrivalTime, company_id, version) values(2, 'AB17', '2017-03-03 21:00:30', '2017-03-03 12:12:30', 2, 1);
-insert into flight(id, name, departureTime, arrivalTime, company_id, version) values(3, 'BB17', '2017-03-03 21:00:30', '2016-03-03 12:12:30', 1, 1);
+insert into airport(id, city, code, country, name, region, version) VALUES (1, 'Brussels', 'ZAV', 'Belgium', 'Zaventem', 'Europe', 1);
+insert into airport(id, city, code, country, name, region, version) VALUES (2, 'New York', 'JFK', 'USA', 'New York 1', 'North-America', 1);
+insert into airport(id, city, code, country, name, region, version) VALUES (3, 'New York', 'NY', 'USA', 'New York 2', 'North-America', 1);
+
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(1, 'AH17', '2017-03-03 12:12:30', '2017-03-03 12:12:30', 1, 1, 1, 2);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(2, 'AB17', '2017-03-03 21:00:30', '2017-03-03 12:12:30', 2, 1, 2, 3);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(3, 'BB17', '2017-03-03 21:00:30', '2016-03-03 12:12:30', 1, 1, 3 ,1);
 
 insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 2, 30);
 insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 1, 3);
@@ -43,3 +47,38 @@ insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (
 insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (3, 20, 20);
 insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (3, 10, 8);
 insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (1, 17.2, 6);
+
+insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, booking_id, flight_id) VALUES (1, 'ECONOMY', 'Joris', 'Boschmans', 125.20, 1, 1, 1);
+insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, booking_id, flight_id) VALUES (2, 'FIRST_CLASS', 'John', 'De Smedt', 1200, 1, 2, 2);
+insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, booking_id, flight_id) VALUES (3, 'BUSINESS', 'Teofiel', 'Tester', 125.20, 1, 3, 3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,11 +5,6 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
 import javax.validation.constraints.Min;
 /**
  * This class contains all the price info needed for a flight. The base is provided by the 

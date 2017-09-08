@@ -17,8 +17,10 @@ public class FlightRepository {
 	
 	public Flight save(Flight flight) {
 		em.persist(flight.getCompany());
+		em.persist(flight.getAirportFrom());
+		em.persist(flight.getAirportTo());
 		em.persist(flight);
-		em.flush();
+		//em.flush();
 		return flight;
 	}
 	public Flight findById(Long id) {
@@ -31,6 +33,7 @@ public class FlightRepository {
 
     public void remove(long flightId) {
         //logger.info("Removing flight with id " + flightId);
+		// TODO fix cascading manually
         em.remove(em.getReference(Flight.class, flightId));
     }
 	
