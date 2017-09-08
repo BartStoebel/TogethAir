@@ -6,11 +6,14 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.realdolmen.course.domain.User;
 import com.realdolmen.course.service.PersonServiceBean;
+import com.realdolmen.course.service.UserServiceBean;
 
 /**
  * FormClass for loginScreen
@@ -19,17 +22,18 @@ import com.realdolmen.course.service.PersonServiceBean;
  */
 
 @Named
-@SessionScoped
+@RequestScoped
 public class LoginBean implements Serializable{
 	@Inject
-	private PersonServiceBean personService;
+	private UserServiceBean userService;
+	
+	private boolean userNotFound = false;
 	
 	@Email @NotBlank
 	private String email;
 	
-	@NotBlank
+	@NotBlank @Size(max=200) 
 	private String password;
-
 	
 	//Constructor
 	public LoginBean() {
@@ -42,7 +46,6 @@ public class LoginBean implements Serializable{
 	}
 
 	public void setEmail(String email) {
-		System.out.println(email);
 		this.email = email;
 	}
 
@@ -51,12 +54,19 @@ public class LoginBean implements Serializable{
 	}
 
 	public void setPassword(String password) {
-		System.out.println(password);
 		this.password = password;
 	}
 	
-	public void search() {
-		System.out.println("BOE !");
+	public String search() {
+		userNotFound = false;
+		User user = userService.checkUserPassword(email, password);
+		if (user != null) {
+			System.out.println(user.getEmail() + " aangelogd!");
+			return "index";
+		} else {
+			userNotFound = true;
+			return "login";
+		}
 	}
 	
 }
