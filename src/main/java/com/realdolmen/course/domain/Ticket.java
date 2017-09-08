@@ -3,15 +3,7 @@ package com.realdolmen.course.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 
 import com.realdolmen.course.enums.BudgetClass;
@@ -38,6 +30,12 @@ public class Ticket implements Serializable{
 	
 	@Embedded
 	private Passenger passenger;
+
+	@ManyToOne
+	private Booking booking;
+
+	@ManyToOne
+	private Flight flight;
 	
 	@Version 
 	private Integer version;
@@ -46,11 +44,12 @@ public class Ticket implements Serializable{
 	public Ticket() {
 	}
 
-	public Ticket(BigDecimal ticketPrice, BudgetClass budgetClass, Passenger passenger) {
-		super();
+	public Ticket(BigDecimal ticketPrice, BudgetClass budgetClass, Passenger passenger, Booking booking, Flight flight) {
 		this.ticketPrice = ticketPrice;
 		this.budgetClass = budgetClass;
 		this.passenger = passenger;
+		this.booking = booking;
+		this.flight = flight;
 	}
 
 	//Properties
@@ -85,5 +84,20 @@ public class Ticket implements Serializable{
 	public Integer getVersion() {
 		return version;
 	}
-	
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
+	}
+
+	public Flight getFlight() {
+		return flight;
+	}
+
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
 }

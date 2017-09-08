@@ -70,6 +70,12 @@ public class Flight implements Serializable {
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	private Company company;
+
+	@ManyToOne
+	private Airport airportFrom;
+
+	@ManyToOne
+	private Airport airportTo;
 	
 	@Version
 	private Integer version;
@@ -78,15 +84,37 @@ public class Flight implements Serializable {
 	public Flight() {
 	}
 
-	public Flight(String name, Date departureTime, Date arrivalTime, Company company) {
-		super();
+	public Flight(String name, Date departureTime, Date arrivalTime, Map<BudgetClass, Integer> availableSeats, Map<BudgetClass, Price> prices, List<VolumeDiscount> volumeDiscounts, Company company, Airport airportFrom, Airport airportTo) {
 		this.name = name;
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
+		this.availableSeats = availableSeats;
+		this.prices = prices;
+		this.volumeDiscounts = volumeDiscounts;
 		this.company = company;
+		this.airportFrom = airportFrom;
+		this.airportTo = airportTo;
 	}
 
 	//Properties
+
+
+	public Airport getAirportFrom() {
+		return airportFrom;
+	}
+
+	public void setAirportFrom(Airport airportFrom) {
+		this.airportFrom = airportFrom;
+	}
+
+	public Airport getAirportTo() {
+		return airportTo;
+	}
+
+	public void setAirportTo(Airport airportTo) {
+		this.airportTo = airportTo;
+	}
+
 	public String getName() {
 		return name;
 	}

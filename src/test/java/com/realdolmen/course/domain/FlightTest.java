@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.realdolmen.course.enums.BudgetClass;
@@ -18,10 +20,34 @@ import com.realdolmen.course.utils.DateUtils;
  */
 
 public class FlightTest {
+
+	private Map<BudgetClass, Price> budgetClassPriceMap;
+	private Map<BudgetClass, Integer> budgetClassIntegerMap;
+	private List<VolumeDiscount> volumeDiscounts;
+
+	@Before
+	public void initClass(){
+		budgetClassPriceMap = new HashMap<>();
+		budgetClassPriceMap.put(BudgetClass.BUSINESS, new Price(BigDecimal.valueOf(120), BigDecimal.TEN, null));
+		budgetClassPriceMap.put(BudgetClass.FIRST_CLASS, new Price(BigDecimal.valueOf(120), BigDecimal.TEN, null));
+		budgetClassPriceMap.put(BudgetClass.ECONOMY, new Price(BigDecimal.valueOf(120), BigDecimal.TEN, null));
+
+		budgetClassIntegerMap = new HashMap<>();
+		budgetClassIntegerMap.put(BudgetClass.BUSINESS, 25);
+		budgetClassIntegerMap.put(BudgetClass.FIRST_CLASS, 25);
+		budgetClassIntegerMap.put(BudgetClass.ECONOMY, 25);
+
+		volumeDiscounts = new ArrayList<>();
+//		volumeDiscounts.add(new VolumeDiscount(5, BigDecimal.valueOf(5)));
+//		volumeDiscounts.add(new VolumeDiscount(10, BigDecimal.valueOf(10)));
+	}
+
 	@Test
     public void nameEqualsNameOnNewFlight() throws Exception {
-        Flight flight = new Flight("AH47", DateUtils.createDate("2016-01-01 00:00"),
-        		DateUtils.createDate("2016-01-01 00:00"), new Company("Lufthansa", "Test"));
+		Flight flight = new Flight("AH47", DateUtils.createDate("2016-01-01 00:00"),
+				DateUtils.createDate("2016-01-01 00:00"), budgetClassIntegerMap, budgetClassPriceMap, volumeDiscounts,
+				new Company("Lufthansa", "Test"),
+				new Airport(), new Airport());
         flight.setAvailableSeatsPerBudgetClass(BudgetClass.ECONOMY, 16);
         flight.setAvailableSeatsPerBudgetClass(BudgetClass.BUSINESS, 5);
         flight.bookSeats(BudgetClass.ECONOMY, 5);
@@ -29,8 +55,10 @@ public class FlightTest {
     }
 	@Test
     public void setAndBookSeats() throws Exception {
-        Flight flight = new Flight("AH47", DateUtils.createDate("2016-01-01 00:00"),
-        		DateUtils.createDate("2016-01-01 00:00"), new Company("Lufthansa", "Test"));
+		Flight flight = new Flight("AH47", DateUtils.createDate("2016-01-01 00:00"),
+				DateUtils.createDate("2016-01-01 00:00"), budgetClassIntegerMap, budgetClassPriceMap, volumeDiscounts,
+				new Company("Lufthansa", "Test"),
+				new Airport(), new Airport());
         flight.setAvailableSeatsPerBudgetClass(BudgetClass.ECONOMY, 16);
         flight.setAvailableSeatsPerBudgetClass(BudgetClass.BUSINESS, 5);
         flight.bookSeats(BudgetClass.ECONOMY, 5);
@@ -40,7 +68,9 @@ public class FlightTest {
 	@Test
 	public void setProfitPercentagePerBudgetClass() {
 		Flight flight = new Flight("AH47", DateUtils.createDate("2016-01-01 00:00"),
-        		DateUtils.createDate("2016-01-01 00:00"), new Company("Lufthansa", "Test"));
+				DateUtils.createDate("2016-01-01 00:00"), budgetClassIntegerMap, budgetClassPriceMap, volumeDiscounts,
+				new Company("Lufthansa", "Test"),
+				new Airport(), new Airport());
 		Price price = new Price();
 		price.setBase(BigDecimal.valueOf(230.1));
 		price.setProfitPercentage(BigDecimal.valueOf(6));
@@ -52,7 +82,9 @@ public class FlightTest {
 	@Test
 	public void setfixBonusPerBudgetClass() {
 		Flight flight = new Flight("AH47", DateUtils.createDate("2016-01-01 00:00"),
-        		DateUtils.createDate("2016-01-01 00:00"), new Company("Lufthansa", "Test"));
+				DateUtils.createDate("2016-01-01 00:00"), budgetClassIntegerMap, budgetClassPriceMap, volumeDiscounts,
+				new Company("Lufthansa", "Test"),
+				new Airport(), new Airport());
 		Price price = new Price();
 		price.setBase(BigDecimal.valueOf(230.1));
 		price.setFixBonus(BigDecimal.valueOf(2.3));
@@ -64,7 +96,9 @@ public class FlightTest {
 	@Test
 	public void setAndChangeVolumeDiscounts() {
 		Flight flight = new Flight("AH47", DateUtils.createDate("2016-01-01 00:00"),
-        		DateUtils.createDate("2016-01-01 00:00"), new Company("Lufthansa", "Test"));
+				DateUtils.createDate("2016-01-01 00:00"), budgetClassIntegerMap, budgetClassPriceMap, volumeDiscounts,
+				new Company("Lufthansa", "Test"),
+				new Airport(), new Airport());
 		flight.addVolumeDiscount(new VolumeDiscount(5, BigDecimal.valueOf(5)));
 		flight.addVolumeDiscount(new VolumeDiscount(10, BigDecimal.valueOf(7.5)));
 		flight.addVolumeDiscount(new VolumeDiscount(15, BigDecimal.valueOf(10)));
