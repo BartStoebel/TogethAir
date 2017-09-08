@@ -3,7 +3,6 @@ package com.realdolmen.course.beans;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
@@ -12,7 +11,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.realdolmen.course.domain.User;
-import com.realdolmen.course.service.PersonServiceBean;
 import com.realdolmen.course.service.UserServiceBean;
 
 /**
@@ -81,5 +79,7 @@ public class LoginBean implements Serializable{
 			return "login";
 		}
 	}
-	
+	public String newUser() {
+		return "index";
+	}
 }

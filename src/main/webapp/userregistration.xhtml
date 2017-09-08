@@ -13,23 +13,20 @@
 
 			<img id="backgroundimage"
 				src="resources/images/chile-1477188_1920.jpg" border="0" alt="" /><A></A>
-			<h1>#{msgs['menu.login']}</h1>
-
-
+			<h1>#{msgs['registration.registration']}</h1>
+			
+			
 
 			<h:form>
 				<div class="row">
 					<div class="col-sm-4"></div>
 
 					<div class="col-sm-4">
-						<c:if test="#{loginBean.userNotFound}">
-							<label style="">#{err['user.notfound']}</label>
-						</c:if>
-
-						<label>#{msgs['menu.email']}</label> <label><h:message
-								styleClass="errMessage" for="email" /></label>
+						<c:if test="#{loginBean.userNotFound}"><label>#{err['user.notfound']}</label></c:if>
+						
+						<label>#{msgs['menu.email']}</label> <label><h:message styleClass="errMessage" for="email"/></label>
 						<div class="input-group">
-
+						
 							<span class="input-group-addon"> <i
 								class="glyphicon glyphicon-user"></i>
 							</span>
@@ -38,8 +35,7 @@
 								value="#{loginBean.email}" />
 						</div>
 
-						<label>#{msgs['menu.password']}</label> <label><h:message
-								styleClass="errMessage" for="password" /></label>
+						<label>#{msgs['menu.password']}</label> <label><h:message styleClass= "errMessage" for="password"/></label>
 						<div class="input-group">
 							<span class="input-group-addon"> <i
 								class="glyphicon glyphicon-lock"></i>
@@ -51,25 +47,10 @@
 						<h:commandButton value="#{msgs['menu.login']}"
 							action="#{loginBean.loginUser()}"
 							styleClass="btn btn-primary btn-block" id="btn_login" />
-						<!-- 						<h:commandButton value="#{msgs['registration.new.user']}" -->
-						<!-- 							action="#{loginBean.newUser()}" -->
-						<!-- 							styleClass="btn btn-primary btn-block" id="btn_newUser" /> -->
 					</div>
 					<div class="col-sm-4"></div>
 				</div>
 
-			</h:form>
-			<h:form>
-				<div class="row">
-					<div class="col-sm-4"></div>
-					<div class="col-sm-4">
-						<label></label>
-						<h:commandButton value="#{msgs['registration.new.user']}"
-							action="#{loginBean.newUser()}"
-							styleClass="btn btn-primary btn-block" id="btn_newUser" />
-					</div>
-					<div class="col-sm-4"></div>
-				</div>
 			</h:form>
 		</div>
 	</ui:define>

@@ -17,7 +17,7 @@ import java.util.Date;
 
 @Named @SessionScoped
 public class SearchFlightsBean implements Serializable {
-
+		
     @NotBlank(message = "{req.start.location}")
     private String from;
 
