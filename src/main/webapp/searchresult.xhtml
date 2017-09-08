@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        >
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="pageContent">
+
+
+            <c:if test="${empty searchFlightsBean.from}">
+                <meta http-equiv="refresh" content="0; url=index.jsf" />
+            </c:if>
+            <c:if test="${not empty searchFlightsBean.from}">
+                <c:if test="${empty searchFlightsBean.flights}">
+                    No flights found
+                </c:if>
+                <c:if test="${not empty searchFlightsBean.flights}">
+                    Flights were found
+                </c:if>
+            </c:if>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

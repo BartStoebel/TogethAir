@@ -16,9 +16,9 @@ insert into airport(id, city, code, country, name, region, version) VALUES (1, '
 insert into airport(id, city, code, country, name, region, version) VALUES (2, 'New York', 'JFK', 'USA', 'New York 1', 'North-America', 1);
 insert into airport(id, city, code, country, name, region, version) VALUES (3, 'New York', 'NY', 'USA', 'New York 2', 'North-America', 1);
 
-insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(1, 'AH17', '2017-03-03 12:12:30', '2017-03-03 12:12:30', 1, 1, 1, 2);
-insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(2, 'AB17', '2017-03-03 21:00:30', '2017-03-03 12:12:30', 2, 1, 2, 3);
-insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(3, 'BB17', '2017-03-03 21:00:30', '2016-03-03 12:12:30', 1, 1, 3 ,1);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(1, 'AH17', '2018-03-03 12:12:30', '2018-03-03 12:12:30', 1, 1, 1, 2);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(2, 'AB17', '2018-03-03 21:00:30', '2018-03-03 12:12:30', 2, 1, 2, 3);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(3, 'BB17', '2018-03-03 21:00:30', '2018-03-03 12:12:30', 1, 1, 3 ,1);
 
 insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 2, 30);
 insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 1, 3);

@@ -1,14 +1,18 @@
 package com.realdolmen.course.beans;
 
+import com.realdolmen.course.domain.Flight;
 import com.realdolmen.course.enums.BudgetClass;
+import com.realdolmen.course.service.FlightService;
 import org.hibernate.validator.constraints.NotBlank;
 
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This bean will be used when searching for available flights from the webpage.
@@ -17,6 +21,9 @@ import java.util.Date;
 
 @Named @SessionScoped
 public class SearchFlightsBean implements Serializable {
+
+    @EJB
+    private FlightService flightService;
 
     @NotBlank(message = "{req.start.location}")
     private String from;
@@ -33,8 +40,10 @@ public class SearchFlightsBean implements Serializable {
     @Future(message = "{date.not.in.future}")
     private Date departureDate;
 
-    //  @NotNull(message = "{please.enter.a.date}")
+    @Future(message = "{date.not.in.future}")
     private Date returnDate;
+
+    private List<Flight> flights;
 
 
     private BudgetClass budgetClass;
@@ -47,7 +56,8 @@ public class SearchFlightsBean implements Serializable {
 
 
     public String search(){
-        return "test";
+        flights = flightService.searchForAvailableFlights(from, to, numberOfPassengers, budgetClass, departureDate);
+        return "searchresult";
     }
 
 
@@ -55,6 +65,14 @@ public class SearchFlightsBean implements Serializable {
 
 
     public SearchFlightsBean() {
+    }
+
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
     }
 
     public String getFrom() {

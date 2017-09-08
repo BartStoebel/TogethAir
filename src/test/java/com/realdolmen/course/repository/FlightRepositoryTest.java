@@ -3,10 +3,7 @@ package com.realdolmen.course.repository;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.realdolmen.course.domain.*;
 import org.junit.Before;
@@ -121,6 +118,21 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		assertTrue(BigDecimal.valueOf(17.25).compareTo( flight.getVolumeDiscounts()
 				.get(2).getDiscountPercentage()) == 0);
 		
+	}
+
+	@Test
+	public void searchForAvailableFlights(){
+		Calendar cal = Calendar.getInstance();
+		cal.set(2018, 2, 3);
+		List<Flight> flights = flightRepository.searchForAvailableFlights(
+				"USA",
+				"USA",
+				1,
+				BudgetClass.FIRST_CLASS,
+				cal.getTime()
+		);
+		assertNotNull(flights);
+		assertEquals(1, flights.size());
 	}
 	
 	
