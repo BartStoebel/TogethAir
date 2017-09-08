@@ -26,6 +26,8 @@ import com.realdolmen.course.service.UserServiceBean;
 public class LoginBean implements Serializable{
 	@Inject
 	private UserServiceBean userService;
+	@Inject 
+	private LoggedInBean loggedInBean;
 	
 	private boolean userNotFound = false;
 	
@@ -57,10 +59,19 @@ public class LoginBean implements Serializable{
 		this.password = password;
 	}
 	
-	public String search() {
+	public boolean isUserNotFound() {
+		return userNotFound;
+	}
+
+	public void setUserNotFound(boolean userNotFound) {
+		this.userNotFound = userNotFound;
+	}
+
+	public String loginUser() {
 		userNotFound = false;
-		User user = userService.checkUserPassword(email, password);
-		if (user != null) {
+		if (userService.isUserPasswordCorrect(email, password)) {
+			User user = userService.findByEmail(email);
+			loggedInBean.setUser(user);
 			System.out.println(user.getEmail() + " aangelogd!");
 			return "index";
 		} else {

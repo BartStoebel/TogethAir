@@ -4,8 +4,10 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+	>
 
 <ui:composition template="/template.xhtml">
 	<ui:define name="pageContent">
@@ -22,8 +24,8 @@
 					<div class="col-sm-4"></div>
 
 					<div class="col-sm-4">
-						<
-						<label>#{err['user.notfound']}</label>
+						<c:if test="#{loginBean.userNotFound}"><label>#{err['user.notfound']}</label></c:if>
+						
 						<label>#{msgs['menu.email']} <h:message for="email"/></label>
 						<div class="input-group">
 						
@@ -45,7 +47,7 @@
 						</div>
 						<label></label>
 						<h:commandButton value="#{msgs['menu.login']}"
-							action="#{loginBean.search()}"
+							action="#{loginBean.loginUser()}"
 							styleClass="btn btn-primary btn-block" id="btn_login" />
 					</div>
 					<div class="col-sm-4"></div>

@@ -41,13 +41,7 @@ public class UserServiceBean {
     }
 
     public User findByEmail(String email){
-    	User user;
-    	try {
-    		user = ur.findByEmail(email);
-    	} catch (EJBTransactionRolledbackException e){
-    		user = null;
-    	}
-		return user;
+    	return ur.findByEmail(email);
     }
     /**
      * Checks the email and the password of the userlogin. Returns null if 
@@ -55,12 +49,12 @@ public class UserServiceBean {
      * @param email
      * @return
      */
-    public User checkUserPassword(String email, String password) {
+    public boolean isUserPasswordCorrect(String email, String password) {
     	User user = findByEmail(email);
     	if (user != null && Password.checkPassword(password, user.getPassword())){
-    		return user;
+    		return true;
     	} else {
-    		return null;
+    		return false;
     	}
     }
 
