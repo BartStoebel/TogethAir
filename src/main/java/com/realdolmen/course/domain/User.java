@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
@@ -42,7 +43,10 @@ public class User implements Serializable{
     @Embedded
     private Address address;
 
-    @Size(min = 5, max = 22) @Column(length = 25)
+    @Size(max = 22) 
+    @Column(length = 25)
+    @Pattern(regexp = "^[+0-9 ]+[\\/]?[0-9. ]{1,17}$")
+    
     private String phoneNumber;
 
     @Temporal(TemporalType.DATE)
@@ -58,6 +62,8 @@ public class User implements Serializable{
     private Integer version;
 
     public User() {
+    	address= new Address();
+    	company = new Company();
     }
 
     public User(String firstName, String lastName, String password, String email, Address address, String phoneNumber, Date birthDate, Role role, Company company) {

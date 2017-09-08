@@ -19,7 +19,6 @@ import com.realdolmen.course.domain.User;
 public class LoggedInBean implements Serializable {
 	
 	private User user;
-	//private boolean logout;
 	
 	//Constructors
 	public LoggedInBean() {
@@ -39,14 +38,6 @@ public class LoggedInBean implements Serializable {
 		this.user = user;
 	}
 	
-//	public boolean isLogout() {
-//		return logout;
-//	}
-//
-//	public void setLogout(boolean logout) {
-//		this.logout = logout;
-//	}
-
 	//methods
 	public String logout() {
 		user = null;

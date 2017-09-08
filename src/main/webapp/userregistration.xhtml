@@ -119,11 +119,50 @@
 							<h:inputText id="zip" type="text" class="form-control" name="zip"
 								value="#{userRegistrationBean.user.address.zip}" />
 						</div>
-
+						<label>#{msgs['user.address.country']}</label> <label><h:message
+								styleClass="errMessage" for="country" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-globe"></i>
+							</span>
+							<h:inputText id="country" type="text" class="form-control"
+								name="country"
+								value="#{userRegistrationBean.user.address.country}" />
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['user.phoneNumber']}</label> <label><h:message
+								styleClass="errMessage" for="phoneNumber" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-phone-alt"></i>
+							</span>
+							<h:inputText id="phoneNumber" type="text" class="form-control"
+								name="phoneNumber"
+								value="#{userRegistrationBean.user.phoneNumber}" />
+						</div>
+						<label>#{msgs['user.birthDate']}</label> <label><h:message	styleClass="errMessage" for="birthDate" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i class="fa fa-calendar"></i>
+							</span>
+							<h:inputText id="birthDate" type="text" class="form-control" styleClass="form-control datepicker" converterMessage="#{msgs['please.enter.a.valid.date']}" name="birthDate" value="#{userRegistrationBean.user.birthDate}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+							</h:inputText>
+						</div>
+						
+						<label>#{msgs['user.company.name']}</label> <label><h:message
+								styleClass="errMessage" for="company" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-briefcase"></i>
+							</span>
+							<h:inputText id="company" type="text" class="form-control"
+								name="company"
+								value="#{userRegistrationBean.user.company.name}" />
+						</div>
 
 
 					</div>
-					<div class="col-sm-4"></div>
 				</div>
 				<label></label>
 				<h:commandButton value="#{msgs['user.save']}"
