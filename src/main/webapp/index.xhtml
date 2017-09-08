@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsf/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
         >
 
     <ui:composition template="/template.xhtml">
@@ -18,10 +19,10 @@
                 <h:form>
                     <div class="row">
                         <div class="col-sm-4">
-                            <label>#{msgs['from']}</label>
+                            <label>#{msgs['from']}</label><h:message for="search_from"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" />
+                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" id="search_from" />
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -43,7 +44,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 <h:inputText value="#{searchFlightsBean.depatureDate}" styleClass="form-control datepicker">
-                                    <c:convertDateTime pattern="dd/MM/yyyy"/>
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:inputText>
                             </div>
                         </div>
@@ -52,7 +53,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 <h:inputText value="#{searchFlightsBean.returnDate}" styleClass="form-control datepicker">
-                                    <c:convertDateTime pattern="dd/MM/yyyy"/>
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:inputText>
                             </div>
                         </div>
@@ -61,7 +62,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
                                 <h:selectOneMenu value="#{searchFlightsBean.budgetClass}" styleClass="form-control">
-                                    <c:selectItems value="${searchFlightsBean.budgetClasses}"
+                                    <f:selectItems value="${searchFlightsBean.budgetClasses}"
                                                    var="budget"
                                                    itemValue="#{budget}"
                                                    itemLabel="#{msgs['data.status.' += budget]}"/>
@@ -70,6 +71,7 @@
                         </div>
                     </div>
                     <br/>
+
                     <!--<p:calendar id="dep_date" value="#{searchFlightsBean.depatureDate}"/>-->
                     <h:commandButton value="#{msgs['button.search']}" action="#{searchFlightsBean.search}" styleClass="btn btn-primary btn-block" id="btn_search"/>
                 </h:form>

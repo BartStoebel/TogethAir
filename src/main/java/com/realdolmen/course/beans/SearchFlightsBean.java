@@ -23,7 +23,7 @@ import java.util.Date;
 @Named @SessionScoped
 public class SearchFlightsBean implements Serializable {
 
-    @NotBlank @NotNull
+    @NotBlank(message = "test")
     private String from;
 
 
