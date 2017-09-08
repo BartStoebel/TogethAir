@@ -1,6 +1,8 @@
 package com.realdolmen.course.domain;
 
 import com.realdolmen.course.enums.Role;
+
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -19,16 +21,22 @@ public class User implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank @Size(max = 200) @Column(nullable = false, length = 200)
+    @NotBlank
+    @Size(max = 50) @Column(nullable = false, length = 50)
     private String firstName;
 
-    @NotBlank @Size(max = 200) @Column(nullable = false, length = 200)
+    @NotBlank 
+    @Size(max = 50) @Column(nullable = false, length = 50)
     private String lastName;
 
-    @NotBlank @Size(max = 200) @Column(nullable = false, length = 200)
+    @NotBlank 
+    @Size(max = 200) 
+    @Column(nullable = false, length = 200)
     private String password;
 
-    @NotBlank @Size(max = 200) @Column(nullable = false, length = 200, unique = true)
+    @NotBlank (message = "{req.email}") 
+    @Email (message = "{req.email}")
+    @Size (max = 50) @Column(nullable = false, length = 50, unique = true)
     private String email;
 
     @Embedded

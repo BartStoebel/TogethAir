@@ -80,6 +80,6 @@ public class LoginBean implements Serializable{
 		}
 	}
 	public String newUser() {
-		return "index";
+		return "userregistration";
 	}
 }

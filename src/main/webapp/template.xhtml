@@ -33,7 +33,10 @@
                 <div class="collapse navbar-collapse" id="top-navbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li><h:link value="#{msgs['menu.search']}" outcome="index"/></li>
-                        <c:if test="#{empty loggedInBean.user}"><li><h:link value="#{msgs['menu.login']}" outcome="login"/></li></c:if>
+                        <c:if test="#{empty loggedInBean.user}">
+                        	<li><h:link value="#{msgs['menu.login']}" outcome="login"/></li>
+                        	<li><h:link value="#{msgs['menu.register']}" outcome="userregistration"/></li>
+                        </c:if>
                         
                         <c:if test="#{not empty loggedInBean.user}"><li><h:link value="#{msgs['menu.logout']}" outcome="#{loggedInBean.logout()}"/></li></c:if>
                         

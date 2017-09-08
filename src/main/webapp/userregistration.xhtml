@@ -14,42 +14,122 @@
 			<img id="backgroundimage"
 				src="resources/images/chile-1477188_1920.jpg" border="0" alt="" /><A></A>
 			<h1>#{msgs['registration.registration']}</h1>
-			
-			
+
+
 
 			<h:form>
 				<div class="row">
-					<div class="col-sm-4"></div>
-
 					<div class="col-sm-4">
-						<c:if test="#{loginBean.userNotFound}"><label>#{err['user.notfound']}</label></c:if>
-						
-						<label>#{msgs['menu.email']}</label> <label><h:message styleClass="errMessage" for="email"/></label>
+						<c:if test="#{loginBean.userNotFound}">
+							<label>#{err['user.notfound']}</label>
+						</c:if>
+
+						<label>#{msgs['user.firstName']}</label> <label><h:message
+								styleClass="errMessage" for="firstName" /></label>
 						<div class="input-group">
-						
+
 							<span class="input-group-addon"> <i
 								class="glyphicon glyphicon-user"></i>
 							</span>
-							<h:inputText id="email" type="text" class="form-control"
-								name="email" placeholder="#{loginBean.email}"
-								value="#{loginBean.email}" />
+							<h:inputText id="firstName" type="text" class="form-control"
+								name="firstName"
+								placeholder="#{userregistration.user.firstName}"
+								value="#{userRegistrationBean.user.firstName}" />
 						</div>
 
-						<label>#{msgs['menu.password']}</label> <label><h:message styleClass= "errMessage" for="password"/></label>
+						<label>#{msgs['user.lastName']}</label> <label><h:message
+								styleClass="errMessage" for="lastName" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-user"></i>
+							</span>
+							<h:inputText id="lastName" type="text" class="form-control"
+								name="lastName" value="#{userRegistrationBean.user.lastName}" />
+						</div>
+						<label>#{msgs['user.email']}</label> <label><h:message
+								styleClass="errMessage" for="email" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-envelope"></i>
+							</span>
+							<h:inputText id="email" type="text" class="form-control"
+								name="email" value="#{userRegistrationBean.user.email}" />
+						</div>
+						<label>#{msgs['user.password']}</label> <label><h:message
+								styleClass="errMessage" for="password" /></label>
 						<div class="input-group">
 							<span class="input-group-addon"> <i
 								class="glyphicon glyphicon-lock"></i>
 							</span>
 							<h:inputSecret id="password" type="hidden" class="form-control"
-								name="password" value="#{loginBean.password}" />
+								name="password" value="#{userRegistrationBean.user.password}" />
 						</div>
-						<label></label>
-						<h:commandButton value="#{msgs['menu.login']}"
-							action="#{loginBean.loginUser()}"
-							styleClass="btn btn-primary btn-block" id="btn_login" />
+						<label>#{msgs['user.password2']}</label> <label><h:message
+								styleClass="errMessage" for="password2" /></label>
+						<h:outputText id="test"
+							binding="#{userRegistrationBean.passwordNotEqual}" />
+						<label><h:message styleClass="errMessage" for="test" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-lock"></i>
+							</span>
+							<h:inputSecret id="password2" type="hidden" class="form-control"
+								name="password2" value="#{userRegistrationBean.passwordCheck}" />
+						</div>
+
+					</div>
+
+
+					<div class="col-sm-4">
+						<label>#{msgs['user.address.street']}</label> <label><h:message
+								styleClass="errMessage" for="street" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-road"></i>
+							</span>
+							<h:inputText id="street" type="text" class="form-control"
+								name="street"
+								value="#{userRegistrationBean.user.address.street}" />
+						</div>
+						<label>#{msgs['user.address.number']}</label> <label><h:message
+								styleClass="errMessage" for="number" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-home"></i>
+							</span>
+							<h:inputText id="number" type="text" class="form-control"
+								name="number"
+								value="#{userRegistrationBean.user.address.number}" />
+						</div>
+						<label>#{msgs['user.address.city']}</label> <label><h:message
+								styleClass="errMessage" for="city" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-home"></i>
+							</span>
+							<h:inputText id="city" type="text" class="form-control"
+								name="city" value="#{userRegistrationBean.user.address.city}" />
+						</div>
+						<label>#{msgs['user.address.zip']}</label> <label><h:message
+								styleClass="errMessage" for="zip" /></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-home"></i>
+							</span>
+							<h:inputText id="zip" type="text" class="form-control" name="zip"
+								value="#{userRegistrationBean.user.address.zip}" />
+						</div>
+
+
+
 					</div>
 					<div class="col-sm-4"></div>
 				</div>
+				<label></label>
+				<h:commandButton value="#{msgs['user.save']}"
+					action="#{userRegistrationBean.saveUser()}"
+					styleClass="btn btn-primary btn-block" id="btn_save" />
+
 
 			</h:form>
 		</div>

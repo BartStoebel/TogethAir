@@ -16,7 +16,6 @@
 			<h1>#{msgs['menu.login']}</h1>
 
 
-
 			<h:form>
 				<div class="row">
 					<div class="col-sm-4"></div>
@@ -51,26 +50,23 @@
 						<h:commandButton value="#{msgs['menu.login']}"
 							action="#{loginBean.loginUser()}"
 							styleClass="btn btn-primary btn-block" id="btn_login" />
-						<!-- 						<h:commandButton value="#{msgs['registration.new.user']}" -->
-						<!-- 							action="#{loginBean.newUser()}" -->
-						<!-- 							styleClass="btn btn-primary btn-block" id="btn_newUser" /> -->
 					</div>
 					<div class="col-sm-4"></div>
 				</div>
 
 			</h:form>
-			<h:form>
-				<div class="row">
-					<div class="col-sm-4"></div>
-					<div class="col-sm-4">
-						<label></label>
-						<h:commandButton value="#{msgs['registration.new.user']}"
-							action="#{loginBean.newUser()}"
-							styleClass="btn btn-primary btn-block" id="btn_newUser" />
-					</div>
-					<div class="col-sm-4"></div>
-				</div>
-			</h:form>
+<!-- 			<h:form> -->
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-sm-4"></div> -->
+<!-- 					<div class="col-sm-4"> -->
+<!-- 						<label></label> -->
+<!-- 						<h:commandButton value="#{msgs['registration.new.user']}" -->
+<!-- 							action="#{loginBean.newUser()}" -->
+<!-- 							styleClass="btn btn-primary btn-block" id="btn_newUser" /> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-sm-4"></div> -->
+<!-- 				</div> -->
+<!-- 			</h:form> -->
 		</div>
 	</ui:define>
 </ui:composition>
