@@ -3,11 +3,15 @@ package com.realdolmen.course.service;
 import com.realdolmen.course.domain.User;
 import com.realdolmen.course.enums.Role;
 import com.realdolmen.course.repository.UserRepository;
+import com.realdolmen.course.utils.Password;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import java.util.List;
+
+
 
 /**
  * Service used to execute actions on the User Repository
@@ -37,7 +41,27 @@ public class UserServiceBean {
     }
 
     public User findByEmail(String email){
-        return ur.findByEmail(email);
+    	User user;
+    	try {
+    		user = ur.findByEmail(email);
+    	} catch (EJBTransactionRolledbackException e){
+    		user = null;
+    	}
+		return user;
+    }
+    /**
+     * Checks the email and the password of the userlogin. Returns null if 
+     * not correct.
+     * @param email
+     * @return
+     */
+    public User checkUserPassword(String email, String password) {
+    	User user = findByEmail(email);
+    	if (user != null && Password.checkPassword(password, user.getPassword())){
+    		return user;
+    	} else {
+    		return null;
+    	}
     }
 
 }

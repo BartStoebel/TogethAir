@@ -8,7 +8,7 @@ insert into company(id, name, description, version) values(1, 'LuftHansa', 'Best
 insert into company(id, name, description, version) values(2, 'Air France', 'Best French company in the world', 1);
 insert into company(id, name, description, version) values(3, 'Air Corsica', null, 1);
 
-insert into user(id, city, country, number, street, zip, birthDate, email, firstName, lastName, password, phoneNumber, role, version, company_id) values(1, 'Sint-Niklaas', 'Belgium', '12b', 'kerkstraat', '9100', '2000-10-10 12:12:12', 'joris@test.com', 'Joris', 'Boschmans', 'test123', '+324551332', 'CLIENT', 1, 1);
+insert into user(id, city, country, number, street, zip, birthDate, email, firstName, lastName, password, phoneNumber, role, version, company_id) values(1, 'Sint-Niklaas', 'Belgium', '12b', 'kerkstraat', '9100', '2000-10-10 12:12:12', 'joris@test.com', 'Joris', 'Boschmans', '$2a$13$ARYIYpKiT/wWNfiKl5FcG.WxnSVt6hseUudKq9oNFwvkWIPiuy7XO', '+324551332', 'CLIENT', 1, NULL);
 insert into user(id, city, country, number, street, zip, birthDate, email, firstName, lastName, password, phoneNumber, role, version, company_id) values  (2, 'Gent', 'Belgium', '56', 'grote markt', '9000', '2000-10-10 13:12:12', 'sam@test.com', 'Sam', 'Vermeulen', 'pass456', '+3245645687482', 'CLIENT', 1, NULL);
 insert into user(id, city, country, number, street, zip, birthDate, email, firstName, lastName, password, phoneNumber, role, version, company_id) values  (3, 'Brussel', 'Belgium', '125', 'boulevard de Mons', '1000', '1999-10-10 13:12:12', 'Jean@test.com', 'Jean', 'Claes', 'pass789', '+325446642', 'AIRLINE_EMPLOYEE', 1, 2);
 

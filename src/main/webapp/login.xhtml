@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="pageContent">
+		<div id="search-box-div">
+
+			<img id="backgroundimage"
+				src="resources/images/chile-1477188_1920.jpg" border="0" alt="" /><A></A>
+			<h1>#{msgs['menu.login']}</h1>
+			
+			
+
+			<h:form>
+				<div class="row">
+					<div class="col-sm-4"></div>
+
+					<div class="col-sm-4">
+						<
+						<label>#{err['user.notfound']}</label>
+						<label>#{msgs['menu.email']} <h:message for="email"/></label>
+						<div class="input-group">
+						
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-user"></i>
+							</span>
+							<h:inputText id="email" type="text" class="form-control"
+								name="email" placeholder="#{loginBean.email}"
+								value="#{loginBean.email}" required="true" />
+						</div>
+
+						<label>#{msgs['menu.password']} <h:message for="password"/></label>
+						<div class="input-group">
+							<span class="input-group-addon"> <i
+								class="glyphicon glyphicon-lock"></i>
+							</span>
+							<h:inputSecret id="password" type="hidden" class="form-control"
+								name="password" required="true" value="#{loginBean.password}" />
+						</div>
+						<label></label>
+						<h:commandButton value="#{msgs['menu.login']}"
+							action="#{loginBean.search()}"
+							styleClass="btn btn-primary btn-block" id="btn_login" />
+					</div>
+					<div class="col-sm-4"></div>
+				</div>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>
