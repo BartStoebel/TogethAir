@@ -19,49 +19,51 @@
                 <h:form>
                     <div class="row">
                         <div class="col-sm-4">
-                            <label>#{msgs['from']}</label><h:message for="search_from"/>
+                            <label>#{msgs['from']}</label><h:message styleClass="errMessage" for="search_from"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
                                 <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" id="search_from" />
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>#{msgs['to']}</label>
+                            <label>#{msgs['to']}</label><h:message styleClass="errMessage" for="search_to"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-plane"></i></span>
-                                <h:inputText value="#{searchFlightsBean.to}" styleClass="form-control" />
+                                <h:inputText value="#{searchFlightsBean.to}" styleClass="form-control"  id="search_to"/>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>#{msgs['number.of.passengers']}</label>
+                            <label>#{msgs['number.of.passengers']}</label><h:message styleClass="errMessage" for="search_passengers"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-male"></i></span>
-                                <h:inputText value="#{searchFlightsBean.numberOfPassengers}" styleClass="form-control" />
+                                <h:inputText value="#{searchFlightsBean.numberOfPassengers}" styleClass="form-control" id="search_passengers" converterMessage="#{msgs['passengers.needs.number']}">
+                                    <f:convertNumber pattern="0" />
+                                </h:inputText>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>#{msgs['departure.date']}</label>
+                            <label>#{msgs['departure.date']}</label><h:message styleClass="errMessage" for="search_depart"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <h:inputText value="#{searchFlightsBean.depatureDate}" styleClass="form-control datepicker">
+                                <h:inputText value="#{searchFlightsBean.departureDate}" styleClass="form-control datepicker" id="search_depart" converterMessage="#{msgs['please.enter.a.valid.date']}">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:inputText>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>#{msgs['return.date']}</label>
+                            <label>#{msgs['return.date']}</label><h:message styleClass="errMessage" for="search_arrival"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <h:inputText value="#{searchFlightsBean.returnDate}" styleClass="form-control datepicker">
+                                <h:inputText value="#{searchFlightsBean.returnDate}" styleClass="form-control datepicker" id="search_arrival" converterMessage="#{msgs['please.enter.a.valid.date']}">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:inputText>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>#{msgs['travelling.class']}</label>
+                            <label>#{msgs['travelling.class']}</label><h:message styleClass="errMessage" for="search_class"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                                <h:selectOneMenu value="#{searchFlightsBean.budgetClass}" styleClass="form-control">
+                                <h:selectOneMenu value="#{searchFlightsBean.budgetClass}" styleClass="form-control" id="search_class">
                                     <f:selectItems value="${searchFlightsBean.budgetClasses}"
                                                    var="budget"
                                                    itemValue="#{budget}"
@@ -72,7 +74,7 @@
                     </div>
                     <br/>
 
-                    <!--<p:calendar id="dep_date" value="#{searchFlightsBean.depatureDate}"/>-->
+                    <!--<p:calendar id="dep_date" value="#{searchFlightsBdepartureDateDate}"/>-->
                     <h:commandButton value="#{msgs['button.search']}" action="#{searchFlightsBean.search}" styleClass="btn btn-primary btn-block" id="btn_search"/>
                 </h:form>
 

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertNull;
 
 public class TicketRepositoryTest extends AbstractPersistenceTest {
 
-    private static final Long       TEST_TICKET_ID = 1L;
+    private static final Long       TEST_TICKET_ID = 3L;
 
     private TicketRepository tr;
     private BookingRepository br;
@@ -232,8 +232,8 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
         assertNotNull(t.getBooking());
         assertNotNull(t.getBooking().getUser());
         assertNotNull(t.getBooking().getUser().getCompany());
-        assertEquals("LuftHansa", t.getBooking().getUser().getCompany().getName());
-        assertEquals("AH17", t.getFlight().getName());
+        assertEquals("Air France", t.getBooking().getUser().getCompany().getName());
+        assertEquals("BB17", t.getFlight().getName());
     }
 
     @Test
