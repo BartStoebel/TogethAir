@@ -56,9 +56,9 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
         budgetClassIntegerMap.put(BudgetClass.FIRST_CLASS, 25);
         budgetClassIntegerMap.put(BudgetClass.ECONOMY, 25);
 
-        List<VolumeDiscount> volumeDiscounts = new ArrayList<>();
-        volumeDiscounts.add(new VolumeDiscount(2, BigDecimal.valueOf(2)));
-        volumeDiscounts.add(new VolumeDiscount(5, BigDecimal.valueOf(5)));
+        Map<Integer, BigDecimal> volumeDiscounts = new HashMap();
+        volumeDiscounts.put(2, BigDecimal.valueOf(2));
+        volumeDiscounts.put(5, BigDecimal.valueOf(5));
 
         Ticket ticket = new Ticket(
                 BigDecimal.valueOf(120.0),
@@ -146,10 +146,10 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
         budgetClassIntegerMap.put(BudgetClass.FIRST_CLASS, 25);
         budgetClassIntegerMap.put(BudgetClass.ECONOMY, 25);
 
-        List<VolumeDiscount> volumeDiscounts = new ArrayList<>();
-        volumeDiscounts.add(new VolumeDiscount(2, BigDecimal.valueOf(2)));
-        volumeDiscounts.add(new VolumeDiscount(5, BigDecimal.valueOf(5)));
-
+        Map<Integer, BigDecimal> volumeDiscounts = new HashMap();
+        volumeDiscounts.put(2, BigDecimal.valueOf(2));
+        volumeDiscounts.put(5, BigDecimal.valueOf(5));
+        
         Ticket ticket = new Ticket(
                 BigDecimal.valueOf(120.0),
                 BudgetClass.BUSINESS,
