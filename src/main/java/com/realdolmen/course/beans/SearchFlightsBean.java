@@ -82,18 +82,15 @@ public class SearchFlightsBean implements Serializable {
         return simpleDateFormat.format(date);
     }
 
-    /*public BigDecimal calcPriceWithDiscount(Flight flight, Price price){
+    public BigDecimal calcPriceWithDiscount(Flight flight, Price price){
         BigDecimal amount = price.calculatePrice();
         BigDecimal perc = BigDecimal.ZERO;
         Integer runner = numberOfPassengers;
         while(runner > 0){
-            for (VolumeDiscount discount : flight.getVolumeDiscounts()){
-                if (discount.getPeople() == runner){
-                    perc = discount.getDiscountPercentage();
-                    break;
-                }
-            }
-            if (perc.compareTo(BigDecimal.ZERO) > 0) break;
+        	if (flight.getVolumeDiscounts().containsKey(runner)) {
+        		perc = flight.getVolumeDiscounts().get(runner);
+        		break;
+        	}
             runner--;
         }
         BigDecimal discountValue = amount.divide(BigDecimal.valueOf(100), BigDecimal.ROUND_FLOOR);
@@ -103,7 +100,7 @@ public class SearchFlightsBean implements Serializable {
         amount = amount.multiply(BigDecimal.valueOf(numberOfPassengers));
         //amount.subtract(amount.divide(BigDecimal.valueOf(100)).multiply(perc));
         return amount;
-    }*/
+    }
 
     public BigDecimal calcPriceWithoutDiscount(Price price){
         BigDecimal value = price.calculatePrice();
@@ -111,22 +108,19 @@ public class SearchFlightsBean implements Serializable {
         return value;
     }
 
-    /*public boolean hasDiscount(Flight flight, Price price){
+    public boolean hasDiscount(Flight flight, Price price){
         //BigDecimal amount = price.calculatePrice();
-        double perc = 0.0;
+        BigDecimal perc = BigDecimal.ZERO;
         Integer runner = numberOfPassengers;
         while(runner > 0){
-            for (VolumeDiscount discount : flight.getVolumeDiscounts()){
-                if (discount.getPeople() == runner){
-                    perc = discount.getDiscountPercentage().doubleValue();
-                    break;
-                }
-            }
-            if (perc > 0.0) return true;
+        	if (flight.getVolumeDiscounts().containsKey(runner)) {
+        		perc = flight.getVolumeDiscounts().get(runner);
+        		break;
+        	}
             runner--;
         }
         return false;
-    }*/
+    }
 
     public String chooseFlight(Long id){
         selectedFlight = flightService.findById(id);
