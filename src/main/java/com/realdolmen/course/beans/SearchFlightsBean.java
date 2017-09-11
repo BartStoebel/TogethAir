@@ -110,12 +110,13 @@ public class SearchFlightsBean implements Serializable {
 
     public boolean hasDiscount(Flight flight, Price price){
         //BigDecimal amount = price.calculatePrice();
-        BigDecimal perc = BigDecimal.ZERO;
+        //BigDecimal perc = BigDecimal.ZERO;
         Integer runner = numberOfPassengers;
         while(runner > 0){
         	if (flight.getVolumeDiscounts().containsKey(runner)) {
-        		perc = flight.getVolumeDiscounts().get(runner);
-        		break;
+        		//perc = flight.getVolumeDiscounts().get(runner);
+        		return true;
+        		//break;
         	}
             runner--;
         }

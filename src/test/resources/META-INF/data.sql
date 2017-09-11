@@ -97,6 +97,27 @@ insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (2, 
 insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (3, 20, 20);
 insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (3, 10, 8);
 insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (1, 17.2, 6);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (4, 5, 4);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (4, 10, 10);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (4, 20, 15);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (5, 5, 4);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (5, 10, 10);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (5, 20, 15);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (6, 5, 4);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (6, 10, 10);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (6, 20, 15);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (7, 5, 4);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (7, 10, 10);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (7, 20, 15);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (8, 5, 4);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (8, 10, 10);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (8, 20, 15);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (9, 5, 4);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (9, 10, 10);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (9, 20, 15);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (10, 5, 4);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (10, 10, 10);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (10, 20, 15);
 
 insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, booking_id, flight_id) VALUES (1, 'ECONOMY', 'Joris', 'Boschmans', 125.20, 1, 1, 1);
 insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, booking_id, flight_id) VALUES (2, 'FIRST_CLASS', 'John', 'De Smedt', 1200, 1, 2, 2);
