@@ -1,6 +1,7 @@
 package com.realdolmen.course.beans;
 
 import com.realdolmen.course.domain.Flight;
+import com.realdolmen.course.domain.Passenger;
 import com.realdolmen.course.domain.Price;
 import com.realdolmen.course.domain.VolumeDiscount;
 import com.realdolmen.course.enums.BudgetClass;
@@ -15,6 +16,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +59,8 @@ public class SearchFlightsBean implements Serializable {
 
 
     private BudgetClass[] budgetClasses = BudgetClass.values();
+
+    private List<Passenger> inputPassengers = new ArrayList<>();
 
 
     // Start methods
@@ -126,12 +130,24 @@ public class SearchFlightsBean implements Serializable {
 
     public String chooseFlight(Long id){
         selectedFlight = flightService.findById(id);
+        inputPassengers.clear();
+        for(int i = 0; i < numberOfPassengers; i++){
+            inputPassengers.add(new Passenger());
+        }
         return "inputPassengers";
     }
 
 
     // End methods
 
+
+    public List<Passenger> getInputPassengers() {
+        return inputPassengers;
+    }
+
+    public void setInputPassengers(List<Passenger> inputPassengers) {
+        this.inputPassengers = inputPassengers;
+    }
 
     public SearchFlightsBean() {
     }

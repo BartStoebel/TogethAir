@@ -30,7 +30,8 @@
 
                     <c:forEach items="${searchFlightsBean.flights}" var="flight">
 
-                        <h:link styleClass="defaultLink" outcome="${searchFlightsBean.}">
+                        <h:form>
+                        <h:commandLink styleClass="defaultLink" action="${searchFlightsBean.chooseFlight(flight.id)}">
 
                         <div class="well row searchWell" style="display: flex; align-items: center">
 
@@ -71,7 +72,7 @@
 
                         </div>
 
-                        </h:link>
+                        </h:commandLink></h:form>
 
                     </c:forEach>
 
