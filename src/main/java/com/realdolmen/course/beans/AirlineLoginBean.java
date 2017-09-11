@@ -70,16 +70,12 @@ public class AirlineLoginBean implements Serializable{
 	}
 
 	public String loginUser() {
-		System.out.println("loginUser");
 		userNotFound = false;
 		if (userService.isUserPasswordCorrect(email, password)) {
-			System.out.println("password correct");
 			User user = userService.findByEmail(email);
 			loggedInBean.setUser(user);
-			System.out.println(user.getEmail() + " aangelogd!");
 			return "addflight";
 		} else {
-			System.out.println("password not correct");
 			userNotFound = true;
 			return "login";
 		}

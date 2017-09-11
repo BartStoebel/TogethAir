@@ -87,25 +87,6 @@ body {
 	left: -50%;
 	width: 200%;
 	height: 200%;
-}
-
-#bg img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
-	min-width: 50%;
-	min-height: 50%;
-}
-
-#bg {
-	position: fixed;
-	top: -50%;
-	left: -50%;
-	width: 200%;
-	height: 200%;
 	z-index: -1;
 }
 
@@ -158,17 +139,19 @@ body {
 				</div>
 				<div class="collapse navbar-collapse" id="top-navbar">
 					<ul class="nav navbar-nav navbar-right">
-					
+
 						<!--  <li><h:link value="#{msgs['menu.search']}" outcome="index"/></li> -->
-						
+
 						<c:if test="#{empty loggedInBean.user}">
 							<li><h:link value="#{msgs['menu.login']}" outcome="login" /></li>
-							
+
 							<!-- <li><h:link value="#{msgs['menu.register']}" outcome="userregistration"/></li>   -->
 						</c:if>
 
 						<c:if test="#{not empty loggedInBean.user}">
-							<!-- <li><h:link value="#{msgs['menu.logout']}" outcome=""></h:link></li>  -->
+						  <li>
+							<h:commandLink action="#{loggedInBean.logout}">#{msgs['menu.logout']}: #{loggedInBean.user.firstName}</h:commandLink>
+						  </li>
 						</c:if>
 
 					</ul>
