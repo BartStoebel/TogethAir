@@ -12,7 +12,7 @@
         <ui:define name="pageContent">
 
             <div id="bg">
-                <img id="" src="resources/images/passport-2642172_1920.jpg" border="0" alt=""/>
+                <img id="" src="resources/images/aircraft-464296_1920.jpg" border="0" alt=""/>
             </div>
 
 
@@ -22,7 +22,56 @@
                 <meta http-equiv="refresh" content="0; url=index.jsf" />
             </c:if>
             <c:if test="${not empty searchFlightsBean.selectedFlight}">
+                <div class="white-text">
 
+                    <h1>Flight ${searchFlightsBean.selectedFlight.name}: from ${searchFlightsBean.selectedFlight.airportFrom.city} (${searchFlightsBean.selectedFlight.airportFrom.code}) to ${searchFlightsBean.selectedFlight.airportTo.city} (${searchFlightsBean.selectedFlight.airportTo.code})</h1>
+                    <br/><br/>
+
+
+
+                    <h:form>
+
+                        <div class="row">
+
+                            <h2>Passenger data:</h2><br/><br/>
+
+
+
+                            <c:forEach items="${searchFlightsBean.inputPassengers}" var="passenger">
+
+                                <h4>Passenger:</h4>
+
+                                <div class="form-group col-sm-6">
+                                    <label for="firstName">First Name:</label>
+                                    <h:inputText value="#{passenger.firstName}" styleClass="form-control" id="firstName"/>
+                                </div>
+
+
+
+                                <div class="form-group col-sm-6" style="margin-bottom: 40px;">
+                                    <label for="lastName">Last Name:</label>
+                                    <h:inputText value="#{passenger.lastName}" styleClass="form-control" id="lastName"/>
+                                </div>
+
+
+                            </c:forEach>
+
+
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                    <h:commandButton value="Book Tickets" styleClass="btn btn-block btn-primary" action="test" style="margin-bottom: 35px;"/>
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </div>
+
+
+
+                        </div>
+
+                    </h:form>
+
+                </div>
             </c:if>
 
 

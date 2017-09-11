@@ -8,12 +8,13 @@
 <ui:composition template="/template.xhtml">
     <ui:define name="pageContent">
 
-        <h:outputText value="#{searchFlightsBean.to}"/><br/>
-        <h:outputText value="#{searchFlightsBean.from}"/><br/>
-        <h:outputText value="#{searchFlightsBean.numberOfPassengers}"/><br/>
-        <h:outputText value="#{searchFlightsBean.departureDate}"/><br/>
-       <h:outputText value="#{searchFlightsBean.returnDate}"/><br/>
-            <h:outputText value="#{searchFlightsBean.budgetClass}"/><br/>
+        <h:outputText value="#{searchFlightsBean.inputPassengers.get(0).firstName}"/><br/>
+        <h:outputText value="#{searchFlightsBean.inputPassengers.get(1).firstName}"/><br/>
+        <h:outputText value="#{searchFlightsBean.inputPassengers.get(2).firstName}"/><br/>
+
+        <h:outputText value="#{searchFlightsBean.inputPassengers.get(0).lastName}"/><br/>
+        <h:outputText value="#{searchFlightsBean.inputPassengers.get(1).lastName}"/><br/>
+        <h:outputText value="#{searchFlightsBean.inputPassengers.get(2).lastName}"/><br/>
 
 
 
