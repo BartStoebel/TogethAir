@@ -116,7 +116,7 @@ public class UserRegistrationBean implements Serializable{
 		     context.addMessage(passwordNotEqual.getClientId(), new FacesMessage("Both passwords must be equal!"));
 		     return "";
 		}
-		return "index";
+		return "login";
 	}
 	public boolean checkPassword(){
 		if (getPasswordCheck().equals(getPassword())) {

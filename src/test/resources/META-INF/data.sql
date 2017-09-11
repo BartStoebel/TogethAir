@@ -91,7 +91,7 @@ insert into booking(id, bookingStatus, createdOn, discountCC, discountVolume, fi
 insert into booking(id, bookingStatus, createdOn, discountCC, discountVolume, finalPrice, paymentChoice, user_id) values (3, 'PAID', '1912-12-12 12:12:12', NULL, NULL, 1125.20, 'ENDORSEMENT', 3);
 insert into booking(id, bookingStatus, createdOn, discountCC, discountVolume, finalPrice, paymentChoice, user_id) values (4, 'PAYMENT_PENDING', '1912-12-12 12:12:12', 76.95, 88.20, 1754.21, 'CREDIT_CARD', 1);
 
-insert into discountPerVolume(Flight_id, volumeDiscounts, minPeople) values (2, 20, 10);
+insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (2, 20, 10);
 insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (2, 10, 5);
 insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (2, 5, 3);
 insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (3, 20, 20);

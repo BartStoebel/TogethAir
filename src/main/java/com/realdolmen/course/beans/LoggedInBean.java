@@ -2,6 +2,8 @@ package com.realdolmen.course.beans;
 
 import java.io.Serializable;
 
+import javax.annotation.ManagedBean;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
