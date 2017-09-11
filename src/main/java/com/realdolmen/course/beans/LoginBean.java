@@ -2,6 +2,7 @@ package com.realdolmen.course.beans;
 
 import java.io.Serializable;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,9 +23,26 @@ import com.realdolmen.course.service.UserServiceBean;
 @Named
 @RequestScoped
 public class LoginBean implements Serializable{
-	@Inject
+	@EJB
 	private UserServiceBean userService;
-	@Inject 
+
+	@Inject
+	private SearchFlightsBean searchFlightsBean;
+
+	@Inject
+	private BookingBean bookingBean;
+
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Inject
 	private LoggedInBean loggedInBean;
 	
 	private boolean userNotFound = false;
@@ -70,10 +88,14 @@ public class LoginBean implements Serializable{
 	public String loginUser() {
 		userNotFound = false;
 		if (userService.isUserPasswordCorrect(email, password)) {
-			User user = userService.findByEmail(email);
+			user = userService.findByEmail(email);
 			loggedInBean.setUser(user);
 			System.out.println(user.getEmail() + " aangelogd!");
-			return "index";
+			if (bookingBean != null && bookingBean.getPassengers() != null && bookingBean.getPassengers().size() > 0){
+				return "inputPassengers";
+			} else {
+				return "index";
+			}
 		} else {
 			userNotFound = true;
 			return "login";

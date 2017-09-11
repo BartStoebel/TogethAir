@@ -18,13 +18,13 @@
 
             <div style="margin-bottom: 25px;"></div>
 
-            <c:if test="${empty searchFlightsBean.selectedFlight}">
+            <c:if test="${empty bookingBean.bookedFlight}">
                 <meta http-equiv="refresh" content="0; url=index.jsf" />
             </c:if>
-            <c:if test="${not empty searchFlightsBean.selectedFlight}">
+            <c:if test="${not empty bookingBean.bookedFlight}">
                 <div class="white-text">
 
-                    <h1>Flight ${searchFlightsBean.selectedFlight.name}: from ${searchFlightsBean.selectedFlight.airportFrom.city} (${searchFlightsBean.selectedFlight.airportFrom.code}) to ${searchFlightsBean.selectedFlight.airportTo.city} (${searchFlightsBean.selectedFlight.airportTo.code})</h1>
+                    <h1>Flight ${bookingBean.bookedFlight.name}: from ${bookingBean.bookedFlight.airportFrom.city} (${bookingBean.bookedFlight.airportFrom.code}) to ${bookingBean.bookedFlight.airportTo.city} (${bookingBean.bookedFlight.airportTo.code})</h1>
                     <br/><br/>
 
 
@@ -37,7 +37,7 @@
 
 
 
-                            <c:forEach items="${searchFlightsBean.inputPassengers}" var="passenger">
+                            <c:forEach items="${bookingBean.passengers}" var="passenger">
 
                                 <h4>Passenger:</h4>
 

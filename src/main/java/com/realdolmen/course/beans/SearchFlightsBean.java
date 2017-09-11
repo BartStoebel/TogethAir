@@ -9,8 +9,11 @@ import com.realdolmen.course.service.FlightService;
 import org.hibernate.validator.constraints.NotBlank;
 
 
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -30,6 +33,9 @@ public class SearchFlightsBean implements Serializable {
 
     @EJB
     private FlightService flightService;
+
+    @Inject
+    private BookingBean bookingBean;
 
     @NotBlank(message = "{req.start.location}")
     private String from;
@@ -52,23 +58,19 @@ public class SearchFlightsBean implements Serializable {
     private List<Flight> flights;
     private List<Flight> returnFlights;
 
-    private Flight selectedFlight;
-
 
     private BudgetClass budgetClass;
 
 
     private BudgetClass[] budgetClasses = BudgetClass.values();
 
-    private List<Passenger> inputPassengers = new ArrayList<>();
-
 
     // Start methods
-
 
     public String search(){
         flights = flightService.searchForAvailableFlights(from, to, numberOfPassengers, budgetClass, departureDate);
         if (returnDate != null) returnFlights = flightService.searchForAvailableFlights(to, from, numberOfPassengers, budgetClass, returnDate);
+
         return "searchresult";
     }
 
@@ -128,26 +130,21 @@ public class SearchFlightsBean implements Serializable {
         return false;
     }
 
-    public String chooseFlight(Long id){
-        selectedFlight = flightService.findById(id);
-        inputPassengers.clear();
+    public String chooseFlight(Long id, boolean logged){
+        bookingBean.setBookedFlight(flightService.findById(id));
+        bookingBean.setPassengers(new ArrayList<>());
         for(int i = 0; i < numberOfPassengers; i++){
-            inputPassengers.add(new Passenger());
+            bookingBean.addPassenger(new Passenger());
         }
-        return "inputPassengers";
+        if (logged) return "inputPassengers";
+        return "login";
     }
+
+
+
 
 
     // End methods
-
-
-    public List<Passenger> getInputPassengers() {
-        return inputPassengers;
-    }
-
-    public void setInputPassengers(List<Passenger> inputPassengers) {
-        this.inputPassengers = inputPassengers;
-    }
 
     public SearchFlightsBean() {
     }
@@ -210,14 +207,6 @@ public class SearchFlightsBean implements Serializable {
 
     public void setBudgetClass(BudgetClass budgetClass) {
         this.budgetClass = budgetClass;
-    }
-
-    public Flight getSelectedFlight() {
-        return selectedFlight;
-    }
-
-    public void setSelectedFlight(Flight selectedFlight) {
-        this.selectedFlight = selectedFlight;
     }
 
     public List<Flight> getReturnFlights() {
