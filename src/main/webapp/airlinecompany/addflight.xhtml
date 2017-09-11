@@ -12,170 +12,140 @@
 		<div id="search-box-div">
 
 			<img id="backgroundimage"
-				src="resources/images/sunset-2582699_1920.jpg" border="0" alt="" /><A></A>
+				src="../resources/images/sunset-2582699_1920.jpg" border="0" alt="" /><A></A>
 				
-			<c:if test="${empty loggedInBean.user}">
+			<c:if test="${loggedInBean.user.role != 'AIRLINE_EMPLOYEE'}">
                 <meta http-equiv="refresh" content="0; url=login.jsf" />
             </c:if>
             
-			<h1>#{msgs['registration.registration']}</h1>
+			<h1>#{msgs['addflight.title']}</h1>
 
 			<h:form>
 				<div class="row">
-					<div class="col-sm-4">
-						<c:if test="#{loginBean.userNotFound}">
-							<label>#{err['user.notfound']}</label>
-						</c:if>
+                        <div class="col-sm-6">
+                            <label>#{msgs['from']}</label><h:message styleClass="errMessage" for="search_from"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" id="search_from" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>#{msgs['to']}</label><h:message styleClass="errMessage" for="search_to"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-plane"></i></span>
+                                <h:inputText value="#{searchFlightsBean.to}" styleClass="form-control"  id="search_to"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>#{msgs['departure.date']}</label><h:message styleClass="errMessage" for="search_depart"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <h:inputText value="#{searchFlightsBean.departureDate}" styleClass="form-control datepicker" id="search_depart" converterMessage="#{msgs['please.enter.a.valid.date']}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>#{msgs['return.date']}</label><h:message styleClass="errMessage" for="search_arrival"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <h:inputText value="#{searchFlightsBean.returnDate}" styleClass="form-control datepicker" id="search_arrival" converterMessage="#{msgs['please.enter.a.valid.date']}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-4">
+                            <label>#{msgs['travelling.class']}</label><h:message styleClass="errMessage" for="first_class"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
+                                <h:outputText value="First class" styleClass="form-control" id="first_class">
+                                  
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['available.seats']}</label><h:message styleClass="errMessage" for="first_available"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-male"></i></span>
+                                <h:inputText value="#{searchFlightsBean.numberOfPassengers}" styleClass="form-control" id="first_available" converterMessage="#{msgs['passengers.needs.number']}">
+                                    <f:convertNumber pattern="0" />
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['price']}</label><h:message styleClass="errMessage" for="first_price"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
+                                <h:inputText value="#{searchFlightsBean.budgetClass}" styleClass="form-control" id="first_price">
+                                    
+                                </h:inputText>
+                            </div>
+                        </div>
+                    <div class="col-sm-4">
+                            <label>#{msgs['travelling.class']}</label><h:message styleClass="errMessage" for="business_class"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
+                                <h:outputText value="Business" styleClass="form-control" id="business_class">
+                                  
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['available.seats']}</label><h:message styleClass="errMessage" for="business_available"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-male"></i></span>
+                                <h:inputText value="#{searchFlightsBean.numberOfPassengers}" styleClass="form-control" id="business_available" converterMessage="#{msgs['passengers.needs.number']}">
+                                    <f:convertNumber pattern="0" />
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['price']}</label><h:message styleClass="errMessage" for="business_price"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
+                                <h:inputText value="#{searchFlightsBean.budgetClass}" styleClass="form-control" id="business_price">
+                                    
+                                </h:inputText>
+                            </div>
+                        </div>
+                    
+                    <div class="col-sm-4">
+                            <label>#{msgs['travelling.class']}</label><h:message styleClass="errMessage" for="economy_class"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
+                                <h:outputText value="Economy" styleClass="form-control" id="economy_class">
+                                  
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['available.seats']}</label><h:message styleClass="errMessage" for="economy_available"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-male"></i></span>
+                                <h:inputText value="#{searchFlightsBean.numberOfPassengers}" styleClass="form-control" id="economy_available" converterMessage="#{msgs['passengers.needs.number']}">
+                                    <f:convertNumber pattern="0" />
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['price']}</label><h:message styleClass="errMessage" for="economy_price"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
+                                <h:inputText value="#{searchFlightsBean.budgetClass}" styleClass="form-control" id="economy_price">
+                                    
+                                </h:inputText>
+                            </div>
+                        </div>
+                        
+                        </div>
+                        
+                        
+                    <br/>
 
-						<label>#{msgs['user.firstName']}</label> <label><h:message
-								styleClass="errMessage" for="firstName" /></label>
-						<div class="input-group">
-
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-user"></i>
-							</span>
-							<h:inputText id="firstName" type="text" class="form-control"
-								name="firstName"
-								value="#{userRegistrationBean.user.firstName}" />
-						</div>
-
-						<label>#{msgs['user.lastName']}</label> <label><h:message
-								styleClass="errMessage" for="lastName" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-user"></i>
-							</span>
-							<h:inputText id="lastName" type="text" class="form-control"
-								name="lastName" value="#{userRegistrationBean.user.lastName}" />
-						</div>
-						<label>#{msgs['user.email']}</label> <label><h:message
-								styleClass="errMessage" for="email" /></label>
-						<h:outputText id="test1"
-							binding="#{userRegistrationBean.emailExistsInDb}" />
-							<label><h:message styleClass="errMessage" for="test1" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-envelope"></i>
-							</span>
-							<h:inputText id="email" type="text" class="form-control"
-								name="email" value="#{userRegistrationBean.user.email}" />
-						</div>
-						<label>#{msgs['user.password']}</label> <label><h:message
-								styleClass="errMessage" for="password" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-lock"></i>
-							</span>
-							<h:inputSecret id="password" type="hidden" class="form-control"
-								name="password" value="#{userRegistrationBean.password}" />
-						</div>
-						<label>#{msgs['user.password2']}</label> <label><h:message
-								styleClass="errMessage" for="password2" /></label>
-						<h:outputText id="test"
-							binding="#{userRegistrationBean.passwordNotEqual}" />
-						<label><h:message styleClass="errMessage" for="test" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-lock"></i>
-							</span>
-							<h:inputSecret id="password2" type="hidden" class="form-control"
-								name="password2" value="#{userRegistrationBean.passwordCheck}" />
-						</div>
-
-					</div>
-
-
-					<div class="col-sm-4">
-						<label>#{msgs['user.address.street']}</label> <label><h:message
-								styleClass="errMessage" for="street" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-road"></i>
-							</span>
-							<h:inputText id="street" type="text" class="form-control"
-								name="street"
-								value="#{userRegistrationBean.user.address.street}" />
-						</div>
-						<label>#{msgs['user.address.number']}</label> <label><h:message
-								styleClass="errMessage" for="number" /></label>
-						<div class="input-group"> 
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-home"></i>
-							</span>
-							<h:inputText id="number" type="text" class="form-control"
-								name="number"
-								value="#{userRegistrationBean.user.address.number}" />
-						</div>
-						<label>#{msgs['user.address.city']}</label> <label><h:message
-								styleClass="errMessage" for="city" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-home"></i>
-							</span>
-							<h:inputText id="city" type="text" class="form-control"
-								name="city" value="#{userRegistrationBean.user.address.city}" />
-						</div>
-						<label>#{msgs['user.address.zip']}</label> <label><h:message
-								styleClass="errMessage" for="zip" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-home"></i>
-							</span>
-							<h:inputText id="zip" type="text" class="form-control" name="zip"
-								value="#{userRegistrationBean.user.address.zip}" />
-						</div>
-						<label>#{msgs['user.address.country']}</label> <label><h:message
-								styleClass="errMessage" for="country" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-globe"></i>
-							</span>
-							<h:inputText id="country" type="text" class="form-control"
-								name="country"
-								value="#{userRegistrationBean.user.address.country}" />
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<label>#{msgs['user.phoneNumber']}</label> <label><h:message
-								styleClass="errMessage" for="phoneNumber" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-phone-alt"></i>
-							</span>
-							<h:inputText id="phoneNumber" type="text" class="form-control"
-								name="phoneNumber"
-								value="#{userRegistrationBean.user.phoneNumber}" />
-						</div>
-						<label>#{msgs['user.birthDate']}</label> <label><h:message	styleClass="errMessage" for="birthDate" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i class="fa fa-calendar"></i>
-							</span>
-							<h:inputText id="birthDate" type="text" class="form-control" styleClass="form-control datepicker" converterMessage="#{msgs['please.enter.a.valid.date']}" name="birthDate" value="#{userRegistrationBean.user.birthDate}" >
-								<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-							</h:inputText>
-						</div>
-						
-						<label>#{msgs['user.company.name']}</label> <label><h:message
-								styleClass="errMessage" for="company" /></label>
-						<div class="input-group">
-							<span class="input-group-addon"> <i
-								class="glyphicon glyphicon-briefcase"></i>
-							</span>
-							<h:inputText id="company" type="text" class="form-control"
-								name="company"
-								value="#{userRegistrationBean.user.company.name}" />
-						</div>
-
-
-					</div>
-				</div>
-				<label></label>
-				<h:commandButton value="#{msgs['user.save']}"
-					action="#{userRegistrationBean.saveUser()}"
-					styleClass="btn btn-primary btn-block" id="btn_save" />
-
-
-			</h:form>
+                    <!--<p:calendar id="dep_date" value="#{searchFlightsBdepartureDateDate}"/>-->
+                    <h:commandButton value="#{msgs['button.search']}" action="#{searchFlightsBean.search}" styleClass="btn btn-primary btn-block" id="btn_search"/>
+                </h:form>
 		</div>
 	</ui:define>
 </ui:composition>
