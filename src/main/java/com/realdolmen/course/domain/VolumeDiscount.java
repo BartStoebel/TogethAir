@@ -63,7 +63,7 @@ public class VolumeDiscount implements Serializable, Comparable<VolumeDiscount> 
 	 * 2 VolumeDiscount objects are the same if they have the same value
 	 * for minPeople, regardless the value of discountPercentage.
 	 * There can only be one discountPercentage for a certain amount of people,
-	 * equals() and hashCode() are therefor only based on minPeople.
+	 * equals() and hashCode() are therefore only based on minPeople.
 	 */
 	@Override
 	public boolean equals(Object obj) {

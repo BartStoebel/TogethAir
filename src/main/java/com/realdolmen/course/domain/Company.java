@@ -18,8 +18,8 @@ public class Company implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false, length = 40)
-	@NotBlank @Size(max = 40)
+	@Column(nullable = true, length = 40)
+	@Size(max = 40)
 	private String name;
 	
 	@Column(nullable = true, length = 200)

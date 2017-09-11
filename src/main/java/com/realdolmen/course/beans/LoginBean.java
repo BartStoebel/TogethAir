@@ -3,7 +3,6 @@ package com.realdolmen.course.beans;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
@@ -12,7 +11,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.realdolmen.course.domain.User;
-import com.realdolmen.course.service.PersonServiceBean;
 import com.realdolmen.course.service.UserServiceBean;
 
 /**
@@ -26,13 +24,17 @@ import com.realdolmen.course.service.UserServiceBean;
 public class LoginBean implements Serializable{
 	@Inject
 	private UserServiceBean userService;
+	@Inject 
+	private LoggedInBean loggedInBean;
 	
 	private boolean userNotFound = false;
 	
-	@Email @NotBlank
+	@Email (message = "{req.email}")
+	@NotBlank (message = "{req.email}")
 	private String email;
 	
-	@NotBlank @Size(max=200) 
+	@NotBlank (message = "{req.password}")
+	@Size(max = 200, message = "{siz.password}")
 	private String password;
 	
 	//Constructor
@@ -57,10 +59,19 @@ public class LoginBean implements Serializable{
 		this.password = password;
 	}
 	
-	public String search() {
+	public boolean isUserNotFound() {
+		return userNotFound;
+	}
+
+	public void setUserNotFound(boolean userNotFound) {
+		this.userNotFound = userNotFound;
+	}
+
+	public String loginUser() {
 		userNotFound = false;
-		User user = userService.checkUserPassword(email, password);
-		if (user != null) {
+		if (userService.isUserPasswordCorrect(email, password)) {
+			User user = userService.findByEmail(email);
+			loggedInBean.setUser(user);
 			System.out.println(user.getEmail() + " aangelogd!");
 			return "index";
 		} else {
@@ -68,5 +79,7 @@ public class LoginBean implements Serializable{
 			return "login";
 		}
 	}
-	
+	public String newUser() {
+		return "userregistration";
+	}
 }

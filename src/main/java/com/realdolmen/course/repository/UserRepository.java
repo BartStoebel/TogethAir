@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import java.util.List;
 
 /**
@@ -42,9 +44,10 @@ public class UserRepository {
     }
 
     public User findByEmail(String email){
-        Query q = em.createQuery("select u from User u where u.email = :email order by u.lastName, u.firstName", User.class);
+        TypedQuery<User> q = em.createQuery("select u from User u where u.email = :email order by u.lastName, u.firstName", User.class);
         q.setParameter("email", email);
-        return (User) q.getSingleResult();
+        List<User> resultList = q.getResultList();
+        return resultList.size() > 0 ? resultList.get(0) : null;
     }
 
 }

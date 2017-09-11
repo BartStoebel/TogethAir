@@ -3,7 +3,10 @@ package com.realdolmen.course.domain;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Size;
+
 import java.io.Serializable;
 
 /**
@@ -12,15 +15,20 @@ import java.io.Serializable;
  */
 @Embeddable
 public class Address implements Serializable {
-    @NotBlank
+	@NotBlank
+    @Size(max = 50) @Column(nullable = false, length = 50)
     private String country;
     @NotBlank
+    @Size(max = 50) @Column(nullable = false, length = 50)
     private String street;
     @NotBlank
+    @Size(max = 8) @Column(nullable = false, length = 8)
     private String number;
     @NotBlank
+    @Size(max = 50) @Column(nullable = false, length = 50)
     private String city;
     @NotBlank
+    @Size(max = 8) @Column(nullable = false, length = 8)
     private String zip;
 
     public Address() {
