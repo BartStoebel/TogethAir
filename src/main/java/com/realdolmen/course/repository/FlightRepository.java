@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 
 import com.realdolmen.course.domain.Flight;
 import com.realdolmen.course.enums.BudgetClass;
-import org.hibernate.cache.spi.QueryResultsRegion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
