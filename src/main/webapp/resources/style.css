@@ -1,4 +1,6 @@
 
+
+
 body{
     background-color: white;
 }
@@ -33,7 +35,7 @@ body{
 #backgroundimage{
     left: 0;
     margin: 0;
-    height: 700px;
+    height: 100%;
     min-width: 674px;
     padding: 0;
     position: fixed;
@@ -45,4 +47,31 @@ body{
 .errMessage{
     color: #ff3500;
     margin-left: 15px;
+}
+
+.your-price{
+    font-size: 3em;
+}
+
+.full-price{
+    text-decoration: line-through;
+}
+
+
+#bg {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+}
+#bg img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    min-width: 50%;
+    min-height: 50%;
 }

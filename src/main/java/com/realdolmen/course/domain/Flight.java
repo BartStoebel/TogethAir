@@ -7,19 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -58,17 +46,18 @@ public class Flight implements Serializable {
 	@Column(name  = "available", nullable = false)
 	private Map<BudgetClass, Integer> availableSeats = new HashMap<>();
 	
-	@ElementCollection
+	@ElementCollection (fetch = FetchType.EAGER)
 	@CollectionTable (name = "pricePerBudgetClass")
 	@MapKeyColumn(name = "budgetClass")
 	//@Column(name = "prices_id")
 	private Map<BudgetClass, Price> prices = new HashMap<>();
 	
-	@ElementCollection
+	@ElementCollection  (fetch = FetchType.EAGER)
 	@CollectionTable(name = "discountPerVolume")
+	//@Column(name = "Flight_id")
 	private List<VolumeDiscount> volumeDiscounts = new ArrayList<>();
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne
 	private Company company;
 
 	@ManyToOne
@@ -164,7 +153,11 @@ public class Flight implements Serializable {
 	}
 
 	public List<VolumeDiscount> getVolumeDiscounts() {
-		return Collections.unmodifiableList(volumeDiscounts);
+		return volumeDiscounts;
+	}
+
+	public void setVolumeDiscounts(List<VolumeDiscount> volumeDiscounts) {
+		this.volumeDiscounts = volumeDiscounts;
 	}
 
 	/**

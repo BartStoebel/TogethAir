@@ -1,6 +1,8 @@
 package com.realdolmen.course.beans;
 
 import com.realdolmen.course.domain.Flight;
+import com.realdolmen.course.domain.Price;
+import com.realdolmen.course.domain.VolumeDiscount;
 import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.service.FlightService;
 import org.hibernate.validator.constraints.NotBlank;
@@ -11,6 +13,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +48,9 @@ public class SearchFlightsBean implements Serializable {
     private Date returnDate;
 
     private List<Flight> flights;
+    private List<Flight> returnFlights;
+
+    private Flight selectedFlight;
 
 
     private BudgetClass budgetClass;
@@ -57,7 +64,69 @@ public class SearchFlightsBean implements Serializable {
 
     public String search(){
         flights = flightService.searchForAvailableFlights(from, to, numberOfPassengers, budgetClass, departureDate);
+        if (returnDate != null) returnFlights = flightService.searchForAvailableFlights(to, from, numberOfPassengers, budgetClass, returnDate);
         return "searchresult";
+    }
+
+    public String displayTime(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        return simpleDateFormat.format(date);
+    }
+
+    public String displayDate(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E dd MMMM yyyy");
+        return simpleDateFormat.format(date);
+    }
+
+    public BigDecimal calcPriceWithDiscount(Flight flight, Price price){
+        BigDecimal amount = price.calculatePrice();
+        BigDecimal perc = BigDecimal.ZERO;
+        Integer runner = numberOfPassengers;
+        while(runner > 0){
+            for (VolumeDiscount discount : flight.getVolumeDiscounts()){
+                if (discount.getPeople() == runner){
+                    perc = discount.getDiscountPercentage();
+                    break;
+                }
+            }
+            if (perc.compareTo(BigDecimal.ZERO) > 0) break;
+            runner--;
+        }
+        BigDecimal discountValue = amount.divide(BigDecimal.valueOf(100), BigDecimal.ROUND_FLOOR);
+        discountValue = discountValue.multiply(perc);
+        amount = amount.subtract(discountValue);
+        amount = amount.setScale(2, BigDecimal.ROUND_CEILING);
+        amount = amount.multiply(BigDecimal.valueOf(numberOfPassengers));
+        //amount.subtract(amount.divide(BigDecimal.valueOf(100)).multiply(perc));
+        return amount;
+    }
+
+    public BigDecimal calcPriceWithoutDiscount(Price price){
+        BigDecimal value = price.calculatePrice();
+        value = value.multiply(BigDecimal.valueOf(numberOfPassengers));
+        return value;
+    }
+
+    public boolean hasDiscount(Flight flight, Price price){
+        //BigDecimal amount = price.calculatePrice();
+        double perc = 0.0;
+        Integer runner = numberOfPassengers;
+        while(runner > 0){
+            for (VolumeDiscount discount : flight.getVolumeDiscounts()){
+                if (discount.getPeople() == runner){
+                    perc = discount.getDiscountPercentage().doubleValue();
+                    break;
+                }
+            }
+            if (perc > 0.0) return true;
+            runner--;
+        }
+        return false;
+    }
+
+    public String chooseFlight(Long id){
+        selectedFlight = flightService.findById(id);
+        return "inputPassengers";
     }
 
 
@@ -125,5 +194,21 @@ public class SearchFlightsBean implements Serializable {
 
     public void setBudgetClass(BudgetClass budgetClass) {
         this.budgetClass = budgetClass;
+    }
+
+    public Flight getSelectedFlight() {
+        return selectedFlight;
+    }
+
+    public void setSelectedFlight(Flight selectedFlight) {
+        this.selectedFlight = selectedFlight;
+    }
+
+    public List<Flight> getReturnFlights() {
+        return returnFlights;
+    }
+
+    public void setReturnFlights(List<Flight> returnFlights) {
+        this.returnFlights = returnFlights;
     }
 }

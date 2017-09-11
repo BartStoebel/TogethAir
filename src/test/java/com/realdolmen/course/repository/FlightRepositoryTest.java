@@ -14,7 +14,7 @@ import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.utils.DateUtils;
 
 public class FlightRepositoryTest extends AbstractPersistenceTest{
-    private static final long TEST_FLIGHT_ID = 2L;
+    private static final long TEST_FLIGHT_ID = 3L;
 
 	private FlightRepository flightRepository;
 	
@@ -77,7 +77,7 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 	public void shouldReturnAllFlights() {
 		List<Flight> flights = flightRepository.findAll();
 		assertNotNull(flights);
-		assertEquals(3, flights.size());
+		assertEquals(10, flights.size());
 	}
 	@Test
 	public void shouldReturnAFlight() {
@@ -95,7 +95,7 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 	public void shouldGetAvailableSeatsInEconomyClass() {
 		Flight flight = flightRepository.findById(2L);
 		Integer availableEconomy = flight.getAvailableSeats().get(BudgetClass.ECONOMY);
-		assertEquals((Integer)20, availableEconomy);
+		assertEquals((Integer)30, availableEconomy);
 	}
 	@Test
 	public void shouldGetAvailableSeatsInBusinessClass() {
@@ -105,28 +105,29 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		em.flush();
 		Flight flight2 = flightRepository.findById(2L);
 		Integer availableBusiness = flight2.getAvailableSeats().get(BudgetClass.BUSINESS);
-		assertEquals((Integer)20, availableBusiness);
+		assertEquals((Integer)10, availableBusiness);
 	}
 	@Test
 	public void updateVolumeDiscounts() {
 		Flight flight = flightRepository.findById(TEST_FLIGHT_ID);
 		assertTrue(BigDecimal.valueOf(10).compareTo( flight.getVolumeDiscounts()
 				.get(1).getDiscountPercentage()) == 0);
+		int i = (flight.getVolumeDiscounts().size());
 		VolumeDiscount volumeDiscount = new VolumeDiscount(5, BigDecimal.valueOf(17.25));
 		flight.addVolumeDiscount(volumeDiscount);
 		flight = flightRepository.save(flight);
-		assertTrue(BigDecimal.valueOf(17.25).compareTo( flight.getVolumeDiscounts()
-				.get(2).getDiscountPercentage()) == 0);
+		assertEquals(0.0, BigDecimal.valueOf(17.25).compareTo( flight.getVolumeDiscounts()
+				.get(2).getDiscountPercentage()), 0.001);
 		
 	}
 
 	@Test
 	public void searchForAvailableFlights(){
 		Calendar cal = Calendar.getInstance();
-		cal.set(2018, 2, 3);
+		cal.set(2017, Calendar.SEPTEMBER, 18);
 		List<Flight> flights = flightRepository.searchForAvailableFlights(
-				"USA",
-				"USA",
+				"bru",
+				"new",
 				1,
 				BudgetClass.FIRST_CLASS,
 				cal.getTime()

@@ -15,7 +15,7 @@ import javax.validation.constraints.Min;
  */
 @Embeddable
 public class VolumeDiscount implements Serializable, Comparable<VolumeDiscount> {
-	
+
 	@Column(nullable = false)
 	@Min(value = 1)
 	private int minPeople;
@@ -32,7 +32,7 @@ public class VolumeDiscount implements Serializable, Comparable<VolumeDiscount> 
 		this.minPeople = people;
 		this.discountPercentage = discountPercentage;
 	}
-	
+
 	//Properties
 	public int getPeople() {
 		return minPeople;

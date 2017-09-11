@@ -26,4 +26,7 @@ public class FlightService {
         return flightRepository.searchForAvailableFlights(from, to, numberOfPassengers, budgetClass, departureDate);
     }
 
+    public Flight findById(Long id) {
+        return flightRepository.findById(id);
+    }
 }

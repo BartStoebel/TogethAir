@@ -14,17 +14,52 @@ insert into user(id, city, country, number, street, zip, birthDate, email, first
 
 insert into airport(id, city, code, country, name, region, version) VALUES (1, 'Brussels', 'ZAV', 'Belgium', 'Zaventem', 'Europe', 1);
 insert into airport(id, city, code, country, name, region, version) VALUES (2, 'New York', 'JFK', 'USA', 'New York 1', 'North-America', 1);
-insert into airport(id, city, code, country, name, region, version) VALUES (3, 'New York', 'NY', 'USA', 'New York 2', 'North-America', 1);
+insert into airport(id, city, code, country, name, region, version) VALUES (3, 'New York', 'NYC', 'USA', 'New York 2', 'North-America', 1);
+insert into airport(id, city, code, country, name, region, version) VALUES (4, 'Los Angeles', 'LAX', 'USA', 'Los Angeles Airport', 'North-America', 1);
+insert into airport(id, city, code, country, name, region, version) VALUES (5, 'Barcelona', 'BAR', 'Spain', 'Barcelona Airport', 'Europe', 1);
+insert into airport(id, city, code, country, name, region, version) VALUES (6, 'Madrid', 'MAD', 'Spain', 'Madrid Airport', 'Europe', 1);
 
-insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(1, 'AH17', '2018-03-03 12:12:30', '2018-03-03 12:12:30', 1, 1, 1, 2);
-insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(2, 'AB17', '2018-03-03 21:00:30', '2018-03-03 12:12:30', 2, 1, 2, 3);
-insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(3, 'BB17', '2018-03-03 21:00:30', '2018-03-03 12:12:30', 1, 1, 3 ,1);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(1, 'AH17', '2017-09-18 12:12:30', '2017-09-18 18:23:45', 1, 1, 1, 2);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(2, 'AB17', '2017-09-18 12:12:30', '2017-09-18 18:23:45', 2, 1, 2, 3);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(3, 'BB17', '2017-09-18 12:12:30', '2017-09-18 18:23:45', 1, 1, 3 ,1);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(4, 'DD88', '2017-09-18 12:12:30', '2017-09-18 18:23:45', 1, 1, 1 ,4);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(5, 'CX55', '2017-09-18 18:12:30', '2017-09-19 00:23:45', 2, 1, 1 ,4);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(6, 'HF58', '2017-09-18 12:12:30', '2017-09-18 18:23:45', 2, 1, 4 ,5);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(7, 'PO00', '2017-09-18 12:12:30', '2017-09-18 18:23:45', 2, 1, 4 ,6);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(8, 'DE89', '2017-09-18 20:12:30', '2017-09-19 02:23:45', 1, 1, 4 ,6);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(9, 'PO87', '2017-09-18 12:12:30', '2017-09-18 18:23:45', 1, 1, 5 ,1);
+insert into flight(id, name, departureTime, arrivalTime, company_id, version, airportFrom_id, airportTo_id) values(10, 'DQ44', '2017-09-18 12:12:30', '2017-09-18 18:23:45', 1, 1, 6 ,1);
 
-insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 2, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (1, 1, 15);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (1, 2, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (1, 0, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 0, 30);
 insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 1, 3);
-insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 0, 20);
-insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (1, 1, 5);
-insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (1, 2, 7);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (2, 2, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (3, 0, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (3, 1, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (3, 2, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (4, 0, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (4, 1, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (4, 2, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (5, 0, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (5, 1, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (5, 2, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (6, 0, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (6, 1, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (6, 2, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (7, 0, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (7, 1, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (7, 2, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (8, 0, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (8, 1, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (8, 2, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (9, 0, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (9, 1, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (9, 2, 20);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (10, 0, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (10, 1, 30);
+insert into availableseatsperbudgetclass(Flight_id, budgetClass, available) values (10, 2, 20);
 
 insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (1, 213.24, 5, 33.67, 1);
 insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (1, 23.24, 5, 30.67, 0);
@@ -35,6 +70,27 @@ insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, bud
 insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (3, 2130.24, 7, 0, 0);
 insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (3, 2143.24, 10, 0, 1);
 insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (3, 113.24, 5, 0, 2);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (4, 2130.24, 7, 0, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (4, 2143.24, 10, 0, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (4, 113.24, 5, 0, 2);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (5, 2130.24, 7, 0, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (5, 2143.24, 10, 0, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (5, 113.24, 5, 0, 2);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (6, 2130.24, 7, 0, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (6, 2143.24, 10, 0, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (6, 113.24, 5, 0, 2);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (7, 2130.24, 7, 0, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (7, 2143.24, 10, 0, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (7, 113.24, 5, 0, 2);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (8, 2130.24, 7, 0, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (8, 2143.24, 10, 0, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (8, 113.24, 5, 0, 2);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (9, 2130.24, 7, 0, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (9, 2143.24, 10, 0, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (9, 113.24, 5, 0, 2);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (10, 2130.24, 7, 0, 0);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (10, 2143.24, 10, 0, 1);
+insert into pricePerBudgetClass(Flight_id, base, profitPercentage, fixBonus, budgetClass) values (10, 113.24, 5, 0, 2);
 
 insert into booking(id, bookingStatus, createdOn, discountCC, discountVolume, finalPrice, paymentChoice, user_id) values (1, 'PAID', '1912-12-12 12:12:12', NULL, 12.21, 541.20, 'ENDORSEMENT', 1);
 insert into booking(id, bookingStatus, createdOn, discountCC, discountVolume, finalPrice, paymentChoice, user_id) values (2, 'RESERVED', '1912-12-12 12:12:12', 76.95, NULL, 754.21, 'CREDIT_CARD', 2);
@@ -47,13 +103,31 @@ insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (
 insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (3, 20, 20);
 insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (3, 10, 8);
 insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (1, 17.2, 6);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (4, 5, 4);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (4, 10, 10);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (4, 20, 15);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (5, 5, 4);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (5, 10, 10);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (5, 20, 15);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (6, 5, 4);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (6, 10, 10);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (6, 20, 15);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (7, 5, 4);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (7, 10, 10);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (7, 20, 15);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (8, 5, 4);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (8, 10, 10);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (8, 20, 15);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (9, 5, 4);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (9, 10, 10);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (9, 20, 15);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (10, 5, 4);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (10, 10, 10);
+insert into discountpervolume(Flight_id, discountPercentage, minPeople) values (10, 20, 15);
 
 insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, booking_id, flight_id) VALUES (1, 'ECONOMY', 'Joris', 'Boschmans', 125.20, 1, 1, 1);
 insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, booking_id, flight_id) VALUES (2, 'FIRST_CLASS', 'John', 'De Smedt', 1200, 1, 2, 2);
 insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, booking_id, flight_id) VALUES (3, 'BUSINESS', 'Teofiel', 'Tester', 125.20, 1, 3, 3);
-
-
-
 
 
 

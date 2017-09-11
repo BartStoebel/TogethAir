@@ -11,16 +11,70 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="pageContent">
 
+            <div id="bg">
+                <img id="" src="resources/images/travel-1749508_1920.jpg" border="0" alt=""/>
+            </div>
+
+
+            <div style="margin-bottom: 25px;"></div>
 
             <c:if test="${empty searchFlightsBean.from}">
                 <meta http-equiv="refresh" content="0; url=index.jsf" />
             </c:if>
             <c:if test="${not empty searchFlightsBean.from}">
                 <c:if test="${empty searchFlightsBean.flights}">
-                    No flights found
+                    <h1 style="margin-top: 50px;">No flights were found</h1>
                 </c:if>
+
                 <c:if test="${not empty searchFlightsBean.flights}">
-                    Flights were found
+
+                    <c:forEach items="${searchFlightsBean.flights}" var="flight">
+
+                        <h:link styleClass="defaultLink" outcome="${searchFlightsBean.}">
+
+                        <div class="well row searchWell" style="display: flex; align-items: center">
+
+
+
+
+
+                            <div class="col-sm-5">
+                                <h3><i class="fa fa-plane" style="margin-right:2px;"></i> ${flight.airportFrom.city} (${flight.airportFrom.code})</h3>
+                                <p>
+                                    ${searchFlightsBean.displayTime(flight.departureTime)}<br/>
+                                    ${searchFlightsBean.displayDate(flight.departureTime)}
+                                </p>
+                                <p>
+                                    ${flight.availableSeats.get(searchFlightsBean.budgetClass)} seats available
+                                </p>
+                            </div>
+                            <div class="col-sm-2" >
+                                <i class="fa fa-arrow-right fa-3x"></i>
+                            </div>
+                            <div class="col-sm-5">
+                                <h3><i class="fa fa-plane" style="margin-right:2px;"></i> ${flight.airportTo.city} (${flight.airportTo.code})</h3>
+                                <p>
+                                    ${searchFlightsBean.displayTime(flight.arrivalTime)}<br/>
+                                    ${searchFlightsBean.displayDate(flight.arrivalTime)}
+                                </p>
+                                <p>
+                                    <c:if test="${searchFlightsBean.hasDiscount(flight, flight.prices.get(searchFlightsBean.budgetClass))}">
+                                        <span class="full-price" style="margin-right: 15px;">€ ${searchFlightsBean.calcPriceWithoutDiscount(flight.prices.get(searchFlightsBean.budgetClass))}</span>
+                                    </c:if>
+                                    <span class="your-price">€ ${searchFlightsBean.calcPriceWithDiscount(flight, flight.prices.get(searchFlightsBean.budgetClass))}</span>
+                                </p>
+                            </div>
+
+
+
+
+
+                        </div>
+
+                        </h:link>
+
+                    </c:forEach>
+
                 </c:if>
             </c:if>
 
