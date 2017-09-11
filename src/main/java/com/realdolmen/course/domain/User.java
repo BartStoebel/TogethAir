@@ -45,8 +45,7 @@ public class User implements Serializable{
 
     @Size(max = 22) 
     @Column(length = 25)
-    @Pattern(regexp = "^[+0-9 ]+[\\/]?[0-9. ]{1,17}$")
-    
+    @Pattern(regexp = "^[+0-9 ]+[\\/]?[0-9. -]{1,17}$", message = "{user.phone}")
     private String phoneNumber;
 
     @Temporal(TemporalType.DATE)

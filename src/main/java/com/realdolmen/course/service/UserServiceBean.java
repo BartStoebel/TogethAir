@@ -6,7 +6,6 @@ import com.realdolmen.course.repository.UserRepository;
 import com.realdolmen.course.utils.Password;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBTransactionRolledbackException;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import java.util.List;
@@ -57,5 +56,4 @@ public class UserServiceBean {
     		return false;
     	}
     }
-
 }

@@ -38,10 +38,8 @@
                         	<li><h:link value="#{msgs['menu.register']}" outcome="userregistration"/></li>
                         </c:if>
                         
-                        <c:if test="#{not empty loggedInBean.user}"><li><h:link value="#{msgs['menu.logout']}" outcome="#{loggedInBean.logout()}"/></li></c:if>
+                        <c:if test="#{not empty loggedInBean.user}"><li><h:link value="#{msgs['menu.logout']}" outcome="#{loggedInBean.logout()}"></h:link></li></c:if>
                         
-                        <!-- <c:if test="#{not empty loggedInBean.user}"><li><h:commandLink value="#{msgs['menu.logout']}: #{loggedInBean.user.firstName}" action="#{loggedInBean.logout()}"/></li></c:if> -->
-                         
                     </ul>
                 </div>
             </div>

@@ -12,7 +12,7 @@
 		<div id="search-box-div">
 
 			<img id="backgroundimage"
-				src="resources/images/chile-1477188_1920.jpg" border="0" alt="" /><A></A>
+				src="resources/images/sunset-2582699_1920.jpg" border="0" alt="" /><A></A>
 			<h1>#{msgs['registration.registration']}</h1>
 
 
@@ -33,7 +33,6 @@
 							</span>
 							<h:inputText id="firstName" type="text" class="form-control"
 								name="firstName"
-								placeholder="#{userregistration.user.firstName}"
 								value="#{userRegistrationBean.user.firstName}" />
 						</div>
 
@@ -48,6 +47,9 @@
 						</div>
 						<label>#{msgs['user.email']}</label> <label><h:message
 								styleClass="errMessage" for="email" /></label>
+						<h:outputText id="test1"
+							binding="#{userRegistrationBean.emailExistsInDb}" />
+							<label><h:message styleClass="errMessage" for="test1" /></label>
 						<div class="input-group">
 							<span class="input-group-addon"> <i
 								class="glyphicon glyphicon-envelope"></i>
@@ -62,7 +64,7 @@
 								class="glyphicon glyphicon-lock"></i>
 							</span>
 							<h:inputSecret id="password" type="hidden" class="form-control"
-								name="password" value="#{userRegistrationBean.user.password}" />
+								name="password" value="#{userRegistrationBean.password}" />
 						</div>
 						<label>#{msgs['user.password2']}</label> <label><h:message
 								styleClass="errMessage" for="password2" /></label>

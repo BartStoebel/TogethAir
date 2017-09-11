@@ -14,7 +14,6 @@ import com.realdolmen.course.domain.User;
 import com.realdolmen.course.enums.Role;
 import com.realdolmen.course.repository.UserRepository;
 import com.realdolmen.course.utils.DateUtils;
-import com.realdolmen.course.utils.Password;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;

@@ -1,5 +1,7 @@
 package com.realdolmen.course.beans;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -7,12 +9,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.realdolmen.course.domain.Address;
 import com.realdolmen.course.domain.User;
+import com.realdolmen.course.enums.Role;
 import com.realdolmen.course.service.UserServiceBean;
+import com.realdolmen.course.utils.Password;
 
 /**
  * FormClass for userRegistration
@@ -22,18 +28,26 @@ import com.realdolmen.course.service.UserServiceBean;
 
 @Named
 @RequestScoped
-public class UserRegistrationBean {
+public class UserRegistrationBean implements Serializable{
 	@Inject
 	private UserServiceBean userServiceBean;
 	
-	@Inject
-	private User user;
+	
+	private User user = new User();
 	
 	@NotBlank 
-    @Size(max = 200) 
+    @Size(max = 20) 
+	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%./]).{6,20})", message="{user.password}")
+	private String password;
+	
+	@NotBlank 
+    @Size(max = 20)
+    @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%./]).{6,20})", message="{user.password}")
 	private String passwordCheck;
 	
 	private UIComponent passwordNotEqual;
+	private UIComponent emailExistsInDb;
+	
 	
 	//Constructor
 	public UserRegistrationBean() {
@@ -46,6 +60,14 @@ public class UserRegistrationBean {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getPasswordCheck() {
@@ -64,10 +86,31 @@ public class UserRegistrationBean {
 		this.passwordNotEqual = passwordNotEqual;
 	}
 
+	public UIComponent getEmailExistsInDb() {
+		return emailExistsInDb;
+	}
+
+	public void setEmailExistsInDb(UIComponent emailExistsInDb) {
+		this.emailExistsInDb = emailExistsInDb;
+	}
+
 	//methods
 	public String saveUser() {
 		if (checkPassword()) {
-			// ga hier verder
+			user.setRole(Role.CLIENT);
+			if(userServiceBean.findByEmail(user.getEmail()) == null) {
+				//user does not exist
+				user.setPassword(Password.hashPassword(getPassword()));
+				userServiceBean.save(user);
+			} else {
+				//user exists
+				FacesContext context = FacesContext.getCurrentInstance();
+			    context.addMessage(emailExistsInDb.getClientId(), new FacesMessage("Email already exists. Choose a unique email"));
+			    //System.out.println("User bestaat al boodschap teruggegeven ...");
+			    return "";
+			}
+				
+			
 		} else {
 			 FacesContext context = FacesContext.getCurrentInstance();
 		     context.addMessage(passwordNotEqual.getClientId(), new FacesMessage("Both passwords must be equal!"));
@@ -76,7 +119,7 @@ public class UserRegistrationBean {
 		return "index";
 	}
 	public boolean checkPassword(){
-		if (passwordCheck.equals(user.getPassword())) {
+		if (getPasswordCheck().equals(getPassword())) {
 			return true;
 		}
 		return false;
