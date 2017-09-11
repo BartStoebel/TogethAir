@@ -1,6 +1,5 @@
 package com.realdolmen.course.utils;
 
-import javax.ejb.Local;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
