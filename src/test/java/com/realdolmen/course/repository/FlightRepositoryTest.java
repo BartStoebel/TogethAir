@@ -14,7 +14,7 @@ import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.utils.DateUtils;
 
 public class FlightRepositoryTest extends AbstractPersistenceTest{
-    private static final long TEST_FLIGHT_ID = 3L;
+    private static final long TEST_FLIGHT_ID = 2L;
 
 	private FlightRepository flightRepository;
 	
@@ -113,6 +113,7 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		assertTrue(BigDecimal.valueOf(10).compareTo( flight.getVolumeDiscounts()
 				.get(1).getDiscountPercentage()) == 0);
 		int i = (flight.getVolumeDiscounts().size());
+		System.out.println("------------" + i);
 		VolumeDiscount volumeDiscount = new VolumeDiscount(5, BigDecimal.valueOf(17.25));
 		flight.addVolumeDiscount(volumeDiscount);
 		flight = flightRepository.save(flight);

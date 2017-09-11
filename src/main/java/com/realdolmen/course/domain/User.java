@@ -1,9 +1,12 @@
 package com.realdolmen.course.domain;
 
 import com.realdolmen.course.enums.Role;
+
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
@@ -19,22 +22,30 @@ public class User implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank @Size(max = 200) @Column(nullable = false, length = 200)
+    @NotBlank
+    @Size(max = 50) @Column(nullable = false, length = 50)
     private String firstName;
 
-    @NotBlank @Size(max = 200) @Column(nullable = false, length = 200)
+    @NotBlank 
+    @Size(max = 50) @Column(nullable = false, length = 50)
     private String lastName;
 
-    @NotBlank @Size(max = 200) @Column(nullable = false, length = 200)
+    @NotBlank 
+    @Size(max = 200) 
+    @Column(nullable = false, length = 200)
     private String password;
 
-    @NotBlank @Size(max = 200) @Column(nullable = false, length = 200, unique = true)
+    @NotBlank (message = "{req.email}") 
+    @Email (message = "{req.email}")
+    @Size (max = 50) @Column(nullable = false, length = 50, unique = true)
     private String email;
 
     @Embedded
     private Address address;
 
-    @Size(min = 5, max = 22) @Column(length = 25)
+    @Size(max = 22) 
+    @Column(length = 25)
+    @Pattern(regexp = "^[+0-9 ]+[\\/]?[0-9. -]{1,17}$", message = "{user.phone}")
     private String phoneNumber;
 
     @Temporal(TemporalType.DATE)
@@ -50,6 +61,8 @@ public class User implements Serializable{
     private Integer version;
 
     public User() {
+    	address= new Address();
+    	company = new Company();
     }
 
     public User(String firstName, String lastName, String password, String email, Address address, String phoneNumber, Date birthDate, Role role, Company company) {
