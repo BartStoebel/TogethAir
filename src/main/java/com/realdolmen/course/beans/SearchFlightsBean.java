@@ -15,6 +15,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PostLoad;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -68,6 +69,7 @@ public class SearchFlightsBean implements Serializable {
     // Start methods
 
     public String search(){
+
         flights = flightService.searchForAvailableFlights(from, to, numberOfPassengers, budgetClass, departureDate);
         if (returnDate != null) returnFlights = flightService.searchForAvailableFlights(to, from, numberOfPassengers, budgetClass, returnDate);
 

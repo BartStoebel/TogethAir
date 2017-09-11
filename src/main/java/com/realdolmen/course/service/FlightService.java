@@ -29,4 +29,16 @@ public class FlightService {
     public Flight findById(Long id) {
         return flightRepository.findById(id);
     }
+
+    public boolean checkIfSeatsAvailable(int seats, Flight flight, BudgetClass budgetClass){
+        return flightRepository.checkIfSeatsAvailable(seats, flight, budgetClass);
+    }
+
+    public void reserveSeats(int size, Flight bookedFlight, BudgetClass budgetClass) {
+        flightRepository.reserveSeats( size,  bookedFlight,  budgetClass);
+    }
+
+    public void revokeSeats(int size, Flight bookedFlight, BudgetClass budgetClass) {
+        flightRepository.revokeSeats( size,  bookedFlight,  budgetClass);
+    }
 }
