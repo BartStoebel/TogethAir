@@ -40,7 +40,7 @@ public class UserServiceBean {
     }
 
     public User findByEmail(String email){
-    	return ur.findByEmail(email);
+    	return ur.findByEmail(email.toLowerCase());
     }
     /**
      * Checks the email and the password of the userlogin. Returns null if 
