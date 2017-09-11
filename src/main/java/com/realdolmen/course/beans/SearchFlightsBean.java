@@ -78,7 +78,7 @@ public class SearchFlightsBean implements Serializable {
         return simpleDateFormat.format(date);
     }
 
-    public BigDecimal calcPriceWithDiscount(Flight flight, Price price){
+    /*public BigDecimal calcPriceWithDiscount(Flight flight, Price price){
         BigDecimal amount = price.calculatePrice();
         BigDecimal perc = BigDecimal.ZERO;
         Integer runner = numberOfPassengers;
@@ -99,7 +99,7 @@ public class SearchFlightsBean implements Serializable {
         amount = amount.multiply(BigDecimal.valueOf(numberOfPassengers));
         //amount.subtract(amount.divide(BigDecimal.valueOf(100)).multiply(perc));
         return amount;
-    }
+    }*/
 
     public BigDecimal calcPriceWithoutDiscount(Price price){
         BigDecimal value = price.calculatePrice();
@@ -107,7 +107,7 @@ public class SearchFlightsBean implements Serializable {
         return value;
     }
 
-    public boolean hasDiscount(Flight flight, Price price){
+    /*public boolean hasDiscount(Flight flight, Price price){
         //BigDecimal amount = price.calculatePrice();
         double perc = 0.0;
         Integer runner = numberOfPassengers;
@@ -122,7 +122,7 @@ public class SearchFlightsBean implements Serializable {
             runner--;
         }
         return false;
-    }
+    }*/
 
     public String chooseFlight(Long id){
         selectedFlight = flightService.findById(id);

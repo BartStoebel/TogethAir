@@ -1,6 +1,7 @@
 package com.realdolmen.course.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -15,9 +16,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.realdolmen.course.enums.BudgetClass;
 
 /**
- * These are the flights provided by the companies. The companies will provide this data, 
- * including a baseprice (in Price) and VolumeDiscounts.
- * TogethAir sells them with profit. 
+ * These are the flights provided by the companies. The companies will provide
+ * this data, including a baseprice (in Price) and VolumeDiscounts. TogethAir
+ * sells them with profit.
  * 
  * @author BSEBF08
  *
@@ -25,38 +26,41 @@ import com.realdolmen.course.enums.BudgetClass;
 @Entity
 public class Flight implements Serializable {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = true, length = 15)
-	@NotBlank @Size(max = 15)
+	@NotBlank
+	@Size(max = 15)
 	private String name;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date departureTime;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date arrivalTime;
-	
+
 	@ElementCollection
 	@CollectionTable(name = "availableSeatsPerBudgetClass")
 	@MapKeyColumn(name = "budgetClass")
-	@Column(name  = "available", nullable = false)
+	@Column(name = "available", nullable = false)
 	private Map<BudgetClass, Integer> availableSeats = new HashMap<>();
-	
-	@ElementCollection (fetch = FetchType.EAGER)
-	@CollectionTable (name = "pricePerBudgetClass")
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "pricePerBudgetClass")
 	@MapKeyColumn(name = "budgetClass")
-	//@Column(name = "prices_id")
+	// @Column(name = "prices_id")
 	private Map<BudgetClass, Price> prices = new HashMap<>();
-	
-	@ElementCollection  (fetch = FetchType.EAGER)
+
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "discountPerVolume")
-	//@Column(name = "Flight_id")
-	private List<VolumeDiscount> volumeDiscounts = new ArrayList<>();
-	
+	@MapKeyColumn(name = "minPeople")
+	// @Column(name = "Flight_id")
+	private Map<Integer, BigDecimal> volumeDiscounts = new HashMap();
+
 	@ManyToOne
 	private Company company;
 
@@ -65,15 +69,17 @@ public class Flight implements Serializable {
 
 	@ManyToOne
 	private Airport airportTo;
-	
+
 	@Version
 	private Integer version;
-	
-	//Constructors
+
+	// Constructors
 	public Flight() {
 	}
 
-	public Flight(String name, Date departureTime, Date arrivalTime, Map<BudgetClass, Integer> availableSeats, Map<BudgetClass, Price> prices, List<VolumeDiscount> volumeDiscounts, Company company, Airport airportFrom, Airport airportTo) {
+	public Flight(String name, Date departureTime, Date arrivalTime, Map<BudgetClass, Integer> availableSeats,
+			Map<BudgetClass, Price> prices, Map<Integer, BigDecimal> volumeDiscounts, Company company,
+			Airport airportFrom, Airport airportTo) {
 		this.name = name;
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
@@ -85,8 +91,7 @@ public class Flight implements Serializable {
 		this.airportTo = airportTo;
 	}
 
-	//Properties
-
+	// Properties
 
 	public Airport getAirportFrom() {
 		return airportFrom;
@@ -144,81 +149,94 @@ public class Flight implements Serializable {
 		return Collections.unmodifiableMap(availableSeats);
 	}
 
-	public Map<BudgetClass, Price> getPrices() { 
-		return Collections.unmodifiableMap(prices); 
+	public Map<BudgetClass, Price> getPrices() {
+		return Collections.unmodifiableMap(prices);
 	}
 
 	public Integer getVersion() {
 		return version;
 	}
 
-	public List<VolumeDiscount> getVolumeDiscounts() {
-		return volumeDiscounts;
-	}
-
-	public void setVolumeDiscounts(List<VolumeDiscount> volumeDiscounts) {
-		this.volumeDiscounts = volumeDiscounts;
-	}
+	/**
+	 * public List<VolumeDiscount> getVolumeDiscounts() { return volumeDiscounts; }
+	 * 
+	 * public void setVolumeDiscounts(List<VolumeDiscount> volumeDiscounts) {
+	 * this.volumeDiscounts = volumeDiscounts; }
+	 */
 
 	/**
-	 * To set the available seats per BudgetClass. If availableSeats is already present, this method 
-	 * will overwrite this value!
+	 * To set the available seats per BudgetClass. If availableSeats is already
+	 * present, this method will overwrite this value!
+	 * 
 	 * @param budgetClass
 	 * @param count
 	 */
 	public void setAvailableSeatsPerBudgetClass(BudgetClass budgetClass, int count) {
-		this.availableSeats.put(budgetClass, count) ;
+		this.availableSeats.put(budgetClass, count);
 	}
-	
+
+	public Map<Integer, BigDecimal> getVolumeDiscounts() {
+		return volumeDiscounts;
+	}
+
+	public void setVolumeDiscounts(Map<Integer, BigDecimal> volumeDiscounts) {
+		this.volumeDiscounts = volumeDiscounts;
+	}
+
 	/**
-	 * To book a number of seats in a certain budgetClass. This is an enumeration of possible
-	 * tickets (BudgetClass.ECONOMY, ...)
+	 * To book a number of seats in a certain budgetClass. This is an enumeration of
+	 * possible tickets (BudgetClass.ECONOMY, ...)
+	 * 
 	 * @param budgetClass
 	 * @param count
 	 */
 	public void bookSeats(BudgetClass budgetClass, int count) {
 		this.availableSeats.put(budgetClass, availableSeats.get(budgetClass) - count);
 	}
+
 	/**
-	 * To set the price per BudgetClass (cfr. BudgetClass.ECONOMY). If the price is already present
-	 * for this budgetclass, this method will overwrite this value!
+	 * To set the price per BudgetClass (cfr. BudgetClass.ECONOMY). If the price is
+	 * already present for this budgetclass, this method will overwrite this value!
+	 * 
 	 * @param budgetClass
 	 * @param price
 	 */
 	public void setPricePerBudgetClass(BudgetClass budgetClass, Price price) {
 		this.prices.put(budgetClass, price);
 	}
-	//Herwerk vanaf hier ...
+	// Herwerk vanaf hier ...
 	/**
 	 * 
 	 * @param volumeDiscount
 	 * @return
 	 */
-	/*public SortedSet<VolumeDiscount> addVolumeDiscount(VolumeDiscount volumeDiscount) {
-		//if the item already exists (minPeople = volumeDiscount.minPeople): remove the item ...
-		if ( ! volumeDiscounts.add(volumeDiscount)) {
-			volumeDiscounts.remove(volumeDiscount);
-		}
-		//replace the item by the new value!
-		volumeDiscounts.add(volumeDiscount);
-		return volumeDiscounts;
-	}*/
-	
+	/*
+	 * public SortedSet<VolumeDiscount> addVolumeDiscount(VolumeDiscount
+	 * volumeDiscount) { //if the item already exists (minPeople =
+	 * volumeDiscount.minPeople): remove the item ... if ( !
+	 * volumeDiscounts.add(volumeDiscount)) {
+	 * volumeDiscounts.remove(volumeDiscount); } //replace the item by the new
+	 * value! volumeDiscounts.add(volumeDiscount); return volumeDiscounts; }
+	 */
+
 	/**
-	 * adds this VolumeDiscount to the SortedSet. These are unique elements. By default,
-	 * SortedSet does not replace a value by a new element, therefore the previous value has to be removed
-	 * first. Afterwards you can add the new value to the SortedSet
+	 * adds this VolumeDiscount to the SortedSet. These are unique elements. By
+	 * default, SortedSet does not replace a value by a new element, therefore the
+	 * previous value has to be removed first. Afterwards you can add the new value
+	 * to the SortedSet
+	 * 
 	 * @param volumeDiscount
 	 * @return
 	 */
-	public List<VolumeDiscount> addVolumeDiscount(VolumeDiscount volumeDiscount) {
-		//if the item already exists (minPeople = volumeDiscount.minPeople): remove the item ...
-		if ( volumeDiscounts.contains(volumeDiscount)) {
-			volumeDiscounts.remove(volumeDiscount);
-		}
-		//replace the item by the new value!
-		volumeDiscounts.add(volumeDiscount);
-		return volumeDiscounts;
+	public void addVolumeDiscount(Integer minPeople, BigDecimal volumeDiscount) {
+		this.volumeDiscounts.put(minPeople, volumeDiscount);
 	}
-	
+	/*
+	 * public List<VolumeDiscount> addVolumeDiscount(VolumeDiscount volumeDiscount)
+	 * { //if the item already exists (minPeople = volumeDiscount.minPeople): remove
+	 * the item ... if ( volumeDiscounts.contains(volumeDiscount)) {
+	 * volumeDiscounts.remove(volumeDiscount); } //replace the item by the new
+	 * value! volumeDiscounts.add(volumeDiscount); return volumeDiscounts; }
+	 */
+
 }

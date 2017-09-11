@@ -31,7 +31,7 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
     public void shouldSaveAndRetrieveAFlight() {
 		Map<BudgetClass, Integer> budgetClassIntegerMap = new HashMap<>();
 		Map<BudgetClass, Price> budgetClassPriceMap = new HashMap<>();
-		List<VolumeDiscount> volumeDiscounts = new ArrayList<>();
+		Map<Integer, BigDecimal> volumeDiscounts = new HashMap();
 		Flight flight = new Flight("AH47", DateUtils.createDate("2016-01-01 00:00"),
 				DateUtils.createDate("2016-01-01 00:00"), budgetClassIntegerMap, budgetClassPriceMap, volumeDiscounts,
 				new Company("Lufthansa", "Test"),
@@ -110,18 +110,22 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 	@Test
 	public void updateVolumeDiscounts() {
 		Flight flight = flightRepository.findById(TEST_FLIGHT_ID);
-		assertTrue(BigDecimal.valueOf(10).compareTo( flight.getVolumeDiscounts()
-				.get(1).getDiscountPercentage()) == 0);
-		int i = (flight.getVolumeDiscounts().size());
-		System.out.println("------------" + i);
-		VolumeDiscount volumeDiscount = new VolumeDiscount(5, BigDecimal.valueOf(17.25));
-		flight.addVolumeDiscount(volumeDiscount);
+		assertTrue(BigDecimal.valueOf(10).compareTo(
+				flight.getVolumeDiscounts().get(5)) == 0);
+		//VolumeDiscount volumeDiscount = new VolumeDiscount(5, BigDecimal.valueOf(17.25));
+		//flight.addVolumeDiscount(volumeDiscount);
+		flight.addVolumeDiscount(5, BigDecimal.valueOf(17.25));
 		flight = flightRepository.save(flight);
-		assertEquals(0.0, BigDecimal.valueOf(17.25).compareTo( flight.getVolumeDiscounts()
-				.get(2).getDiscountPercentage()), 0.001);
+		assertEquals(0.0, BigDecimal.valueOf(17.25).compareTo(flight.getVolumeDiscounts()
+				.get(5)), 0.001);
 		
 	}
 
+	@Test
+	public void getVolumeDiscountsPerFlight() {
+		Flight flight = flightRepository.findById(TEST_FLIGHT_ID);
+		assertEquals(3, flight.getVolumeDiscounts().size());
+	}
 	@Test
 	public void searchForAvailableFlights(){
 		Calendar cal = Calendar.getInstance();

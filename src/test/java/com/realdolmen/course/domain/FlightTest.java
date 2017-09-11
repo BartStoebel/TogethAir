@@ -23,7 +23,7 @@ public class FlightTest {
 
 	private Map<BudgetClass, Price> budgetClassPriceMap;
 	private Map<BudgetClass, Integer> budgetClassIntegerMap;
-	private List<VolumeDiscount> volumeDiscounts;
+	private Map<Integer, BigDecimal> volumeDiscounts;
 
 	@Before
 	public void initClass(){
@@ -37,9 +37,9 @@ public class FlightTest {
 		budgetClassIntegerMap.put(BudgetClass.FIRST_CLASS, 25);
 		budgetClassIntegerMap.put(BudgetClass.ECONOMY, 25);
 
-		volumeDiscounts = new ArrayList<>();
-//		volumeDiscounts.add(new VolumeDiscount(5, BigDecimal.valueOf(5)));
-//		volumeDiscounts.add(new VolumeDiscount(10, BigDecimal.valueOf(10)));
+		volumeDiscounts = new HashMap();
+		volumeDiscounts.put(5, BigDecimal.valueOf(5));
+		volumeDiscounts.put(10, BigDecimal.valueOf(10));
 	}
 
 	@Test
@@ -99,23 +99,17 @@ public class FlightTest {
 				DateUtils.createDate("2016-01-01 00:00"), budgetClassIntegerMap, budgetClassPriceMap, volumeDiscounts,
 				new Company("Lufthansa", "Test"),
 				new Airport(), new Airport());
-		flight.addVolumeDiscount(new VolumeDiscount(5, BigDecimal.valueOf(5)));
-		flight.addVolumeDiscount(new VolumeDiscount(10, BigDecimal.valueOf(7.5)));
-		flight.addVolumeDiscount(new VolumeDiscount(15, BigDecimal.valueOf(10)));
-		flight.addVolumeDiscount(new VolumeDiscount(5, BigDecimal.valueOf(27.1)));
+		flight.addVolumeDiscount(5, BigDecimal.valueOf(5));
+		flight.addVolumeDiscount(10, BigDecimal.valueOf(7.5));
+		flight.addVolumeDiscount(15, BigDecimal.valueOf(10));
+		flight.addVolumeDiscount(5, BigDecimal.valueOf(27.1));
 		assertEquals(3, flight.getVolumeDiscounts().size());
 		//check last value in list: 
-		assertEquals(BigDecimal.valueOf(27.1), flight.getVolumeDiscounts().get(2).getDiscountPercentage());
+		assertEquals(BigDecimal.valueOf(27.1), flight.getVolumeDiscounts().get(5));
 		//check discount in list where minPeople = 15
-		Optional<VolumeDiscount> volumeDiscount = flight.getVolumeDiscounts()
-				.stream()
-				.filter(v -> v.getPeople() == 15)
-				.findFirst();
-		if(volumeDiscount.isPresent()) {
-			VolumeDiscount v = volumeDiscount.get() ;
-			assertEquals(BigDecimal.valueOf(10), v.getDiscountPercentage());
+		assertEquals(BigDecimal.valueOf(10), flight.getVolumeDiscounts().get(15));
 		}
-	}
+	
 	
 }
 
