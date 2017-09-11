@@ -13,6 +13,11 @@
 
 			<img id="backgroundimage"
 				src="resources/images/sunset-2582699_1920.jpg" border="0" alt="" /><A></A>
+				
+			<c:if test="${empty loggedInBean.user}">
+                <meta http-equiv="refresh" content="0; url=login.jsf" />
+            </c:if>
+            
 			<h1>#{msgs['registration.registration']}</h1>
 
 
@@ -95,7 +100,7 @@
 						</div>
 						<label>#{msgs['user.address.number']}</label> <label><h:message
 								styleClass="errMessage" for="number" /></label>
-						<div class="input-group">
+						<div class="input-group"> 
 							<span class="input-group-addon"> <i
 								class="glyphicon glyphicon-home"></i>
 							</span>

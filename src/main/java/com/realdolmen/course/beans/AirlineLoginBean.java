@@ -77,11 +77,11 @@ public class AirlineLoginBean implements Serializable{
 			User user = userService.findByEmail(email);
 			loggedInBean.setUser(user);
 			System.out.println(user.getEmail() + " aangelogd!");
-			return "airlinecompany/addflight";
+			return "addflight";
 		} else {
 			System.out.println("password not correct");
 			userNotFound = true;
-			return "airlinecompany/login";
+			return "login";
 		}
 	}
 	public String newUser() {
