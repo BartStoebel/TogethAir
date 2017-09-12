@@ -37,5 +37,21 @@ public class AirportRepository {
         q.setParameter("param", "%" + param + "%");
         return q.getResultList();
     }
+    public List<Airport> findAirportsByCityWithCode(String cityAndCode) {
+    	if (cityAndCode.contains("(")) {
+    		String[] parts = cityAndCode.split("\\(");
+        	String city = parts[0]; // city
+        	System.out.println(city);
+        	String code = parts[1]; // code
+        	code = code.substring(0, code.length() - 1);
+        	System.out.println(code);
+        	
+        	Query q = em.createQuery("select a from Airport a where a.city = :param AND a.code = :code", Airport.class);
+            q.setParameter("param", city);
+            q.setParameter("code", code);
+        	return q.getResultList();
+    	}
+    	return null;
+    }
 
 }

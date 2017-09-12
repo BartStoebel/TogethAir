@@ -23,16 +23,21 @@
 
 			<h:form>
 				<div class="row">
-
 					<div class="col-sm-4">
 						<label>#{msgs['from']}</label>
 						<h:message styleClass="errMessage" for="search_from" />
-						<div class="input-group">
-							<span class="input-group-addon"><i
+						<h:outputText id="test1" binding="#{addFlightBean.fromNotCorrect}" />
+						<label><h:message styleClass="errMessage" for="test1" /></label>
+						<div class="input-group ">
+							<span class="input-group-addon "><i
 								class="fa fa-location-arrow"></i></span>
-							<h:inputText value="#{addFlightBean.from}"
-								styleClass="form-control" id="search_from" />
+							<p:autoComplete id="search_from" maxResults="8"
+								value="#{addFlightBean.from}"
+								completeMethod="#{addFlightBean.completePlace}"
+								styleClass="autoStyle "
+								inputStyleClass="form-control autoInputStyle" />
 						</div>
+
 					</div>
 					<div class="col-sm-4">
 						<label>#{msgs['to']}</label>

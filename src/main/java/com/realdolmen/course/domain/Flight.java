@@ -209,21 +209,7 @@ public class Flight implements Serializable {
 	public void setPricePerBudgetClass(BudgetClass budgetClass, Price price) {
 		this.prices.put(budgetClass, price);
 	}
-	// Herwerk vanaf hier ...
-	/**
-	 * 
-	 * @param volumeDiscount
-	 * @return
-	 */
-	/*
-	 * public SortedSet<VolumeDiscount> addVolumeDiscount(VolumeDiscount
-	 * volumeDiscount) { //if the item already exists (minPeople =
-	 * volumeDiscount.minPeople): remove the item ... if ( !
-	 * volumeDiscounts.add(volumeDiscount)) {
-	 * volumeDiscounts.remove(volumeDiscount); } //replace the item by the new
-	 * value! volumeDiscounts.add(volumeDiscount); return volumeDiscounts; }
-	 */
-
+	
 	/**
 	 * adds this VolumeDiscount to the SortedSet. These are unique elements. By
 	 * default, SortedSet does not replace a value by a new element, therefore the
@@ -236,12 +222,6 @@ public class Flight implements Serializable {
 	public void addVolumeDiscount(Integer minPeople, BigDecimal volumeDiscount) {
 		this.volumeDiscounts.put(minPeople, volumeDiscount);
 	}
-	/*
-	 * public List<VolumeDiscount> addVolumeDiscount(VolumeDiscount volumeDiscount)
-	 * { //if the item already exists (minPeople = volumeDiscount.minPeople): remove
-	 * the item ... if ( volumeDiscounts.contains(volumeDiscount)) {
-	 * volumeDiscounts.remove(volumeDiscount); } //replace the item by the new
-	 * value! volumeDiscounts.add(volumeDiscount); return volumeDiscounts; }
-	 */
+	
 
 }

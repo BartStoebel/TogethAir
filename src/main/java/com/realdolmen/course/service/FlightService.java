@@ -42,5 +42,9 @@ public class FlightService {
     public void revokeSeats(int size, Flight bookedFlight, BudgetClass budgetClass) {
         flightRepository.revokeSeats( size,  bookedFlight,  budgetClass);
     }
+    
+    public Flight save(Flight flight) {
+    	return flightRepository.save(flight);
+    }
 
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Testing the Airport Repo
@@ -67,6 +68,19 @@ public class AirportRepositoryTest extends AbstractPersistenceTest {
         List<Airport> list = ar.findAll();
         assertNotNull(list);
         assertEquals(6, list.size());
+    }
+    @Test
+    public void shouldFindAirportByCityAndCode() {
+    	List<Airport> airports = ar.findAirportsByCityWithCode("New York (JFK)");
+    	assertNotNull(airports);
+    	Airport airport = airports.get(0);
+    	assertEquals("New York", airport.getCity());
+    }
+    @Test
+    public void shouldNotFindAirportByCityAndCode() {
+    	List<Airport> airports = ar.findAirportsByCityWithCode("test");
+    	assertNull(airports);
+    	
     }
 
 
