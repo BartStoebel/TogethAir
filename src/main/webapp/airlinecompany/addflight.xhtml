@@ -20,41 +20,66 @@
             
 			<h1>#{msgs['addflight.title']}</h1>
 
-			<h:form>
+		
+<h:form>
+      <h:panelGrid columns="4" cellpadding="5">
+        <h:outputLabel for="name" value="Name:" style="font-weight:bold" />
+        <p:inputText id="name" value="#{basicView.text}" />
+        <p:commandButton value="Submit" update="display" icon="ui-icon-check" />
+        <h:outputText id="display" value="#{basicView.text}" />
+    </h:panelGrid>
+
 				<div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <label>#{msgs['from']}</label><h:message styleClass="errMessage" for="search_from"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
                                 <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" id="search_from" />
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <label>#{msgs['to']}</label><h:message styleClass="errMessage" for="search_to"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-plane"></i></span>
                                 <h:inputText value="#{searchFlightsBean.to}" styleClass="form-control"  id="search_to"/>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <label>#{msgs['departure.date']}</label><h:message styleClass="errMessage" for="search_depart"/>
+                         <div class="col-sm-4">
+                            <label>#{msgs['addflight.name']}</label><h:message styleClass="errMessage" for="flight_name"/>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <h:inputText value="#{searchFlightsBean.departureDate}" styleClass="form-control datepicker" id="search_depart" converterMessage="#{msgs['please.enter.a.valid.date']}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:inputText>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label>#{msgs['return.date']}</label><h:message styleClass="errMessage" for="search_arrival"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <h:inputText value="#{searchFlightsBean.returnDate}" styleClass="form-control datepicker" id="search_arrival" converterMessage="#{msgs['please.enter.a.valid.date']}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:inputText>
+                                <span class="input-group-addon"><i class="fa fa-address-card-o"></i></span>
+                                <h:inputText value="#{searchFlightsBean.to}" styleClass="form-control"  id="flight_name"/>
                             </div>
                         </div>
                         
+                        <div class="col-sm-4">
+                            <label>#{msgs['departure.date']}</label><h:message styleClass="errMessage" for="departure_date"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                <h:inputText value="#{searchFlightsBean.departureDate}" styleClass="form-control datetimepicker" id="departure_date"></h:inputText>
+                                
+                                <!--  <h:inputText value="#{searchFlightsBean.departureDate}" styleClass="form-control datepicker" id="departure_date" converterMessage="#{msgs['please.enter.a.valid.date']}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>-->
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['departure.time']}</label><h:message styleClass="errMessage" for="departure_time"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <h:inputText value="#{searchFlightsBean.returnDate}" styleClass="form-control datepicker" id="departure_time" converterMessage="#{msgs['please.enter.a.valid.date']}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>#{msgs['user.company.name']}</label><h:message styleClass="errMessage" for="company"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                <h:outputText value="#{searchFlightsBean.to}" styleClass="form-control" id="company">
+                                </h:outputText>
+                            </div>
+                        </div>
                         <div class="col-sm-4">
                             <label>#{msgs['travelling.class']}</label><h:message styleClass="errMessage" for="first_class"/>
                             <div class="input-group">

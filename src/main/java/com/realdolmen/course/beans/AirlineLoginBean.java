@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.realdolmen.course.domain.User;
+import com.realdolmen.course.enums.Role;
 import com.realdolmen.course.service.UserServiceBean;
 
 /**
@@ -73,13 +74,15 @@ public class AirlineLoginBean implements Serializable{
 		userNotFound = false;
 		if (userService.isUserPasswordCorrect(email, password)) {
 			User user = userService.findByEmail(email);
+			if(user.getRole() == Role.AIRLINE_EMPLOYEE) {
 			loggedInBean.setUser(user);
 			return "addflight";
-		} else {
+			}
+		}
 			userNotFound = true;
 			return "login";
-		}
 	}
+
 	public String newUser() {
 		return "userregistration";
 	}
