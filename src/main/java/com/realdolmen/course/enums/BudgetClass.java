@@ -9,5 +9,5 @@ package com.realdolmen.course.enums;
  *
  */
 public enum BudgetClass {
-	ECONOMY, FIRST_CLASS, BUSINESS
+	ECONOMY, BUSINESS, FIRST_CLASS
 }

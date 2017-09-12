@@ -15,17 +15,6 @@
 				src="../resources/images/sunset-2582699_1920.jpg" border="0" alt="" /><A></A>
 
 
-			<p:calendar value="#{searchFlightsBean.departureDate}"
-						placeholder="Departure Date"
-						pattern="dd/MM/yyyy HH:mm"/>
-
-			<f:view contentType="text/html">
-				<h:form><h:panelGroup>
-					<p:outputLabel for="date" value="Date: " />
-					<p:inputMask id="date" value="#{searchFlightsBean.from}" mask="99/99/9999"/>
-				</h:panelGroup></h:form>
-			</f:view>
-
 			<c:if test="${loggedInBean.user.role != 'AIRLINE_EMPLOYEE'}">
 				<meta http-equiv="refresh" content="0; url=login.jsf" />
 			</c:if>
@@ -41,7 +30,7 @@
 						<div class="input-group">
 							<span class="input-group-addon"><i
 								class="fa fa-location-arrow"></i></span>
-							<h:inputText value="#{searchFlightsBean.from}"
+							<h:inputText value="#{addFlightBean.from}"
 								styleClass="form-control" id="search_from" />
 						</div>
 					</div>
@@ -50,7 +39,7 @@
 						<h:message styleClass="errMessage" for="search_to" />
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-plane"></i></span>
-							<h:inputText value="#{searchFlightsBean.to}"
+							<h:inputText value="#{addFlightBean.to}"
 								styleClass="form-control" id="search_to" />
 						</div>
 					</div>
@@ -60,36 +49,30 @@
 						<div class="input-group">
 							<span class="input-group-addon"><i
 								class="fa fa-address-card-o"></i></span>
-							<h:inputText value="#{searchFlightsBean.to}"
+							<h:inputText value="#{addFlightBean.flight.name}"
 								styleClass="form-control" id="flight_name" />
 						</div>
 					</div>
 
 					<div class="col-sm-4">
-						<label>#{msgs['departure.date']}</label>
-						<h:message styleClass="errMessage" for="departure_date" />
+						<label>#{msgs['departure.datetime']}</label>
+						<h:message styleClass="errMessage" for="departure_datetime" />
 						<div class="input-group">
 							<span class="input-group-addon"><span
 								class="glyphicon glyphicon-calendar"></span></span>
-							<h:inputText value="#{searchFlightsBean.departureDate}"
-								styleClass="form-control datetimepicker" id="departure_date"></h:inputText>
-
-							<!--  <h:inputText value="#{searchFlightsBean.departureDate}" styleClass="form-control datepicker" id="departure_date" converterMessage="#{msgs['please.enter.a.valid.date']}">
-                                      <f:convertDateTime pattern="dd/MM/yyyy"/>
-                               </h:inputText>
-                                </h:inputText>-->
+							<p:calendar id="departure_datetime"
+								value="#{addFlightBean.flight.departureTime}"
+								pattern="dd/MM/yyyy HH:mm" />
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label>#{msgs['departure.time']}</label>
-						<h:message styleClass="errMessage" for="departure_time" />
+						<label>#{msgs['arrival.datetime']}</label>
+						<h:message styleClass="errMessage" for="arrival_datetime" />
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-							<h:inputText value="#{searchFlightsBean.returnDate}"
-								styleClass="form-control datepicker" id="departure_time"
-								converterMessage="#{msgs['please.enter.a.valid.date']}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-							</h:inputText>
+							<p:calendar id="arrival_datetime"
+								value="#{addFlightBean.flight.arrivalTime}"
+								pattern="dd/MM/yyyy HH:mm" />
 						</div>
 					</div>
 					<div class="col-sm-4">
@@ -98,7 +81,7 @@
 						<div class="input-group">
 							<span class="input-group-addon"><i
 								class="glyphicon glyphicon-briefcase"></i></span>
-							<h:outputText value="#{searchFlightsBean.to}"
+							<h:outputText value="#{loggedInBean.user.company.name}"
 								styleClass="form-control" id="company">
 							</h:outputText>
 						</div>
@@ -120,7 +103,7 @@
 						<h:message styleClass="errMessage" for="first_available" />
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							<h:inputText value="#{searchFlightsBean.numberOfPassengers}"
+							<h:inputText value="#{addFlightBean.availableFirstClass}"
 								styleClass="form-control" id="first_available"
 								converterMessage="#{msgs['passengers.needs.number']}">
 								<f:convertNumber pattern="0" />
@@ -128,13 +111,14 @@
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label>#{msgs['price']}</label>
+						<label>#{msgs['price.per.person']}</label>
 						<h:message styleClass="errMessage" for="first_price" />
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-eur"></i></span>
-							<h:inputText value="#{searchFlightsBean.budgetClass}"
-								styleClass="form-control" id="first_price">
-
+							<h:inputText value="#{addFlightBean.priceFirstClass}"
+								styleClass="form-control" id="first_price"
+								converterMessage="#{msgs['price.needs.number']}">
+								<f:convertNumber pattern="#0.00" />
 							</h:inputText>
 						</div>
 					</div>
@@ -154,7 +138,7 @@
 						<h:message styleClass="errMessage" for="business_available" />
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							<h:inputText value="#{searchFlightsBean.numberOfPassengers}"
+							<h:inputText value="#{addFlightBean.availableBusiness}"
 								styleClass="form-control" id="business_available"
 								converterMessage="#{msgs['passengers.needs.number']}">
 								<f:convertNumber pattern="0" />
@@ -162,13 +146,14 @@
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label>#{msgs['price']}</label>
+						<label>#{msgs['price.per.person']}</label>
 						<h:message styleClass="errMessage" for="business_price" />
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-eur"></i></span>
-							<h:inputText value="#{searchFlightsBean.budgetClass}"
-								styleClass="form-control" id="business_price">
-
+							<h:inputText value="#{addFlightBean.priceBusiness}"
+								styleClass="form-control" id="business_price"
+								converterMessage="#{msgs['price.needs.number']}">
+								<f:convertNumber pattern="#0.00" />
 							</h:inputText>
 						</div>
 					</div>
@@ -189,7 +174,7 @@
 						<h:message styleClass="errMessage" for="economy_available" />
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							<h:inputText value="#{searchFlightsBean.numberOfPassengers}"
+							<h:inputText value="#{addFlightBean.availableEconomy}"
 								styleClass="form-control" id="economy_available"
 								converterMessage="#{msgs['passengers.needs.number']}">
 								<f:convertNumber pattern="0" />
@@ -197,26 +182,23 @@
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label>#{msgs['price']}</label>
+						<label>#{msgs['price.per.person']}</label>
 						<h:message styleClass="errMessage" for="economy_price" />
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-eur"></i></span>
-							<h:inputText value="#{searchFlightsBean.budgetClass}"
-								styleClass="form-control" id="economy_price">
-
+							<h:inputText value="#{addFlightBean.priceEconomy}"
+								styleClass="form-control" id="economy_price"
+								converterMessage="#{msgs['price.needs.number']}">
+								<f:convertNumber pattern="#0.00" />
 							</h:inputText>
 						</div>
 					</div>
-
 				</div>
-
-
 				<br />
-
 				<!--<p:calendar id="dep_date" value="#{searchFlightsBdepartureDateDate}"/>-->
-				<h:commandButton value="#{msgs['button.search']}"
-					action="#{searchFlightsBean.search}"
-					styleClass="btn btn-primary btn-block" id="btn_search" />
+				<h:commandButton value="#{msgs['button.save']}"
+					action="#{addFlightBean.save}"
+					styleClass="btn btn-primary btn-block" id="btn_save" />
 			</h:form>
 		</div>
 	</ui:define>

@@ -1,6 +1,7 @@
 package com.realdolmen.course.service;
 
 import com.realdolmen.course.domain.Flight;
+import com.realdolmen.course.domain.User;
 import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.repository.FlightRepository;
 
@@ -29,4 +30,5 @@ public class FlightService {
     public Flight findById(Long id) {
         return flightRepository.findById(id);
     }
+    
 }

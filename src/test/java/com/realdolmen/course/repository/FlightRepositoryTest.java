@@ -98,15 +98,16 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		assertEquals((Integer)30, availableEconomy);
 	}
 	@Test
-	public void shouldGetAvailableSeatsInBusinessClass() {
+	public void shouldGetAvailableSeatsInFirstClass() {
 		Flight flight = flightRepository.findById(2L);
-		flight.bookSeats(BudgetClass.BUSINESS, 10); //originally 30, becomes 20
+		flight.bookSeats(BudgetClass.FIRST_CLASS, 15); //originally 20, becomes 5
 		flight = flightRepository.save(flight);
 		em.flush();
 		Flight flight2 = flightRepository.findById(2L);
-		Integer availableBusiness = flight2.getAvailableSeats().get(BudgetClass.BUSINESS);
-		assertEquals((Integer)10, availableBusiness);
+		Integer availableFirstClass = flight2.getAvailableSeats().get(BudgetClass.FIRST_CLASS);
+		assertEquals((Integer)5, availableFirstClass);
 	}
+	
 	@Test
 	public void updateVolumeDiscounts() {
 		Flight flight = flightRepository.findById(TEST_FLIGHT_ID);
