@@ -4,11 +4,8 @@
 
 
 $(document).ready(function() {
-	
-	$(".datepicker").datepicker({
+
+    $(".datepicker").datepicker({
         dateFormat: 'dd/mm/yy',
     });
-	
-	$('.time').bootstrapMaterialDatePicker({ date: false }
-	);
 });
