@@ -20,12 +20,11 @@ public class FlightRepository {
 	EntityManager em;	
 	
 	public Flight save(Flight flight) {
-		em.merge(flight.getCompany());
+		/*em.merge(flight.getCompany());
 		em.merge(flight.getAirportFrom());
-		em.merge(flight.getAirportTo());
-		em.merge(flight);
+		em.merge(flight.getAirportTo());*/
+		return em.merge(flight);
 		//em.flush();
-		return flight;
 	}
 	public Flight findById(Long id) {
         return em.find(Flight.class, id);

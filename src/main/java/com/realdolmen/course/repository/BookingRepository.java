@@ -30,10 +30,10 @@ public class BookingRepository {
         userRepository = ur;
     }
 
-    public Long save(Booking b){
-        userRepository.save(b.getUser());
-        em.merge(b);
-        return b.getId();
+    public Booking save(Booking b){
+        //userRepository.save(b.getUser());
+        //em.merge(b);
+        return em.merge(b);
     }
 
     public Booking findById(Long id){

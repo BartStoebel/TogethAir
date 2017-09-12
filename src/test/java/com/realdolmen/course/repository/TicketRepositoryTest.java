@@ -121,9 +121,8 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
                         )
                 )
         );
-        Long ticketID = tr.save(ticket);
-        assertNotNull("Ticket ID should not still be null after being saved", ticket.getId());
-        Ticket test = tr.findById(ticketID);
+        Ticket test = tr.save(ticket);
+        assertNotNull("Ticket ID should not still be null after being saved", test.getId());
         assertNotNull(test);
         assertNotNull(test.getPassenger());
         assertNotNull(test.getBooking());
@@ -209,9 +208,8 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
                         )
                 )
         );
-        Long ticketID = tr.save(ticket);
-        assertNotNull("Ticket ID should not still be null after being saved", ticket.getId());
-        Ticket test = tr.findById(ticketID);
+        Ticket test = tr.save(ticket);
+        assertNotNull("Ticket ID should not still be null after being saved", test.getId());
         assertNotNull(test);
         assertNotNull(test.getPassenger());
         assertNotNull(test.getBooking());

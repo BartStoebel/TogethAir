@@ -23,10 +23,9 @@ public class UserRepository {
     @PersistenceContext
     EntityManager em;
 
-    public Long save(User u){
-        if (u.getCompany() != null) em.merge(u.getCompany());
-        em.merge(u);
-        return u.getId();
+    public User save(User u){
+        //if (u.getCompany() != null) em.merge(u.getCompany());
+        return em.merge(u);
     }
 
     public User findById(Long id){

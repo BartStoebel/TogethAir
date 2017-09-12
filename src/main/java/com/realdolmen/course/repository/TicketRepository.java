@@ -40,18 +40,16 @@ public class TicketRepository {
         flightRepository = new FlightRepository();
     }*/
 
-    public Long save(Ticket ticket){
-        bookingRepository.save(ticket.getBooking());
-        flightRepository.save(ticket.getFlight());
-        em.merge(ticket);
-        em.flush();
-        return ticket.getId();
+    public Ticket save(Ticket ticket){
+        //bookingRepository.save(ticket.getBooking());
+        //flightRepository.save(ticket.getFlight());
+        return em.merge(ticket);
     }
 
     public void save(List<Ticket> tickets){
         for (Ticket ticket : tickets){
-            bookingRepository.save(ticket.getBooking());
-            flightRepository.save(ticket.getFlight());
+            //bookingRepository.save(ticket.getBooking());
+            //flightRepository.save(ticket.getFlight());
             em.merge(ticket);
         }
 
