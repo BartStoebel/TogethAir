@@ -14,6 +14,18 @@
 			<img id="backgroundimage"
 				src="../resources/images/sunset-2582699_1920.jpg" border="0" alt="" /><A></A>
 
+
+			<p:calendar value="#{searchFlightsBean.departureDate}"
+						placeholder="Departure Date"
+						pattern="dd/MM/yyyy HH:mm"/>
+
+			<f:view contentType="text/html">
+				<h:form><h:panelGroup>
+					<p:outputLabel for="date" value="Date: " />
+					<p:inputMask id="date" value="#{searchFlightsBean.from}" mask="99/99/9999"/>
+				</h:panelGroup></h:form>
+			</f:view>
+
 			<c:if test="${loggedInBean.user.role != 'AIRLINE_EMPLOYEE'}">
 				<meta http-equiv="refresh" content="0; url=login.jsf" />
 			</c:if>

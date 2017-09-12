@@ -7,12 +7,14 @@
 <h:head>
 	<meta charset="UTF-8" />
 	<title>#{msgs['page.title']}</title>
-	<h:outputScript library="jquery-2.2.1" name="jquery.js" />
+
 	<h:outputScript library="bootstrap-3.3.6" name="/js/bootstrap.js" />
 	<script src="../resources/script.js" type="text/javascript" />
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
-		type="text/javascript" />
+	<!--<script-->
+		<!--src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"-->
+		<!--type="text/javascript" />-->
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" type="text/javascript"/>-->
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" type="text/javascript"/>-->
 	<ui:insert name="customScripts" />
 	<!--<h:outputStylesheet library="bootstrap-3.3.6" name="/css/bootstrap-jsf.css"/>-->
 	<link rel="stylesheet"
@@ -24,8 +26,10 @@
 		rel="stylesheet"
 		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
 		crossorigin="anonymous" />
+	<!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>-->
 	<!--  <link href="resources/style.css" rel="stylesheet"/>  -->
 	<ui:insert name="customStylesheets" />
+	<!--<h:outputScript library="jquery-2.2.1" name="jquery.js" />-->
 	<style>
 body {
 	background-color: white;
