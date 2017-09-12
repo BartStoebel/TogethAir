@@ -2,6 +2,7 @@ package com.realdolmen.course.repository;
 
 import com.realdolmen.course.domain.Airport;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -11,6 +12,8 @@ import java.util.List;
  * Repository that will manage all instances of Airport
  * @author JBCBF07
  */
+
+@Stateless
 public class AirportRepository {
 
     @PersistenceContext

@@ -31,10 +31,10 @@ public class Ticket implements Serializable{
 	@Embedded
 	private Passenger passenger;
 
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Booking booking;
 
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Flight flight;
 	
 	@Version 

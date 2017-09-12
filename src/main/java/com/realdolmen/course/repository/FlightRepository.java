@@ -20,12 +20,11 @@ public class FlightRepository {
 	EntityManager em;	
 	
 	public Flight save(Flight flight) {
-		em.persist(flight.getCompany());
-		em.persist(flight.getAirportFrom());
-		em.persist(flight.getAirportTo());
-		em.persist(flight);
+		/*em.merge(flight.getCompany());
+		em.merge(flight.getAirportFrom());
+		em.merge(flight.getAirportTo());*/
+		return em.merge(flight);
 		//em.flush();
-		return flight;
 	}
 	public Flight findById(Long id) {
         return em.find(Flight.class, id);
@@ -74,7 +73,31 @@ public class FlightRepository {
 
 		return q.getResultList();
 	}
-	
-    
 
+	public boolean checkIfSeatsAvailable(int seats, Flight flight, BudgetClass budgetClass){
+		Query q = em.createQuery("select f from Flight f where f.id = :id", Flight.class);
+		q.setParameter("id", flight.getId());
+		Flight f = (Flight) q.getSingleResult();
+		int available = f.getAvailableSeats().get(budgetClass);
+		return available >= seats;
+	}
+
+
+	public void reserveSeats(int seats, Flight flight, BudgetClass budgetClass) {
+
+		flight.bookSeats(budgetClass, seats);
+
+		save(flight);
+
+		em.flush();
+
+	}
+
+	public void revokeSeats(int seats, Flight flight, BudgetClass budgetClass) {
+		flight.revokeSeats(budgetClass, seats);
+
+		save(flight);
+
+		em.flush();
+	}
 }

@@ -35,7 +35,7 @@ public class Booking implements Serializable {
     @Temporal(TemporalType.TIMESTAMP) @Column(nullable = false)
     private Date createdOn;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
     @Enumerated(EnumType.STRING)

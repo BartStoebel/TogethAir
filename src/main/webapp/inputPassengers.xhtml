@@ -24,7 +24,10 @@
             <c:if test="${not empty bookingBean.bookedFlight}">
                 <div class="white-text">
 
-                    <h1>Flight ${bookingBean.bookedFlight.name}: from ${bookingBean.bookedFlight.airportFrom.city} (${bookingBean.bookedFlight.airportFrom.code}) to ${bookingBean.bookedFlight.airportTo.city} (${bookingBean.bookedFlight.airportTo.code})</h1>
+                    <h1 style="margin-bottom: 0px;">#{msgs['flight']} ${bookingBean.bookedFlight.name}:
+                        from ${bookingBean.bookedFlight.airportFrom.city} (${bookingBean.bookedFlight.airportFrom.code})
+                        to ${bookingBean.bookedFlight.airportTo.city} (${bookingBean.bookedFlight.airportTo.code})</h1>
+                    <h2 style="margin-bottom: 30px;" class="white-text">${bookingBean.bookedFlight.company.name}</h2>
                     <br/><br/>
 
 
@@ -33,7 +36,7 @@
 
                         <div class="row">
 
-                            <h2>Passenger data:</h2><br/><br/>
+                            <h2>#{msgs['passenger.data']}:</h2><br/><br/>
 
 
 
@@ -42,14 +45,14 @@
                                 <h4>Passenger:</h4>
 
                                 <div class="form-group col-sm-6">
-                                    <label for="firstName">First Name:</label>
+                                    <label for="firstName">#{msgs['first.name']}:</label>
                                     <h:inputText value="#{passenger.firstName}" styleClass="form-control" id="firstName"/>
                                 </div>
 
 
 
                                 <div class="form-group col-sm-6" style="margin-bottom: 40px;">
-                                    <label for="lastName">Last Name:</label>
+                                    <label for="lastName">#{msgs['last.name']}:</label>
                                     <h:inputText value="#{passenger.lastName}" styleClass="form-control" id="lastName"/>
                                 </div>
 
@@ -60,7 +63,7 @@
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-6">
-                                    <h:commandButton value="Book Tickets" styleClass="btn btn-block btn-primary" action="test" style="margin-bottom: 35px;"/>
+                                    <h:commandButton value="#{msgs['book.tickets']}" styleClass="btn btn-block btn-primary" action="${bookingBean.bookFlight()}" style="margin-bottom: 35px;"/>
                                 </div>
                                 <div class="col-sm-3"></div>
                             </div>

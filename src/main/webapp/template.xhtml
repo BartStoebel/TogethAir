@@ -8,17 +8,20 @@
     <h:head>
         <meta charset="UTF-8"/>
         <title>#{msgs['page.title']}</title>
-        <h:outputScript library="jquery-2.2.1" name="jquery.js"/>
-        <h:outputScript library="bootstrap-3.3.6" name="/js/bootstrap.js"/>
+        <!--<h:outputScript library="jquery-2.2.1" name="jquery.js"/>-->
+        <!--<h:outputScript library="bootstrap-3.3.6" name="/js/bootstrap.js"/>-->
         <script src="resources/script.js" type="text/javascript"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"/>
-        <ui:insert name="customScripts"/>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"/>-->
+
         <!--<h:outputStylesheet library="bootstrap-3.3.6" name="/css/bootstrap-jsf.css"/>-->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+
+        <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>-->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+
+        <ui:insert name="customStylesheets"/><ui:insert name="customScripts"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
         <link href="resources/style.css" rel="stylesheet"/>
-        <ui:insert name="customStylesheets"/>
+
         <style>
             body {
                 background-color: white;
@@ -100,6 +103,23 @@
             .white-text {
                 color: white;
             }
+            .subtitle{
+                font-size: large;
+            }
+            .autoCompleteStyling{
+                border-radius: 12px;
+            }
+            .autoStyle{
+                width: 100%;
+                /*margin-left: -15px;*/
+                border-radius: 0px;
+                margin-bottom: -5px;
+            }
+            .autoInputStyle{
+                width: 100%;
+                border-radius: 0px;
+                margin: 0;
+            }
         </style>
     </h:head>
     <h:body>
@@ -122,11 +142,19 @@
                         
                         <c:if test="#{not empty loggedInBean.user}">
 
+                            <c:if test="#{not empty bookingBean.booking}">
+                                <li>
+                                    <h:link value="#{msgs['my.booking']}" outcome="booking"/>
+                                </li>
+                            </c:if>
+
                             <li>
                                 <h:commandLink action="#{loggedInBean.logout}">#{msgs['menu.logout']}: #{loggedInBean.user.firstName}</h:commandLink>
                             </li>
 
                         </c:if>
+
+
                         
                     </ul>
                 </div>

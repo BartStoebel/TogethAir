@@ -43,7 +43,7 @@ public class Flight implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date arrivalTime;
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "availableSeatsPerBudgetClass")
 	@MapKeyColumn(name = "budgetClass")
 	@Column(name = "available", nullable = false)
@@ -61,13 +61,13 @@ public class Flight implements Serializable {
 	// @Column(name = "Flight_id")
 	private Map<Integer, BigDecimal> volumeDiscounts = new HashMap();
 
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Company company;
 
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Airport airportFrom;
 
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Airport airportTo;
 
 	@Version
@@ -192,6 +192,11 @@ public class Flight implements Serializable {
 	 */
 	public void bookSeats(BudgetClass budgetClass, int count) {
 		this.availableSeats.put(budgetClass, availableSeats.get(budgetClass) - count);
+	}
+
+
+	public void revokeSeats(BudgetClass budgetClass, int count) {
+		this.availableSeats.put(budgetClass, availableSeats.get(budgetClass) + count);
 	}
 
 	/**

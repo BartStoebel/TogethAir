@@ -57,14 +57,12 @@ public class UserRepositoryTest extends AbstractPersistenceTest {
                         "This is the best airline in the world"
                 )
         );
-        Long userID = ur.save(u);
-        assertNotNull("User ID is not supposed to be null after saving", userID);
-        User test = ur.findById(userID);
+        User test = ur.save(u);
+        assertNotNull("User ID is not supposed to be null after saving", test.getId());
         assertNotNull(test);
         assertNotNull(test.getId());
         assertNotNull(test.getCompany());
         assertNotNull(test.getCompany().getId());
-        assertEquals(u.getCompany().getId(), test.getCompany().getId());
     }
 
     @Test
@@ -86,9 +84,8 @@ public class UserRepositoryTest extends AbstractPersistenceTest {
                 Role.CLIENT,
                 null
         );
-        ur.save(u);
-        assertNotNull("User ID is not supposed to be null after saving", u.getId());
-        User test = ur.findById(u.getId());
+        User test = ur.save(u);
+        assertNotNull("User ID is not supposed to be null after saving", test.getId());
         assertNotNull(test);
         assertNotNull(test.getId());
         assertNull(test.getCompany());

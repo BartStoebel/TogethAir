@@ -54,7 +54,7 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
                         "Johnny",
                         "De Smedt",
                         "password",
-                        "johnny@test.com",
+                        "johnny@test3.com",
                         new Address(
                                 "Belgium",
                                 "boekstraat",
@@ -71,9 +71,9 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
                         )),
                 BookingStatus.RESERVED
         );
-        Long bookingID = br.save(booking);
-        assertNotNull("Booking id isn't supposed to be null after saving", booking.getId());
-        Booking test = br.findById(bookingID);
+        Booking test = br.save(booking);
+        assertNotNull("Booking id isn't supposed to be null after saving", test.getId());
+        //Booking test = br.findById(bookingID);
         assertNotNull(test);
         assertNotNull(test.getUser());
         assertNotNull(test.getUser().getCompany());
@@ -92,7 +92,7 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
                         "Johnny",
                         "De Smedt",
                         "password",
-                        "johnny@test.com",
+                        "johnny@test2.com",
                         new Address(
                                 "Belgium",
                                 "boekstraat",
@@ -106,9 +106,9 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
                         null),
                 BookingStatus.RESERVED
         );
-        Long bookingID = br.save(booking);
-        assertNotNull("Booking id isn't supposed to be null after saving", booking.getId());
-        Booking test = br.findById(bookingID);
+        Booking test = br.save(booking);
+        assertNotNull("Booking id isn't supposed to be null after saving", test.getId());
+       // Booking test = br.findById(bookingID);
         assertNotNull(test);
         assertNotNull(test.getUser());
         assertNull(test.getUser().getCompany());
