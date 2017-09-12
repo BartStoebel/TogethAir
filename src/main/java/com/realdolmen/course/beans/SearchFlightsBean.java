@@ -5,10 +5,12 @@ import com.realdolmen.course.domain.Passenger;
 import com.realdolmen.course.domain.Price;
 import com.realdolmen.course.domain.VolumeDiscount;
 import com.realdolmen.course.enums.BudgetClass;
+import com.realdolmen.course.service.AirportService;
 import com.realdolmen.course.service.FlightService;
 import org.hibernate.validator.constraints.NotBlank;
 
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -35,6 +37,9 @@ public class SearchFlightsBean implements Serializable {
     @EJB
     private FlightService flightService;
 
+    @EJB
+    private AirportService airportService;
+
     @Inject
     private BookingBean bookingBean;
 
@@ -59,14 +64,29 @@ public class SearchFlightsBean implements Serializable {
     private List<Flight> flights;
     private List<Flight> returnFlights;
 
+    private List<String> autoCompletePlaces;
+
 
     private BudgetClass budgetClass;
 
 
     private BudgetClass[] budgetClasses = BudgetClass.values();
 
+    @PostConstruct
+    public void init(){
+        autoCompletePlaces = airportService.getPlaceAutoComplete();
+    }
 
     // Start methods
+
+    public List<String> completePlace(String query){
+        if (query == null || query.length() <= 0) return new ArrayList<String>();
+        List<String> auto = new ArrayList<>();
+        for (String s : autoCompletePlaces){
+            if (s.toLowerCase().contains(query.toLowerCase())) auto.add(s);
+        }
+        return auto;
+    }
 
     public String search(){
 
@@ -209,5 +229,41 @@ public class SearchFlightsBean implements Serializable {
 
     public void setReturnFlights(List<Flight> returnFlights) {
         this.returnFlights = returnFlights;
+    }
+
+    public FlightService getFlightService() {
+        return flightService;
+    }
+
+    public void setFlightService(FlightService flightService) {
+        this.flightService = flightService;
+    }
+
+    public AirportService getAirportService() {
+        return airportService;
+    }
+
+    public void setAirportService(AirportService airportService) {
+        this.airportService = airportService;
+    }
+
+    public BookingBean getBookingBean() {
+        return bookingBean;
+    }
+
+    public void setBookingBean(BookingBean bookingBean) {
+        this.bookingBean = bookingBean;
+    }
+
+    public void setBudgetClasses(BudgetClass[] budgetClasses) {
+        this.budgetClasses = budgetClasses;
+    }
+
+    public List<String> getAutoCompletePlaces() {
+        return autoCompletePlaces;
+    }
+
+    public void setAutoCompletePlaces(List<String> autoCompletePlaces) {
+        this.autoCompletePlaces = autoCompletePlaces;
     }
 }

@@ -18,20 +18,37 @@
 
                 <h1>#{msgs['index.title']}</h1>
 
+
+
+
                 <h:form>
                     <div class="row">
                         <div class="col-sm-4">
                             <label>#{msgs['from']}</label><h:message styleClass="errMessage" for="search_from"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" id="search_from" />
+                            <div class="input-group ">
+                                <span class="input-group-addon "><i class="fa fa-location-arrow"></i></span>
+                                <!--<h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" id="search_from" />-->
+                                <p:autoComplete
+                                        id="search_from"
+                                        maxResults="8"
+                                        value="#{searchFlightsBean.from}"
+                                        completeMethod="#{searchFlightsBean.completePlace}"
+                                        styleClass="autoStyle "
+                                        inputStyleClass="form-control autoInputStyle"/>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label>#{msgs['to']}</label><h:message styleClass="errMessage" for="search_to"/>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-plane"></i></span>
-                                <h:inputText value="#{searchFlightsBean.to}" styleClass="form-control"  id="search_to"/>
+                                <!--<h:inputText value="#{searchFlightsBean.to}" styleClass="form-control"  id="search_to"/>-->
+                                <p:autoComplete
+                                        id="search_to"
+                                        maxResults="8"
+                                        value="#{searchFlightsBean.to}"
+                                        completeMethod="#{searchFlightsBean.completePlace}"
+                                        styleClass="autoStyle "
+                                        inputStyleClass="form-control autoInputStyle"/>
                             </div>
                         </div>
                         <div class="col-sm-4">

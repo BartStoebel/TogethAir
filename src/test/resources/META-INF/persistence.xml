@@ -8,7 +8,7 @@
     <persistence-unit name="TogethAirPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
-        <class>com.realdolmen.course.domain.Person</class>
+        <!--<class>com.realdolmen.course.domain.Person</class>-->
         <class>com.realdolmen.course.domain.Address</class>
         <class>com.realdolmen.course.domain.User</class>
         <class>com.realdolmen.course.domain.Company</class>
