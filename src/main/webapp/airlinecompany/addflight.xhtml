@@ -42,10 +42,15 @@
 					<div class="col-sm-4">
 						<label>#{msgs['to']}</label>
 						<h:message styleClass="errMessage" for="search_to" />
+						<h:outputText id="test2" binding="#{addFlightBean.toNotCorrect}" />
+						<label><h:message styleClass="errMessage" for="test2" /></label>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-plane"></i></span>
-							<h:inputText value="#{addFlightBean.to}"
-								styleClass="form-control" id="search_to" />
+							<p:autoComplete id="search_to" maxResults="8"
+								value="#{addFlightBean.to}"
+								completeMethod="#{addFlightBean.completePlace}"
+								styleClass="autoStyle "
+								inputStyleClass="form-control autoInputStyle" />
 						</div>
 					</div>
 					<div class="col-sm-4">

@@ -188,18 +188,23 @@ public class AddFlightBean {
 		flight.setAvailableSeatsPerBudgetClass(BudgetClass.BUSINESS, availableBusiness);
 		flight.setAvailableSeatsPerBudgetClass(BudgetClass.ECONOMY, availableEconomy);
 		//set the from
-		Airport airport = airportService.findAirportByCityWithCode(from);
-		if (airport == null) {
+		Airport airportFrom = airportService.findAirportByCityWithCode(from);
+		Airport airportTo = airportService.findAirportByCityWithCode(to);
+		if (airportFrom == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 		    context.addMessage(fromNotCorrect.getClientId(), new FacesMessage("Please choose an existing airport, by typing the first letters.") );
 			return "";
 		}
+		if(airportTo == null) {
+			FacesContext context = FacesContext.getCurrentInstance();
+		    context.addMessage(toNotCorrect.getClientId(), new FacesMessage("Please choose an existing airport, by typing the first letters.") );
+			return "";
+		}
+		flight.setAirportFrom(airportFrom);
+		flight.setAirportTo(airportTo);
 		
+		flightService.save(flight);
 		
-		System.out.println(priceFirstClass);
-		System.out.println(flight.getArrivalTime());
-		System.out.println("available: " + flight.getAvailableSeats().get(BudgetClass.FIRST_CLASS));
-		//flightService.save(flight);
 		return "";
 	}
 }
