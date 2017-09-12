@@ -13,139 +13,199 @@
 
 			<img id="backgroundimage"
 				src="../resources/images/sunset-2582699_1920.jpg" border="0" alt="" /><A></A>
-				
+
 			<c:if test="${loggedInBean.user.role != 'AIRLINE_EMPLOYEE'}">
-                <meta http-equiv="refresh" content="0; url=login.jsf" />
-            </c:if>
-            
+				<meta http-equiv="refresh" content="0; url=login.jsf" />
+			</c:if>
+
 			<h1>#{msgs['addflight.title']}</h1>
 
 			<h:form>
 				<div class="row">
-                        <div class="col-sm-6">
-                            <label>#{msgs['from']}</label><h:message styleClass="errMessage" for="search_from"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                                <h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" id="search_from" />
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label>#{msgs['to']}</label><h:message styleClass="errMessage" for="search_to"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-plane"></i></span>
-                                <h:inputText value="#{searchFlightsBean.to}" styleClass="form-control"  id="search_to"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label>#{msgs['departure.date']}</label><h:message styleClass="errMessage" for="search_depart"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <h:inputText value="#{searchFlightsBean.departureDate}" styleClass="form-control datepicker" id="search_depart" converterMessage="#{msgs['please.enter.a.valid.date']}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:inputText>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label>#{msgs['return.date']}</label><h:message styleClass="errMessage" for="search_arrival"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <h:inputText value="#{searchFlightsBean.returnDate}" styleClass="form-control datepicker" id="search_arrival" converterMessage="#{msgs['please.enter.a.valid.date']}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:inputText>
-                            </div>
-                        </div>
-                        
-                        <div class="col-sm-4">
-                            <label>#{msgs['travelling.class']}</label><h:message styleClass="errMessage" for="first_class"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
-                                <h:outputText value="First class" styleClass="form-control" id="first_class">
-                                  
-                                </h:outputText>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>#{msgs['available.seats']}</label><h:message styleClass="errMessage" for="first_available"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-male"></i></span>
-                                <h:inputText value="#{searchFlightsBean.numberOfPassengers}" styleClass="form-control" id="first_available" converterMessage="#{msgs['passengers.needs.number']}">
-                                    <f:convertNumber pattern="0" />
-                                </h:inputText>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>#{msgs['price']}</label><h:message styleClass="errMessage" for="first_price"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
-                                <h:inputText value="#{searchFlightsBean.budgetClass}" styleClass="form-control" id="first_price">
-                                    
-                                </h:inputText>
-                            </div>
-                        </div>
-                    <div class="col-sm-4">
-                            <label>#{msgs['travelling.class']}</label><h:message styleClass="errMessage" for="business_class"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
-                                <h:outputText value="Business" styleClass="form-control" id="business_class">
-                                  
-                                </h:outputText>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>#{msgs['available.seats']}</label><h:message styleClass="errMessage" for="business_available"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-male"></i></span>
-                                <h:inputText value="#{searchFlightsBean.numberOfPassengers}" styleClass="form-control" id="business_available" converterMessage="#{msgs['passengers.needs.number']}">
-                                    <f:convertNumber pattern="0" />
-                                </h:inputText>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>#{msgs['price']}</label><h:message styleClass="errMessage" for="business_price"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
-                                <h:inputText value="#{searchFlightsBean.budgetClass}" styleClass="form-control" id="business_price">
-                                    
-                                </h:inputText>
-                            </div>
-                        </div>
-                    
-                    <div class="col-sm-4">
-                            <label>#{msgs['travelling.class']}</label><h:message styleClass="errMessage" for="economy_class"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
-                                <h:outputText value="Economy" styleClass="form-control" id="economy_class">
-                                  
-                                </h:outputText>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>#{msgs['available.seats']}</label><h:message styleClass="errMessage" for="economy_available"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-male"></i></span>
-                                <h:inputText value="#{searchFlightsBean.numberOfPassengers}" styleClass="form-control" id="economy_available" converterMessage="#{msgs['passengers.needs.number']}">
-                                    <f:convertNumber pattern="0" />
-                                </h:inputText>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>#{msgs['price']}</label><h:message styleClass="errMessage" for="economy_price"/>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-eur"></i></span>
-                                <h:inputText value="#{searchFlightsBean.budgetClass}" styleClass="form-control" id="economy_price">
-                                    
-                                </h:inputText>
-                            </div>
-                        </div>
-                        
-                        </div>
-                        
-                        
-                    <br/>
 
-                    <!--<p:calendar id="dep_date" value="#{searchFlightsBdepartureDateDate}"/>-->
-                    <h:commandButton value="#{msgs['button.search']}" action="#{searchFlightsBean.search}" styleClass="btn btn-primary btn-block" id="btn_search"/>
-                </h:form>
+					<div class="col-sm-4">
+						<label>#{msgs['from']}</label>
+						<h:message styleClass="errMessage" for="search_from" />
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-location-arrow"></i></span>
+							<h:inputText value="#{searchFlightsBean.from}"
+								styleClass="form-control" id="search_from" />
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['to']}</label>
+						<h:message styleClass="errMessage" for="search_to" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-plane"></i></span>
+							<h:inputText value="#{searchFlightsBean.to}"
+								styleClass="form-control" id="search_to" />
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['addflight.name']}</label>
+						<h:message styleClass="errMessage" for="flight_name" />
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-address-card-o"></i></span>
+							<h:inputText value="#{searchFlightsBean.to}"
+								styleClass="form-control" id="flight_name" />
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<label>#{msgs['departure.date']}</label>
+						<h:message styleClass="errMessage" for="departure_date" />
+						<div class="input-group">
+							<span class="input-group-addon"><span
+								class="glyphicon glyphicon-calendar"></span></span>
+							<h:inputText value="#{searchFlightsBean.departureDate}"
+								styleClass="form-control datetimepicker" id="departure_date"></h:inputText>
+
+							<!--  <h:inputText value="#{searchFlightsBean.departureDate}" styleClass="form-control datepicker" id="departure_date" converterMessage="#{msgs['please.enter.a.valid.date']}">
+                                      <f:convertDateTime pattern="dd/MM/yyyy"/>
+                               </h:inputText>
+                                </h:inputText>-->
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['departure.time']}</label>
+						<h:message styleClass="errMessage" for="departure_time" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							<h:inputText value="#{searchFlightsBean.returnDate}"
+								styleClass="form-control datepicker" id="departure_time"
+								converterMessage="#{msgs['please.enter.a.valid.date']}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:inputText>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['user.company.name']}</label>
+						<h:message styleClass="errMessage" for="company" />
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-briefcase"></i></span>
+							<h:outputText value="#{searchFlightsBean.to}"
+								styleClass="form-control" id="company">
+							</h:outputText>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<label>#{msgs['travelling.class']}</label>
+						<h:message styleClass="errMessage" for="first_class" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-eur"></i></span>
+							<h:outputText value="First class" styleClass="form-control"
+								id="first_class">
+
+							</h:outputText>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['available.seats']}</label>
+						<h:message styleClass="errMessage" for="first_available" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-male"></i></span>
+							<h:inputText value="#{searchFlightsBean.numberOfPassengers}"
+								styleClass="form-control" id="first_available"
+								converterMessage="#{msgs['passengers.needs.number']}">
+								<f:convertNumber pattern="0" />
+							</h:inputText>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['price']}</label>
+						<h:message styleClass="errMessage" for="first_price" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-eur"></i></span>
+							<h:inputText value="#{searchFlightsBean.budgetClass}"
+								styleClass="form-control" id="first_price">
+
+							</h:inputText>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['travelling.class']}</label>
+						<h:message styleClass="errMessage" for="business_class" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-eur"></i></span>
+							<h:outputText value="Business" styleClass="form-control"
+								id="business_class">
+
+							</h:outputText>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['available.seats']}</label>
+						<h:message styleClass="errMessage" for="business_available" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-male"></i></span>
+							<h:inputText value="#{searchFlightsBean.numberOfPassengers}"
+								styleClass="form-control" id="business_available"
+								converterMessage="#{msgs['passengers.needs.number']}">
+								<f:convertNumber pattern="0" />
+							</h:inputText>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['price']}</label>
+						<h:message styleClass="errMessage" for="business_price" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-eur"></i></span>
+							<h:inputText value="#{searchFlightsBean.budgetClass}"
+								styleClass="form-control" id="business_price">
+
+							</h:inputText>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<label>#{msgs['travelling.class']}</label>
+						<h:message styleClass="errMessage" for="economy_class" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-eur"></i></span>
+							<h:outputText value="Economy" styleClass="form-control"
+								id="economy_class">
+
+							</h:outputText>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['available.seats']}</label>
+						<h:message styleClass="errMessage" for="economy_available" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-male"></i></span>
+							<h:inputText value="#{searchFlightsBean.numberOfPassengers}"
+								styleClass="form-control" id="economy_available"
+								converterMessage="#{msgs['passengers.needs.number']}">
+								<f:convertNumber pattern="0" />
+							</h:inputText>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label>#{msgs['price']}</label>
+						<h:message styleClass="errMessage" for="economy_price" />
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-eur"></i></span>
+							<h:inputText value="#{searchFlightsBean.budgetClass}"
+								styleClass="form-control" id="economy_price">
+
+							</h:inputText>
+						</div>
+					</div>
+
+				</div>
+
+
+				<br />
+
+				<!--<p:calendar id="dep_date" value="#{searchFlightsBdepartureDateDate}"/>-->
+				<h:commandButton value="#{msgs['button.search']}"
+					action="#{searchFlightsBean.search}"
+					styleClass="btn btn-primary btn-block" id="btn_search" />
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>

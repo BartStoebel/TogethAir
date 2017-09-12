@@ -16,35 +16,36 @@ import com.realdolmen.course.service.UserServiceBean;
 
 /**
  * FormClass for loginScreen
+ * 
  * @author BSEBF08
  *
  */
 
 @Named
 @RequestScoped
-public class AirlineLoginBean implements Serializable{
-	
+public class AirlineLoginBean implements Serializable {
+
 	@Inject
 	private UserServiceBean userService;
-	@Inject 
+	@Inject
 	private LoggedInBean loggedInBean;
-	
+
 	private boolean userNotFound = false;
-	
-	@Email (message = "{req.email}")
-	@NotBlank (message = "{req.email}")
+
+	@Email(message = "{req.email}")
+	@NotBlank(message = "{req.email}")
 	private String email;
-	
-	@NotBlank (message = "{req.password}")
+
+	@NotBlank(message = "{req.password}")
 	@Size(max = 200, message = "{siz.password}")
 	private String password;
-	
-	//Constructor
+
+	// Constructor
 	public AirlineLoginBean() {
 		super();
 	}
-	
-	//Properties
+
+	// Properties
 	public String getEmail() {
 		return email;
 	}
@@ -60,7 +61,7 @@ public class AirlineLoginBean implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public boolean isUserNotFound() {
 		return userNotFound;
 	}
@@ -75,11 +76,11 @@ public class AirlineLoginBean implements Serializable{
 			User user = userService.findByEmail(email);
 			loggedInBean.setUser(user);
 			return "addflight";
-		} else {
-			userNotFound = true;
-			return "login";
 		}
+		userNotFound = true;
+		return "login";
 	}
+
 	public String newUser() {
 		return "userregistration";
 	}
