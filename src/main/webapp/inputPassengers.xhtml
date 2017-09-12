@@ -24,7 +24,10 @@
             <c:if test="${not empty bookingBean.bookedFlight}">
                 <div class="white-text">
 
-                    <h1>Flight ${bookingBean.bookedFlight.name}: from ${bookingBean.bookedFlight.airportFrom.city} (${bookingBean.bookedFlight.airportFrom.code}) to ${bookingBean.bookedFlight.airportTo.city} (${bookingBean.bookedFlight.airportTo.code})</h1>
+                    <h1 style="margin-bottom: 0px;">Flight ${bookingBean.bookedFlight.name}:
+                        from ${bookingBean.bookedFlight.airportFrom.city} (${bookingBean.bookedFlight.airportFrom.code})
+                        to ${bookingBean.bookedFlight.airportTo.city} (${bookingBean.bookedFlight.airportTo.code})</h1>
+                    <h2 style="margin-bottom: 30px;" class="white-text">${bookingBean.bookedFlight.company.name}</h2>
                     <br/><br/>
 
 

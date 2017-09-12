@@ -61,13 +61,13 @@ public class Flight implements Serializable {
 	// @Column(name = "Flight_id")
 	private Map<Integer, BigDecimal> volumeDiscounts = new HashMap();
 
-	@ManyToOne (cascade = CascadeType.MERGE)
+	@ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Company company;
 
-	@ManyToOne (cascade = CascadeType.MERGE)
+	@ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Airport airportFrom;
 
-	@ManyToOne (cascade = CascadeType.MERGE)
+	@ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Airport airportTo;
 
 	@Version

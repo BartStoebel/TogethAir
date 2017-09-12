@@ -54,7 +54,7 @@ public class User implements Serializable{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Company company;
 
     @Version

@@ -100,6 +100,9 @@
             .white-text {
                 color: white;
             }
+            .subtitle{
+                font-size: large;
+            }
         </style>
     </h:head>
     <h:body>
@@ -122,11 +125,19 @@
                         
                         <c:if test="#{not empty loggedInBean.user}">
 
+                            <c:if test="#{not empty bookingBean.booking}">
+                                <li>
+                                    <h:link value="My Booking" outcome="booking"/>
+                                </li>
+                            </c:if>
+
                             <li>
                                 <h:commandLink action="#{loggedInBean.logout}">#{msgs['menu.logout']}: #{loggedInBean.user.firstName}</h:commandLink>
                             </li>
 
                         </c:if>
+
+
                         
                     </ul>
                 </div>

@@ -102,7 +102,6 @@ public class SearchFlightsBean implements Serializable {
         amount = amount.subtract(discountValue);
         amount = amount.setScale(2, BigDecimal.ROUND_CEILING);
         amount = amount.multiply(BigDecimal.valueOf(numberOfPassengers));
-        //amount.subtract(amount.divide(BigDecimal.valueOf(100)).multiply(perc));
         return amount;
     }
 
@@ -113,14 +112,10 @@ public class SearchFlightsBean implements Serializable {
     }
 
     public boolean hasDiscount(Flight flight, Price price){
-        //BigDecimal amount = price.calculatePrice();
-        //BigDecimal perc = BigDecimal.ZERO;
         Integer runner = numberOfPassengers;
         while(runner > 0){
         	if (flight.getVolumeDiscounts().containsKey(runner)) {
-        		//perc = flight.getVolumeDiscounts().get(runner);
         		return true;
-        		//break;
         	}
             runner--;
         }
@@ -128,11 +123,13 @@ public class SearchFlightsBean implements Serializable {
     }
 
     public String chooseFlight(Long id, boolean logged){
+        if (bookingBean.getBooking() != null) return "alreadyhavebooking";
         bookingBean.setBookedFlight(flightService.findById(id));
         bookingBean.setPassengers(new ArrayList<>());
         for(int i = 0; i < numberOfPassengers; i++){
             bookingBean.addPassenger(new Passenger());
         }
+        bookingBean.setBudgetClass(budgetClass);
         if (logged) return "inputPassengers";
         return "login";
     }

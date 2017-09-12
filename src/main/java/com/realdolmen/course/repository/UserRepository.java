@@ -24,8 +24,8 @@ public class UserRepository {
     EntityManager em;
 
     public Long save(User u){
-        if (u.getCompany() != null) em.persist(u.getCompany());
-        em.persist(u);
+        if (u.getCompany() != null) em.merge(u.getCompany());
+        em.merge(u);
         return u.getId();
     }
 
