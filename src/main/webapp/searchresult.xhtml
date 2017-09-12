@@ -23,7 +23,7 @@
             </c:if>
             <c:if test="${not empty searchFlightsBean.from}">
                 <c:if test="${empty searchFlightsBean.flights}">
-                    <h1 style="margin-top: 50px;">No flights were found</h1>
+                    <h1 style="margin-top: 50px;" class="white-text">#{msgs['no.flights.were.found']}</h1>
                 </c:if>
 
                 <c:if test="${not empty searchFlightsBean.flights}">
@@ -46,7 +46,7 @@
                                     ${searchFlightsBean.displayDate(flight.departureTime)}
                                 </p>
                                 <p>
-                                    ${flight.availableSeats.get(searchFlightsBean.budgetClass)} seats available
+                                    ${flight.availableSeats.get(searchFlightsBean.budgetClass)} #{msgs['seats.available']}
                                 </p>
                             </div>
                             <div class="col-sm-2" >

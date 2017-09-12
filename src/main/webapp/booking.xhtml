@@ -27,7 +27,7 @@
                     to ${bookingBean.bookedFlight.airportTo.city} (${bookingBean.bookedFlight.airportTo.code})</h1>
                 <h2 style="margin-bottom: 30px;" class="white-text">${bookingBean.bookedFlight.company.name}</h2>
 
-                <p class="subtitle">Your seats for this flight have been reserved for 20 minutes. Please complete the payment before then.</p>
+                <p class="subtitle">#{msgs['your.seats.for.this.flight.have.been.reserved.for.20.minutes.please.complete.the.payment.before.then']}</p>
 
                 <div class="row" style="display: flex; align-items: center">
 
@@ -61,7 +61,7 @@
                 </div>
 
                 <h2 class="white-text">
-                    Passengers:
+                    #{msgs['passengers']}:
                 </h2>
 
                 <p class="white-text">
@@ -75,7 +75,7 @@
                 </p>
 
                 <h2 class="white-text">
-                    Payment:
+                    #{msgs['payment']}:
                 </h2>
 
                 <!--<p class="white-text subtitle">
@@ -87,15 +87,15 @@
                     <h:form>
 
                     <div class="col-sm-4" style="margin-bottom: 15px;">
-                        <h:commandButton styleClass="btn btn-block btn-primary" value="Pay with credit card" action="${bookingBean.payBooking(bookingBean.CREDIT_CARD)}"/>
+                        <h:commandButton styleClass="btn btn-block btn-primary" value="#{msgs['pay.with.credit.card']}" action="${bookingBean.payBooking(bookingBean.CREDIT_CARD)}"/>
                     </div>
 
                     <div class="col-sm-4" style="margin-bottom: 15px;">
-                        <h:commandButton styleClass="btn btn-block btn-primary" value="Pay with endorsement" action="${bookingBean.payBooking(bookingBean.ENDORSEMENT)}"/>
+                        <h:commandButton styleClass="btn btn-block btn-primary" value="#{msgs['pay.with.endorsement']}" action="${bookingBean.payBooking(bookingBean.ENDORSEMENT)}"/>
                     </div>
 
                     <div class="col-sm-4" style="margin-bottom: 15px;">
-                        <h:commandButton styleClass="btn btn-block btn-danger" value="Cancel this booking" action="${bookingBean.cancelBooking()}"/>
+                        <h:commandButton styleClass="btn btn-block btn-danger" value="#{msgs['cancel.this.booking']}" action="${bookingBean.cancelBooking()}"/>
                     </div>
 
                     </h:form>
