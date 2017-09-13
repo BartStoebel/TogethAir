@@ -24,7 +24,11 @@ public class BookingService {
     @EJB
     private BookingRepository bookingRepository;
 
-
+    /**
+     * return all bookings of a certain user
+     * @param u
+     * @return
+     */
     public List<Booking> findByUser(User u){
         return bookingRepository.findByUser(u);
     }

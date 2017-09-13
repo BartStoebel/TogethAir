@@ -22,10 +22,18 @@ public class AirportService {
 	@EJB
 	private AirportRepository airportRepository;
 
+	/**
+	 * Get all airports from database
+	 * @return
+	 */
 	public List<Airport> findAll() {
 		return airportRepository.findAll();
 	}
 
+	/**
+	 * Gets all values that can be used by autocomplete
+	 * @return
+	 */
 	public List<String> getPlaceAutoComplete() {
 		List<String> auto = new ArrayList<>();
 		List<Airport> airportList = findAll();
@@ -38,6 +46,10 @@ public class AirportService {
 		return auto;
 	}
 
+	/**
+	 * Gets all values that can be used by autocomplete
+	 * @return
+	 */
 	public List<String> getCityWithCodeAutoComplete() {
 		List<String> auto = new ArrayList<>();
 		List<Airport> airportList = findAll();
@@ -48,6 +60,11 @@ public class AirportService {
 		return auto;
 	}
 
+	/**
+	 * Return one airport found by city and code
+	 * @param cityAndCode
+	 * @return
+	 */
 	public Airport findAirportByCityWithCode(String cityAndCode) {
 		List<Airport> airports = airportRepository.findAirportsByCityWithCode(cityAndCode);
 		if (airports != null && airports.size() == 1) {
