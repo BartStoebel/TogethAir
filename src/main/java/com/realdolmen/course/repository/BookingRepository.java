@@ -32,22 +32,41 @@ public class BookingRepository {
         userRepository = ur;
     }
 
+    /**
+     * Save a booking to the database
+     * @param b
+     * @return
+     */
     public Booking save(Booking b){
         //userRepository.save(b.getUser());
         //em.merge(b);
         return em.merge(b);
     }
 
+    /**
+     * Find all bookings of a user
+     * @param u
+     * @return
+     */
     public List<Booking> findByUser(User u){
         Query q = em.createQuery("select b from Booking b join fetch b.user u where u = :u", Booking.class);
         q.setParameter("u", u);
         return q.getResultList();
     }
 
+    /**
+     * Find a booking using id
+     * @param id
+     * @return
+     */
     public Booking findById(Long id){
         return em.find(Booking.class, id);
     }
 
+    /**
+     * Return all bokkings in the database
+     * @return
+     */
     public List<Booking> findAll(){
         return em.createQuery("select b from Booking b", Booking.class).getResultList();
     }

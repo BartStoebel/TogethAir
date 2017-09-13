@@ -54,6 +54,11 @@ public class Passenger implements Serializable{
 	}
 
 	//Methods
+
+	/**
+	 * Return the last name and first name of the passenger
+	 * @return
+	 */
 	@Override
 	public String toString() {
 		return lastName + " " + firstName;

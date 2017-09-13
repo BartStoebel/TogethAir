@@ -85,6 +85,10 @@ public class LoginBean implements Serializable{
 		this.userNotFound = userNotFound;
 	}
 
+	/**
+	 * Log the user in if the user is found and the password is correct
+	 * @return
+	 */
 	public String loginUser() {
 		userNotFound = false;
 		if (userService.isUserPasswordCorrect(email, password)) {
@@ -104,6 +108,11 @@ public class LoginBean implements Serializable{
 			return "login";
 		}
 	}
+
+	/**
+	 * Navigate to userregistration.xhtml
+	 * @return
+	 */
 	public String newUser() {
 		return "userregistration";
 	}
