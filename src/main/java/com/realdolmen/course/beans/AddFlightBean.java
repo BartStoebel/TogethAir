@@ -9,11 +9,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -26,7 +29,7 @@ import com.realdolmen.course.service.AirportService;
 import com.realdolmen.course.service.FlightService;
 
 @Named
-@ConversationScoped
+@RequestScoped
 public class AddFlightBean implements Serializable {
 	@Inject
 	private AirportService airportService;
@@ -34,8 +37,8 @@ public class AddFlightBean implements Serializable {
 	private LoggedInBean loggedInBean;
 	@Inject
 	private FlightService flightService;
-	@Inject
-	private Flight flight;
+	//@Inject
+	private Flight flight = new Flight();
 
 	private List<String> autoCompletePlaces;
 	private UIComponent fromNotCorrect;
@@ -59,20 +62,20 @@ public class AddFlightBean implements Serializable {
 	@Min(0)
 	private BigDecimal priceEconomy = BigDecimal.ZERO;
 	@Min(0)
-	private Integer numberPersonsForDiscount1;
+	private Integer numberPersonsForDiscount1 = 0;
 	@Min(0)
-	private Integer numberPersonsForDiscount2;
+	private Integer numberPersonsForDiscount2 = 0;
 	@Min(0)
-	private Integer numberPersonsForDiscount3;
+	private Integer numberPersonsForDiscount3 = 0;
 	@Min(0)
-	private Integer numberPersonsForDiscount4;
-	@Min(0)
+	private Integer numberPersonsForDiscount4 = 0;
+	@Min(0) @Max(100)
 	private BigDecimal groupDiscount1 = BigDecimal.ZERO;
-	@Min(0)
+	@Min(0) @Max(100)
 	private BigDecimal groupDiscount2 = BigDecimal.ZERO;
-	@Min(0)
+	@Min(0) @Max(100)
 	private BigDecimal groupDiscount3 = BigDecimal.ZERO;
-	@Min(0)
+	@Min(0) @Max(100)
 	private BigDecimal groupDiscount4 = BigDecimal.ZERO;
 
 	// Construcor
@@ -253,8 +256,12 @@ public class AddFlightBean implements Serializable {
 		}
 		return auto;
 	}
-
-	public String addVolumeDiscount() {
+	/**
+	 * Save the flight, with all the values of addflight.xhtml
+	 * 
+	 * @return
+	 */
+	public String save() {
 		// set the company
 		flight.setCompany(loggedInBean.getUser().getCompany());
 		// set the price per budgetclass
@@ -265,6 +272,11 @@ public class AddFlightBean implements Serializable {
 		setAvailableSeatsPerBudgetClass(BudgetClass.FIRST_CLASS, availableFirstClass);
 		setAvailableSeatsPerBudgetClass(BudgetClass.BUSINESS, availableBusiness);
 		setAvailableSeatsPerBudgetClass(BudgetClass.ECONOMY, availableEconomy);
+		//add volumeDiscounts to object flight
+		addVolumeDiscount(numberPersonsForDiscount1, groupDiscount1);
+		addVolumeDiscount(numberPersonsForDiscount2, groupDiscount2);
+		addVolumeDiscount(numberPersonsForDiscount3, groupDiscount3);
+		addVolumeDiscount(numberPersonsForDiscount4, groupDiscount4);
 		// set the from
 		Airport airportFrom = airportService.findAirportByCityWithCode(from);
 		Airport airportTo = airportService.findAirportByCityWithCode(to);
@@ -282,18 +294,12 @@ public class AddFlightBean implements Serializable {
 		}
 		flight.setAirportFrom(airportFrom);
 		flight.setAirportTo(airportTo);
-
-		System.out.println("addVolumeDiscount reached");
-		return "addvolumediscount";
+		Flight save = flightService.save(flight);
+		return "login";
 	}
 
-	/**
-	 * Save the flight, with all the values of addflight.xhtml and
-	 * addValumeDiscount.xhtml
-	 * 
-	 * @return
-	 */
-	public String save() {
+	
+	/*public String save() {
 		//add volumeDiscounts to object flight
 		addVolumeDiscount(numberPersonsForDiscount1, groupDiscount1);
 		addVolumeDiscount(numberPersonsForDiscount2, groupDiscount2);
@@ -301,11 +307,8 @@ public class AddFlightBean implements Serializable {
 		addVolumeDiscount(numberPersonsForDiscount4, groupDiscount4);
 		//save the object in the database
 		Flight save = flightService.save(flight);
-		System.out.println("-------------------------" + save.getId());
-		flight = null;
-		save = null;
-		return "addVolumeDiscount";
-	}
+		return "login";
+	}*/
 
 	/**
 	 * Price can be 0. Free fligt, but we can override this price for profit
