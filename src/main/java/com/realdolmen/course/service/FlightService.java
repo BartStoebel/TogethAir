@@ -8,6 +8,7 @@ import com.realdolmen.course.repository.FlightRepository;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class FlightService {
 
 
     public List<Flight> searchForAvailableFlights(String from, String to, Integer numberOfPassengers, BudgetClass budgetClass, Date departureDate){
-        return flightRepository.searchForAvailableFlights(from, to, numberOfPassengers, budgetClass, departureDate);
+         return flightRepository.searchForAvailableFlights(from, to, numberOfPassengers, budgetClass, departureDate);
     }
 
     public Flight findById(Long id) {

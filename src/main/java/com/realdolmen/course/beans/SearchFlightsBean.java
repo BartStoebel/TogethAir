@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -92,6 +93,16 @@ public class SearchFlightsBean implements Serializable {
 
         flights = flightService.searchForAvailableFlights(from, to, numberOfPassengers, budgetClass, departureDate);
         if (returnDate != null) returnFlights = flightService.searchForAvailableFlights(to, from, numberOfPassengers, budgetClass, returnDate);
+
+        //Sorting flights
+        flights.sort(new Comparator<Flight>() {
+            @Override
+            public int compare(Flight o1, Flight o2) {
+                BigDecimal price1 = o1.getPrices().get(budgetClass).calculatePrice();
+                BigDecimal price2 = o2.getPrices().get(budgetClass).calculatePrice();
+                return price1.compareTo(price2);
+            }
+        });
 
         return "searchresult";
     }

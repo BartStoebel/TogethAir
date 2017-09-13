@@ -1,6 +1,8 @@
 package com.realdolmen.course.beans;
 
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -26,7 +28,6 @@ public class LoggedInBean implements Serializable {
 	private User user;
 
 	private List<Booking> myPastBookings;
-	private List<Ticket> myPastTickets;
 
 	@EJB private BookingService bookingService;
 	
@@ -56,14 +57,6 @@ public class LoggedInBean implements Serializable {
 		this.myPastBookings = myPastBookings;
 	}
 
-	public List<Ticket> getMyPastTickets() {
-		return myPastTickets;
-	}
-
-	public void setMyPastTickets(List<Ticket> myPastTickets) {
-		this.myPastTickets = myPastTickets;
-	}
-
 	//methods
 	public String logout() {
 		user = null;
@@ -73,6 +66,15 @@ public class LoggedInBean implements Serializable {
 
 	public String goToMyPastBookings(){
 		myPastBookings = bookingService.findByUser(user);
+		myPastBookings.sort(new Comparator<Booking>() {
+			@Override
+			public int compare(Booking o1, Booking o2) {
+				Date date1 = o1.getTickets().get(0).getFlight().getDepartureTime();
+				Date date2 = o2.getTickets().get(0).getFlight().getDepartureTime();
+
+				return date1.compareTo(date2);
+			}
+		});
 		return "pastbookings";
 	}
 
