@@ -15,10 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.jgroups.conf.PropertyConverters.FlushInvoker;
 
 import com.realdolmen.course.domain.Airport;
 import com.realdolmen.course.domain.Flight;
