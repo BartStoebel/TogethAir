@@ -10,7 +10,11 @@
 <ui:composition template="/airlinecompany/template.xhtml">
 	<ui:define name="pageContent">
 		<div id="search-box-div">
-
+		
+			<c:if test="${loggedInBean.user.role == 'AIRLINE_EMPLOYEE'}">
+				<meta http-equiv="refresh" content="0; url=addflight.xhtml" />
+			</c:if>
+			
 			<div id="bg">
 				<img src="../resources/images/boat-2692249_1920.jpg" border="0"
 					alt="" /><A></A>
