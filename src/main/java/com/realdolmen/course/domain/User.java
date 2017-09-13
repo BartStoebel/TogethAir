@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Abstract superclass for every type of user that may log into the system.
+ * Holds the information of a user. This may be a client, airline employee or TogethAir employee
  * @author JBCBF07
  */
 

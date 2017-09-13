@@ -75,6 +75,10 @@ public class Booking implements Serializable {
         return dc;
     }
 
+    /**
+     * Add a ticket to the tickets List
+     * @param t
+     */
     public void addTicket(Ticket t){
         tickets.add(t);
     }

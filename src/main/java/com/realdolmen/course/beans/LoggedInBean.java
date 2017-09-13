@@ -58,12 +58,20 @@ public class LoggedInBean implements Serializable {
 	}
 
 	//methods
+
+	/**
+	 * Log the user out
+	 * @return
+	 */
 	public String logout() {
 		user = null;
 		return "index";
 	}
 
-
+	/**
+	 * Get the bookings made by the user and navigate to the pastbookings.xhtml page to show them
+	 * @return
+	 */
 	public String goToMyPastBookings(){
 		myPastBookings = bookingService.findByUser(user);
 		myPastBookings.sort(new Comparator<Booking>() {

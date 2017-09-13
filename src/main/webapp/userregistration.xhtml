@@ -149,10 +149,20 @@
 						<div class="input-group">
 							<span class="input-group-addon"> <i class="fa fa-calendar"></i>
 							</span>
-							<h:inputText id="birthDate" type="text" class="form-control" styleClass="form-control datepicker" converterMessage="#{msgs['please.enter.a.valid.date']}" name="birthDate" value="#{userRegistrationBean.user.birthDate}" >
-								<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+							<h:inputText id="birthDate" styleClass="form-control datepicker" converterMessage="#{msgs['please.enter.a.valid.date']}" name="birthDate" value="#{userRegistrationBean.user.birthDate}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
 							</h:inputText>
 						</div>
+
+						<!--
+						<label>#{msgs['departure.date']}</label><h:message styleClass="errMessage" for="search_depart"/>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <h:inputText value="#{searchFlightsBean.departureDate}" styleClass="form-control datepicker" id="search_depart" converterMessage="#{msgs['please.enter.a.valid.date']}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>
+                            </div>
+						-->
 						
 						<label>#{msgs['user.company.name']}</label> <label><h:message
 								styleClass="errMessage" for="company" /></label>

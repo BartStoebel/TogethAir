@@ -1,5 +1,6 @@
 package com.realdolmen.course.beans;
 
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,6 +26,11 @@ import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.service.AirportService;
 import com.realdolmen.course.service.FlightService;
 
+/**
+ * Bean that is used for adding a new flight by an airline employee
+ * @author BSEBF08
+ */
+
 @Named
 @RequestScoped
 public class AddFlightBean implements Serializable {
@@ -32,15 +38,15 @@ public class AddFlightBean implements Serializable {
 	private AirportService airportService;
 	@Inject
 	private LoggedInBean loggedInBean;
+	
 	@Inject
 	private FlightService flightService;
-	//@Inject
+	
 	private Flight flight = new Flight();
-
 	private List<String> autoCompletePlaces;
 	private UIComponent fromNotCorrect;
 	private UIComponent toNotCorrect;
-	
+
 	private String saveSuccess = null;
 	private String saveFailed = null;
 
@@ -62,6 +68,8 @@ public class AddFlightBean implements Serializable {
 	@Min(0)
 	private BigDecimal priceEconomy = BigDecimal.ZERO;
 	@Min(0)
+	private int numberPersonsForDiscount;
+
 	private Integer numberPersonsForDiscount1 = 0;
 	@Min(0)
 	private Integer numberPersonsForDiscount2 = 0;
@@ -78,7 +86,7 @@ public class AddFlightBean implements Serializable {
 	@Min(0) @Max(100)
 	private BigDecimal groupDiscount4 = BigDecimal.ZERO;
 
-	// Construcor
+	// Constructor
 	public AddFlightBean() {
 		priceFirstClass.setScale(2, RoundingMode.HALF_UP);
 		priceBusiness.setScale(2, RoundingMode.HALF_UP);
@@ -262,19 +270,23 @@ public class AddFlightBean implements Serializable {
 	}
 
 	// Methods
-	public List<String> completePlace(String query) {
-		if (query == null || query.length() <= 0)
-			return new ArrayList<String>();
-		List<String> auto = new ArrayList<>();
-		for (String s : autoCompletePlaces) {
-			if (s.toLowerCase().contains(query.toLowerCase()))
-				auto.add(s);
-		}
-		return auto;
-	}
+
 	/**
-	 * Save the flight, with all the values of addflight.xhtml
-	 * 
+	 * Generates the values that must be shown in the autocomplete field
+	 * @param query
+	 * @return
+	 */
+	public List<String> completePlace(String query){
+        if (query == null || query.length() <= 0) return new ArrayList<String>();
+        List<String> auto = new ArrayList<>();
+        for (String s : autoCompletePlaces){
+            if (s.toLowerCase().contains(query.toLowerCase())) auto.add(s);
+        }
+        return auto;
+    }
+
+	/**
+	 * Save the new flight to the database
 	 * @return
 	 */
 	public String save() {
@@ -297,7 +309,7 @@ public class AddFlightBean implements Serializable {
 		Airport airportFrom = airportService.findAirportByCityWithCode(from);
 		Airport airportTo = airportService.findAirportByCityWithCode(to);
 		saveFailed = null;
-		saveSuccess = null; 
+		saveSuccess = null;
 		if (airportFrom == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(fromNotCorrect.getClientId(),
@@ -314,20 +326,18 @@ public class AddFlightBean implements Serializable {
 		flight.setAirportTo(airportTo);
 		try {
 			Flight save = flightService.save(flight);
-			saveSuccess = "Previous flight " + flight.getName() + " for date " + flight.getDepartureTime() + 
+			saveSuccess = "Previous flight " + flight.getName() + " for date " + flight.getDepartureTime() +
 					" was successful. You can now enter a new one, or log out.";
 			flight = new Flight();
 			resetValues();
 		} catch (Exception e) {
-			saveFailed = "Previous flight \"" + flight.getName() + "\" for date " + flight.getDepartureTime() + 
+			saveFailed = "Previous flight \"" + flight.getName() + "\" for date " + flight.getDepartureTime() +
 					" was NOT successful. Please contact the administrator";
 		}
 		return "";
 	}
-
 	/**
 	 * Price can be 0. Free fligt, but we can override this price for profit
-	 * 
 	 * @param budgetClass
 	 * @param pricePerBudget
 	 */
@@ -342,7 +352,7 @@ public class AddFlightBean implements Serializable {
 	/**
 	 * If the available seats for this BudgetClass are > 0, persist them in the
 	 * database
-	 * 
+	 *
 	 * @param budgetClass
 	 * @param available
 	 */
