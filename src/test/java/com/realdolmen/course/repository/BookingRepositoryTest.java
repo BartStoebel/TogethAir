@@ -236,5 +236,13 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
         assertEquals(TEST_BOOKING_PRICE.doubleValue(), booking.getFinalPrice().doubleValue(), 0.001);
     }
 
+    @Test
+    public void shouldReturnAllBookingsOfAUser(){
+        User u = ur.findById(1L);
+        List<Booking> bookings = br.findByUser(u);
+        assertNotNull(bookings);
+        assertEquals(2, bookings.size());
+    }
+
 
 }

@@ -141,6 +141,28 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		assertNotNull(flights);
 		assertEquals(1, flights.size());
 	}
+
+	@Test
+	public void shouldCheckAvailableSeats(){
+		Flight flight = flightRepository.findById(1L);
+		assertEquals(true, flightRepository.checkIfSeatsAvailable(20, flight, BudgetClass.ECONOMY));
+		assertEquals(true, flightRepository.checkIfSeatsAvailable(2, flight, BudgetClass.ECONOMY));
+		assertEquals(false, flightRepository.checkIfSeatsAvailable(21, flight, BudgetClass.ECONOMY));
+	}
+
+	@Test
+	public void shouldReserveSeats(){
+		Flight flight = flightRepository.findById(1L);
+		flightRepository.reserveSeats(10, flight, BudgetClass.ECONOMY);
+		assertEquals(Optional.of(10), Optional.of(flightRepository.findById(1L).getAvailableSeats().get(BudgetClass.ECONOMY)));
+	}
+
+	@Test
+	public void shouldRevokeSeats(){
+		Flight flight = flightRepository.findById(1L);
+		flightRepository.revokeSeats(8, flight, BudgetClass.ECONOMY);
+		assertEquals(Optional.of(28), Optional.of(flightRepository.findById(1L).getAvailableSeats().get(BudgetClass.ECONOMY)));
+	}
 	
 	
 }
