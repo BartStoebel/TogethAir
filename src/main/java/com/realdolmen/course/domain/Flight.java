@@ -197,7 +197,11 @@ public class Flight implements Serializable {
 		this.availableSeats.put(budgetClass, availableSeats.get(budgetClass) - count);
 	}
 
-
+	/**
+	 * If the booking is cancelled, the reserved seats will be released
+	 * @param budgetClass
+	 * @param count
+	 */
 	public void revokeSeats(BudgetClass budgetClass, int count) {
 		this.availableSeats.put(budgetClass, availableSeats.get(budgetClass) + count);
 	}
