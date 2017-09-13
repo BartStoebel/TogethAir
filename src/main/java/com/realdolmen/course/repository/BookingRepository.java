@@ -38,8 +38,6 @@ public class BookingRepository {
      * @return
      */
     public Booking save(Booking b){
-        //userRepository.save(b.getUser());
-        //em.merge(b);
         return em.merge(b);
     }
 

@@ -125,7 +125,6 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
         );
         Booking test = br.save(booking);
         assertNotNull("Booking id isn't supposed to be null after saving", test.getId());
-        //Booking test = br.findById(bookingID);
         assertNotNull(test);
         assertNotNull(test.getUser());
         assertNotNull(test.getUser().getCompany());
@@ -215,7 +214,6 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
         );
         Booking test = br.save(booking);
         assertNotNull("Booking id isn't supposed to be null after saving", test.getId());
-       // Booking test = br.findById(bookingID);
         assertNotNull(test);
         assertNotNull(test.getUser());
         assertNull(test.getUser().getCompany());

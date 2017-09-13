@@ -129,8 +129,6 @@ insert into booking_ticket (Booking_id, tickets_Id) VALUES (2, 2);
 insert into booking_ticket (Booking_id, tickets_Id) VALUES (3, 3);
 insert into booking_ticket (Booking_id, tickets_Id) VALUES (4, 4);
 
-# INSERT into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, flight_id, booking)
-
 
 
 

@@ -92,8 +92,6 @@ public class BookingBean implements Serializable {
                     BookingStatus.RESERVED
             );
 
-            //bookingRepository.save(booking);
-
 
 
         } else { // Seats are no longer available

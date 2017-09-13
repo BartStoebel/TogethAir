@@ -3,7 +3,7 @@ package com.realdolmen.course.utils;
 import org.mindrot.jbcrypt.*;
 
 /**
- * Author: Ian Gallagher <igallagher@securityinnovation.com>
+ * Author: Ian Gallagher igallagher@securityinnovation.com
  *
  * This code utilizes jBCrypt, which you need installed to use. jBCrypt:
  * http://www.mindrot.org/projects/jBCrypt/

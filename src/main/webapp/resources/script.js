@@ -5,13 +5,12 @@
 
 $(document).ready(function() {
 
-    $(".datepicker").datepicker({
-        dateFormat: 'dd/mm/yy',
-    });
+    $(".datepicker")
+        .datepicker({
+            dateFormat: 'dd/mm/yy'
+        })
+        .css("z-index", 3);
 
-    $(".datepicker").css("z-index", 3);
 
-    // $('#timepicker').bootstrapMaterialDatePicker({
-    //     date: false
-    // });
+
 });

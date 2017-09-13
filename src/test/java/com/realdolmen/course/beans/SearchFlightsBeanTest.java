@@ -18,9 +18,4 @@ public class SearchFlightsBeanTest extends AbstractPersistenceTest{
         bean = new SearchFlightsBean();
     }
 
-//    @Test
-//    public void shouldCalculatePriceWithoutDiscount(){
-//        bean.calcPriceWithDiscount()
-//    }
-
 }

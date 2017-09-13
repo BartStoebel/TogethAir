@@ -27,7 +27,6 @@
                             <label>#{msgs['from']}</label><h:message styleClass="errMessage" for="search_from"/>
                             <div class="input-group ">
                                 <span class="input-group-addon "><i class="fa fa-location-arrow"></i></span>
-                                <!--<h:inputText value="#{searchFlightsBean.from}" styleClass="form-control" id="search_from" />-->
                                 <p:autoComplete
                                         id="search_from"
                                         maxResults="8"
@@ -43,7 +42,6 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-plane"></i>
                                 </span>
-                                <!--<h:inputText value="#{searchFlightsBean.to}" styleClass="form-control"  id="search_to"/>-->
                                 <p:autoComplete
                                         id="search_to"
                                         maxResults="8"
@@ -94,8 +92,6 @@
                         </div>
                     </div>
                     <br/>
-
-                    <!--<p:calendar id="dep_date" value="#{searchFlightsBdepartureDateDate}"/>-->
                     <h:commandButton value="#{msgs['button.search']}" action="#{searchFlightsBean.search}" styleClass="btn btn-primary btn-block" id="btn_search"/>
                 </h:form>
 
