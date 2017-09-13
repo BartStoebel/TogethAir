@@ -1,6 +1,7 @@
 package com.realdolmen.course.service;
 
 import com.realdolmen.course.domain.Ticket;
+import com.realdolmen.course.domain.User;
 import com.realdolmen.course.repository.TicketRepository;
 
 import javax.ejb.EJB;
@@ -24,5 +25,12 @@ public class TicketService {
         ticketRepository.save(tickets);
     }
 
+    public List<Ticket> findByUser(User u){
+        return ticketRepository.findByUser(u);
+    }
 
+    public Ticket saveTicket(Ticket t) {
+        return ticketRepository.save(t);
+
+    }
 }

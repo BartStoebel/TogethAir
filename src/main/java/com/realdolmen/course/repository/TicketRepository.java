@@ -2,12 +2,14 @@ package com.realdolmen.course.repository;
 
 import com.realdolmen.course.domain.Booking;
 import com.realdolmen.course.domain.Ticket;
+import com.realdolmen.course.domain.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PostLoad;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -43,7 +45,10 @@ public class TicketRepository {
     public Ticket save(Ticket ticket){
         //bookingRepository.save(ticket.getBooking());
         //flightRepository.save(ticket.getFlight());
-        return em.merge(ticket);
+        Ticket t = em.merge(ticket);
+        em.flush();
+        return t;
+//        return em.merge(ticket);
     }
 
     public void save(List<Ticket> tickets){
@@ -51,9 +56,10 @@ public class TicketRepository {
             //bookingRepository.save(ticket.getBooking());
             //flightRepository.save(ticket.getFlight());
             em.merge(ticket);
+            em.flush();
         }
 
-        em.flush();
+
     }
 
     public Ticket findById(Long id){
@@ -64,6 +70,11 @@ public class TicketRepository {
         return em.createQuery("select t from Ticket t", Ticket.class).getResultList();
     }
 
+    public List<Ticket> findByUser(User u){
+        Query q = em.createQuery("select t from Ticket t join fetch t.booking b join fetch b.user u where u = :user", Ticket.class);
+        q.setParameter("user", u);
+        return q.getResultList();
+    }
 
 
 

@@ -4,6 +4,7 @@ import com.realdolmen.course.domain.*;
 import com.realdolmen.course.enums.BookingStatus;
 import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.enums.PaymentChoice;
+import com.realdolmen.course.repository.BookingRepository;
 import com.realdolmen.course.service.FlightService;
 import com.realdolmen.course.service.TicketService;
 import org.hibernate.Session;
@@ -15,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Past;
+import java.awt.print.Book;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -43,6 +45,8 @@ public class BookingBean implements Serializable {
 
     @EJB
     private TicketService ticketService;
+
+    @EJB private BookingRepository bookingRepository;
 
     private Flight bookedFlight;
 
@@ -74,7 +78,7 @@ public class BookingBean implements Serializable {
             // Reserved for 20 minutes!
             FacesContext.getCurrentInstance().getExternalContext().setSessionMaxInactiveInterval(20*60);
 
-            BigDecimal discountVolumePrice = searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())).subtract(searchFlightsBean.calcPriceWithoutDiscount(bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())));
+            BigDecimal discountVolumePrice = searchFlightsBean.calcPriceWithoutDiscount(bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())).subtract(searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())));
 
 
             booking = new Booking(
@@ -86,6 +90,10 @@ public class BookingBean implements Serializable {
                     loggedInBean.getUser(),
                     BookingStatus.RESERVED
             );
+
+            bookingRepository.save(booking);
+
+
 
         } else { // Seats are no longer available
 
@@ -140,7 +148,10 @@ public class BookingBean implements Serializable {
 
         }
 
-        ticketService.saveTickets(tickets);
+        for (Ticket t : tickets){
+            t.setFlight(flightService.findById(t.getFlight().getId()));
+            ticketService.saveTicket(t);
+        }
 
         booking = null;
         bookedFlight = null;

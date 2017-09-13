@@ -266,4 +266,6 @@ public class SearchFlightsBean implements Serializable {
     public void setAutoCompletePlaces(List<String> autoCompletePlaces) {
         this.autoCompletePlaces = autoCompletePlaces;
     }
+
+
 }
