@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -37,10 +38,12 @@ public class Flight implements Serializable {
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
 	private Date departureTime;
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
 	private Date arrivalTime;
 
 	@ElementCollection(fetch = FetchType.EAGER)

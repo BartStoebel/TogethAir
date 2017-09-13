@@ -54,9 +54,11 @@ public class AddFlightBean {
 	private Integer availableBusiness = 0;
 	@Min(0)
 	private Integer availableEconomy = 0;
-	
+	@Min(0)
 	private BigDecimal priceFirstClass = BigDecimal.ZERO;
+	@Min(0)
 	private BigDecimal priceBusiness = BigDecimal.ZERO;
+	@Min(0)
 	private BigDecimal priceEconomy = BigDecimal.ZERO;
 	
 	//Construcor
@@ -174,19 +176,13 @@ public class AddFlightBean {
 		//set the company
 		flight.setCompany(loggedInBean.getUser().getCompany());
 		//set the price per budgetclass
-		Price price = new Price();
-		price.setBase(priceFirstClass);
-		flight.setPricePerBudgetClass(BudgetClass.FIRST_CLASS, price);
-		price = new Price();
-		price.setBase(priceEconomy);
-		flight.setPricePerBudgetClass(BudgetClass.ECONOMY, price);
-		price = new Price();
-		price.setBase(priceBusiness);
-		flight.setPricePerBudgetClass(BudgetClass.BUSINESS, price);
+		setPricePerBudgetClass(BudgetClass.FIRST_CLASS, priceFirstClass);
+		setPricePerBudgetClass(BudgetClass.ECONOMY, priceEconomy);
+		setPricePerBudgetClass(BudgetClass.BUSINESS, priceBusiness);
 		//set the availableSeats per budgetclass
-		flight.setAvailableSeatsPerBudgetClass(BudgetClass.FIRST_CLASS, availableFirstClass);
-		flight.setAvailableSeatsPerBudgetClass(BudgetClass.BUSINESS, availableBusiness);
-		flight.setAvailableSeatsPerBudgetClass(BudgetClass.ECONOMY, availableEconomy);
+		setAvailableSeatsPerBudgetClass(BudgetClass.FIRST_CLASS, availableFirstClass);
+		setAvailableSeatsPerBudgetClass(BudgetClass.BUSINESS, availableBusiness);
+		setAvailableSeatsPerBudgetClass(BudgetClass.ECONOMY, availableEconomy);
 		//set the from
 		Airport airportFrom = airportService.findAirportByCityWithCode(from);
 		Airport airportTo = airportService.findAirportByCityWithCode(to);
@@ -206,5 +202,27 @@ public class AddFlightBean {
 		flightService.save(flight);
 		
 		return "";
+	}
+	/**
+	 * Price can be 0. Free fligt, but we can override this price for profit
+	 * @param budgetClass
+	 * @param pricePerBudget
+	 */
+	public void setPricePerBudgetClass(BudgetClass budgetClass, BigDecimal pricePerBudget) {
+		if (pricePerBudget.compareTo(BigDecimal.ZERO) == 1 || pricePerBudget.compareTo(BigDecimal.ZERO) == 0) {
+			Price price = new Price();
+			price.setBase(pricePerBudget);
+			flight.setPricePerBudgetClass(budgetClass, price);
+		}
+	}
+	/**
+	 * If the available seats for this BudgetClass are > 0, persist them in the database
+	 * @param budgetClass
+	 * @param available
+	 */
+	public void setAvailableSeatsPerBudgetClass(BudgetClass budgetClass, int available) {
+		if (available > 0) {
+			flight.setAvailableSeatsPerBudgetClass(budgetClass, available);
+		}		
 	}
 }
