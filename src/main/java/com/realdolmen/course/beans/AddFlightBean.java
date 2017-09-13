@@ -7,11 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -43,6 +40,9 @@ public class AddFlightBean implements Serializable {
 	private List<String> autoCompletePlaces;
 	private UIComponent fromNotCorrect;
 	private UIComponent toNotCorrect;
+	
+	private String saveSuccess = null;
+	private String saveFailed = null;
 
 	@NotBlank
 	private String from;
@@ -95,6 +95,14 @@ public class AddFlightBean implements Serializable {
 
 	public Flight getFlight() {
 		return flight;
+	}
+
+	public String getSaveFailed() {
+		return saveFailed;
+	}
+
+	public void setSaveFailed(String saveFailed) {
+		this.saveFailed = saveFailed;
 	}
 
 	public int getNumberPersonsForDiscount2() {
@@ -245,6 +253,14 @@ public class AddFlightBean implements Serializable {
 		this.toNotCorrect = toNotCorrect;
 	}
 
+	public String getSaveSuccess() {
+		return saveSuccess;
+	}
+
+	public void setSaveSuccess(String saveSuccess) {
+		this.saveSuccess = saveSuccess;
+	}
+
 	// Methods
 	public List<String> completePlace(String query) {
 		if (query == null || query.length() <= 0)
@@ -280,6 +296,8 @@ public class AddFlightBean implements Serializable {
 		// set the from
 		Airport airportFrom = airportService.findAirportByCityWithCode(from);
 		Airport airportTo = airportService.findAirportByCityWithCode(to);
+		saveFailed = null;
+		saveSuccess = null; 
 		if (airportFrom == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(fromNotCorrect.getClientId(),
@@ -294,21 +312,18 @@ public class AddFlightBean implements Serializable {
 		}
 		flight.setAirportFrom(airportFrom);
 		flight.setAirportTo(airportTo);
-		Flight save = flightService.save(flight);
-		return "login";
+		try {
+			Flight save = flightService.save(flight);
+			saveSuccess = "Previous flight " + flight.getName() + " for date " + flight.getDepartureTime() + 
+					" was successful. You can now enter a new one, or log out.";
+			flight = new Flight();
+			resetValues();
+		} catch (Exception e) {
+			saveFailed = "Previous flight \"" + flight.getName() + "\" for date " + flight.getDepartureTime() + 
+					" was NOT successful. Please contact the administrator";
+		}
+		return "";
 	}
-
-	
-	/*public String save() {
-		//add volumeDiscounts to object flight
-		addVolumeDiscount(numberPersonsForDiscount1, groupDiscount1);
-		addVolumeDiscount(numberPersonsForDiscount2, groupDiscount2);
-		addVolumeDiscount(numberPersonsForDiscount3, groupDiscount3);
-		addVolumeDiscount(numberPersonsForDiscount4, groupDiscount4);
-		//save the object in the database
-		Flight save = flightService.save(flight);
-		return "login";
-	}*/
 
 	/**
 	 * Price can be 0. Free fligt, but we can override this price for profit
@@ -340,5 +355,27 @@ public class AddFlightBean implements Serializable {
 		if(numberOfPersons > 0) {
 			flight.addVolumeDiscount(numberOfPersons, groupDiscount);
 		}
+	}
+	public void resetValues() {
+		fromNotCorrect = null;
+		toNotCorrect = null;
+
+		from = "";
+		to = "";
+
+		availableFirstClass = 0;
+		availableBusiness = 0;
+		availableEconomy = 0;
+		priceFirstClass = BigDecimal.ZERO;
+		priceBusiness = BigDecimal.ZERO;
+		priceEconomy = BigDecimal.ZERO;
+		numberPersonsForDiscount1 = 0;
+		numberPersonsForDiscount2 = 0;
+		numberPersonsForDiscount3 = 0;
+		numberPersonsForDiscount4 = 0;
+		groupDiscount1 = BigDecimal.ZERO;
+		groupDiscount2 = BigDecimal.ZERO;
+		groupDiscount3 = BigDecimal.ZERO;
+		groupDiscount4 = BigDecimal.ZERO;
 	}
 }

@@ -21,6 +21,17 @@
 
 			<h1>#{msgs['addflight.title']}</h1>
 
+			<div id="save-success">
+				<c:if test="#{not empty addFlightBean.saveSuccess}">
+					<label >#{addFlightBean.saveSuccess}</label>
+				</c:if>
+			</div>
+			<div id="save-failed">
+				<c:if test="#{not empty addFlightBean.saveFailed}">
+					<label >#{addFlightBean.saveFailed}</label>
+				</c:if>
+			</div>
+
 			<h:form>
 				<div class="row">
 					<div class="col-sm-4">
@@ -300,7 +311,7 @@
 							</h:inputText>
 						</div>
 					</div>
-					
+
 				</div>
 				<br />
 				<!--<p:calendar id="dep_date" value="#{searchFlightsBdepartureDateDate}"/>-->
