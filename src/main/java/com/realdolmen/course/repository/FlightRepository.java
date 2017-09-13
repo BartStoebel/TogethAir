@@ -17,8 +17,13 @@ import javax.persistence.Query;
 public class FlightRepository {
 	
 	@PersistenceContext
-	EntityManager em;	
-	
+	EntityManager em;
+
+	/**
+	 * Save the flight to the database
+	 * @param flight
+	 * @return
+	 */
 	public Flight save(Flight flight) {
 		/*em.merge(flight.getCompany());
 		em.merge(flight.getAirportFrom());
@@ -26,20 +31,43 @@ public class FlightRepository {
 		return em.merge(flight);
 		//em.flush();
 	}
+
+	/**
+	 * Return a flight using the id
+	 * @param id
+	 * @return
+	 */
 	public Flight findById(Long id) {
         return em.find(Flight.class, id);
     }
 
-    public List<Flight> findAll() {
+	/**
+	 * Return all flights in the database
+	 * @return
+	 */
+	public List<Flight> findAll() {
         return em.createQuery("select f from Flight f", Flight.class).getResultList();
     }
 
-    public void remove(long flightId) {
+	/**
+	 * Delete a flight from the database
+	 * @param flightId
+	 */
+	public void remove(long flightId) {
         //logger.info("Removing flight with id " + flightId);
 		// TODO fix cascading manually OR keep flight for archiving
         em.remove(em.getReference(Flight.class, flightId));
     }
 
+	/**
+	 * Return all flights that match the given parameters
+	 * @param from
+	 * @param to
+	 * @param numberOfPassengers
+	 * @param budgetClass
+	 * @param departureDate
+	 * @return
+	 */
 	public List<Flight> searchForAvailableFlights(String from, String to, Integer numberOfPassengers, BudgetClass budgetClass, Date departureDate){
 
 //		Date startDepDate = departureDate;
@@ -74,6 +102,13 @@ public class FlightRepository {
 		return q.getResultList();
 	}
 
+	/**
+	 * Check if a certain amount of seats are still available on the flight
+	 * @param seats
+	 * @param flight
+	 * @param budgetClass
+	 * @return
+	 */
 	public boolean checkIfSeatsAvailable(int seats, Flight flight, BudgetClass budgetClass){
 		Query q = em.createQuery("select f from Flight f where f.id = :id", Flight.class);
 		q.setParameter("id", flight.getId());
@@ -82,7 +117,12 @@ public class FlightRepository {
 		return available >= seats;
 	}
 
-
+	/**
+	 * Make an amount of seats unavailable in the database
+	 * @param seats
+	 * @param flight
+	 * @param budgetClass
+	 */
 	public void reserveSeats(int seats, Flight flight, BudgetClass budgetClass) {
 
 		flight.bookSeats(budgetClass, seats);
@@ -93,6 +133,12 @@ public class FlightRepository {
 
 	}
 
+	/**
+	 * Make an amount of seats available again in the database
+	 * @param seats
+	 * @param flight
+	 * @param budgetClass
+	 */
 	public void revokeSeats(int seats, Flight flight, BudgetClass budgetClass) {
 		flight.revokeSeats(budgetClass, seats);
 

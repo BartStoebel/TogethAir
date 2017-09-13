@@ -19,24 +19,49 @@ public class AirportRepository {
     @PersistenceContext
     EntityManager em;
 
+    /**
+     * Save an airport to the database
+     * @param a
+     * @return
+     */
     public Long save(Airport a){
         em.persist(a);
         return a.getId();
     }
 
+    /**
+     * Find an airport using the id
+     * @param id
+     * @return
+     */
     public Airport findById(Long id){
         return em.find(Airport.class, id);
     }
 
+    /**
+     * Return all airports in the database
+     * @return
+     */
     public List<Airport> findAll(){
         return em.createQuery("select a from Airport a order by a.region, a.country, a.city, a.name", Airport.class).getResultList();
     }
 
+    /**
+     * Return all airports that have a city or country like param
+     * @param param
+     * @return
+     */
     public List<Airport> findAllWithCityOrCountryLike(String param){
         Query q = em.createQuery("select a from Airport a where a.city LIKE :param OR a.country LIKE :param order by a.region, a.country, a.city, a.name", Airport.class);
         q.setParameter("param", "%" + param + "%");
         return q.getResultList();
     }
+
+    /**
+     * Return all airports that have a city and code like cityAndCode
+     * @param cityAndCode
+     * @return
+     */
     public List<Airport> findAirportsByCityWithCode(String cityAndCode) {
     	if (cityAndCode.contains("(")) {
     		String[] parts = cityAndCode.split("\\(");
