@@ -67,33 +67,33 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
                         "Joris",
                         "Boschmans"
                 ),
-                new Booking(
-                        BigDecimal.valueOf(112),
-                        BigDecimal.valueOf(11.2),
-                        BigDecimal.valueOf(5.2),
-                        PaymentChoice.CREDIT_CARD,
-                        new Date(),
-                        new User(
-                                "Johnny",
-                                "De Smedt",
-                                "password",
-                                "johnny@test.com",
-                                new Address(
-                                        "Belgium",
-                                        "boekstraat",
-                                        "25",
-                                        "Antwerpen",
-                                        "2000"
-                                ),
-                                "+326598875421",
-                                DateUtils.createDate("1990-12-12 12:12:12"),
-                                Role.CLIENT,
-                                new Company(
-                                        "FlightAirlines",
-                                        "This is the best airline in the world"
-                                )),
-                        BookingStatus.RESERVED
-                ),
+//                new Booking(
+//                        BigDecimal.valueOf(112),
+//                        BigDecimal.valueOf(11.2),
+//                        BigDecimal.valueOf(5.2),
+//                        PaymentChoice.CREDIT_CARD,
+//                        new Date(),
+//                        new User(
+//                                "Johnny",
+//                                "De Smedt",
+//                                "password",
+//                                "johnny@test.com",
+//                                new Address(
+//                                        "Belgium",
+//                                        "boekstraat",
+//                                        "25",
+//                                        "Antwerpen",
+//                                        "2000"
+//                                ),
+//                                "+326598875421",
+//                                DateUtils.createDate("1990-12-12 12:12:12"),
+//                                Role.CLIENT,
+//                                new Company(
+//                                        "FlightAirlines",
+//                                        "This is the best airline in the world"
+//                                )),
+//                        BookingStatus.RESERVED
+//                ),
                 new Flight(
                         "AH47",
                         DateUtils.createDate("2016-01-01 00:00"),
@@ -125,9 +125,9 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
         assertNotNull("Ticket ID should not still be null after being saved", test.getId());
         assertNotNull(test);
         assertNotNull(test.getPassenger());
-        assertNotNull(test.getBooking());
-        assertNotNull(test.getBooking().getUser());
-        assertNotNull(test.getBooking().getUser().getCompany());
+//        assertNotNull(test.getBooking());
+//        assertNotNull(test.getBooking().getUser());
+//        assertNotNull(test.getBooking().getUser().getCompany());
         assertNotNull(test.getFlight());
         assertNotNull(test.getFlight().getCompany());
     }
@@ -156,31 +156,31 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
                         "Joris",
                         "Boschmans"
                 ),
-                new Booking(
-                        BigDecimal.valueOf(112),
-                        BigDecimal.valueOf(11.2),
-                        BigDecimal.valueOf(5.2),
-                        PaymentChoice.CREDIT_CARD,
-                        new Date(),
-                        new User(
-                                "Johnny",
-                                "De Smedt",
-                                "password",
-                                "johnny@test.com",
-                                new Address(
-                                        "Belgium",
-                                        "boekstraat",
-                                        "25",
-                                        "Antwerpen",
-                                        "2000"
-                                ),
-                                "+326598875421",
-                                DateUtils.createDate("1990-12-12 12:12:12"),
-                                Role.CLIENT,
-                                null
-                        ),
-                        BookingStatus.RESERVED
-                ),
+//                new Booking(
+//                        BigDecimal.valueOf(112),
+//                        BigDecimal.valueOf(11.2),
+//                        BigDecimal.valueOf(5.2),
+//                        PaymentChoice.CREDIT_CARD,
+//                        new Date(),
+//                        new User(
+//                                "Johnny",
+//                                "De Smedt",
+//                                "password",
+//                                "johnny@test.com",
+//                                new Address(
+//                                        "Belgium",
+//                                        "boekstraat",
+//                                        "25",
+//                                        "Antwerpen",
+//                                        "2000"
+//                                ),
+//                                "+326598875421",
+//                                DateUtils.createDate("1990-12-12 12:12:12"),
+//                                Role.CLIENT,
+//                                null
+//                        ),
+//                        BookingStatus.RESERVED
+//                ),
                 new Flight(
                         "AH47",
                         DateUtils.createDate("2016-01-01 00:00"),
@@ -212,9 +212,9 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
         assertNotNull("Ticket ID should not still be null after being saved", test.getId());
         assertNotNull(test);
         assertNotNull(test.getPassenger());
-        assertNotNull(test.getBooking());
-        assertNotNull(test.getBooking().getUser());
-        assertNull(test.getBooking().getUser().getCompany());
+//        assertNotNull(test.getBooking());
+//        assertNotNull(test.getBooking().getUser());
+//        assertNull(test.getBooking().getUser().getCompany());
         assertNotNull(test.getFlight());
         assertNotNull(test.getFlight().getCompany());
     }
@@ -227,10 +227,10 @@ public class TicketRepositoryTest extends AbstractPersistenceTest {
         assertNotNull(t.getPassenger());
         assertNotNull(t.getFlight());
         assertNotNull(t.getFlight().getCompany());
-        assertNotNull(t.getBooking());
-        assertNotNull(t.getBooking().getUser());
-        assertNotNull(t.getBooking().getUser().getCompany());
-        assertEquals("Air France", t.getBooking().getUser().getCompany().getName());
+//        assertNotNull(t.getBooking());
+//        assertNotNull(t.getBooking().getUser());
+//        assertNotNull(t.getBooking().getUser().getCompany());
+//        assertEquals("Air France", t.getBooking().getUser().getCompany().getName());
         assertEquals("BB17", t.getFlight().getName());
     }
 

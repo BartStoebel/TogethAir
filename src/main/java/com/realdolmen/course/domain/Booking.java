@@ -8,6 +8,7 @@ import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Booking objects will be the complete booking of one user. This will have 1 payment but possibly more tickets.
@@ -38,6 +39,9 @@ public class Booking implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
+    @OneToMany (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<Ticket> tickets;
+
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
 
@@ -47,16 +51,16 @@ public class Booking implements Serializable {
     public Booking() {
     }
 
-    public Booking(BigDecimal finalPrice, BigDecimal discountVolume, BigDecimal discountCC, PaymentChoice paymentChoice, Date createdOn, User user, BookingStatus bookingStatus) {
+    public Booking(BigDecimal finalPrice, BigDecimal discountVolume, BigDecimal discountCC, PaymentChoice paymentChoice, Date createdOn, User user, List<Ticket> tickets, BookingStatus bookingStatus) {
         this.finalPrice = finalPrice;
         this.discountVolume = discountVolume;
         this.discountCC = discountCC;
         this.paymentChoice = paymentChoice;
         this.createdOn = createdOn;
         this.user = user;
+        this.tickets = tickets;
         this.bookingStatus = bookingStatus;
     }
-
 
     // Start Methods
 
@@ -71,8 +75,20 @@ public class Booking implements Serializable {
         return dc;
     }
 
+    public void addTicket(Ticket t){
+        tickets.add(t);
+    }
+
     // End Methods
 
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
 
     public void setBookingStatus(BookingStatus bookingStatus) {
         this.bookingStatus = bookingStatus;

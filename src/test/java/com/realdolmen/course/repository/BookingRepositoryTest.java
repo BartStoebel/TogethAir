@@ -1,11 +1,9 @@
 package com.realdolmen.course.repository;
 
 import com.realdolmen.course.AbstractPersistenceTest;
-import com.realdolmen.course.domain.Address;
-import com.realdolmen.course.domain.Booking;
-import com.realdolmen.course.domain.Company;
-import com.realdolmen.course.domain.User;
+import com.realdolmen.course.domain.*;
 import com.realdolmen.course.enums.BookingStatus;
+import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.enums.PaymentChoice;
 import com.realdolmen.course.enums.Role;
 import com.realdolmen.course.utils.DateUtils;
@@ -15,8 +13,7 @@ import org.junit.Test;
 import javax.inject.Inject;
 import javax.persistence.PostLoad;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -44,6 +41,60 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
 
     @Test
     public void shouldSaveBookingWithUserWithCompany(){
+        Map<BudgetClass, Integer> availableSeats = new HashMap<>();
+        availableSeats.put(BudgetClass.ECONOMY, 12);
+        availableSeats.put(BudgetClass.BUSINESS, 12);
+        Map<BudgetClass, Price> prices = new HashMap<>();
+        prices.put(BudgetClass.ECONOMY, new Price(
+                BigDecimal.TEN,
+                BigDecimal.ONE,
+                null
+        ));
+        prices.put(BudgetClass.BUSINESS, new Price(
+                BigDecimal.TEN,
+                null,
+                BigDecimal.ONE
+        ));
+        Map<Integer, BigDecimal> volDiscounts = new HashMap<>();
+        volDiscounts.put(2, BigDecimal.ONE);
+        volDiscounts.put(8, BigDecimal.TEN);
+
+        List<Ticket> ticketList = new ArrayList<>();
+        ticketList.add(new Ticket(
+                BigDecimal.TEN,
+                BudgetClass.BUSINESS,
+                new Passenger(
+                        "Joris",
+                        "Boschmans"
+                ),
+                new Flight(
+                        "New Flight",
+                        new Date(),
+                        new Date(),
+                        availableSeats,
+                        prices,
+                        volDiscounts,
+                        new Company(
+                                "new Company",
+                                "Best company ever"
+                        ),
+                        new Airport(
+                                "Dubai Central",
+                                "UAE",
+                                "Asia",
+                                "DAI",
+                                "Dubai"
+                        ),
+                        new Airport(
+                                "Dubai Central",
+                                "UAE",
+                                "Asia",
+                                "DAI",
+                                "Dubai"
+                        )
+                )
+        ));
+
         Booking booking = new Booking(
                 BigDecimal.valueOf(112),
                 BigDecimal.valueOf(11.2),
@@ -69,6 +120,7 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
                                 "FlightAirlines",
                                 "This is the best airline in the world"
                         )),
+                ticketList,
                 BookingStatus.RESERVED
         );
         Booking test = br.save(booking);
@@ -82,6 +134,60 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
 
     @Test
     public void shouldSaveBookingWithUserWithNoCompany(){
+        Map<BudgetClass, Integer> availableSeats = new HashMap<>();
+        availableSeats.put(BudgetClass.ECONOMY, 12);
+        availableSeats.put(BudgetClass.BUSINESS, 12);
+        Map<BudgetClass, Price> prices = new HashMap<>();
+        prices.put(BudgetClass.ECONOMY, new Price(
+                BigDecimal.TEN,
+                BigDecimal.ONE,
+                null
+        ));
+        prices.put(BudgetClass.BUSINESS, new Price(
+                BigDecimal.TEN,
+                null,
+                BigDecimal.ONE
+        ));
+        Map<Integer, BigDecimal> volDiscounts = new HashMap<>();
+        volDiscounts.put(2, BigDecimal.ONE);
+        volDiscounts.put(8, BigDecimal.TEN);
+
+        List<Ticket> ticketList = new ArrayList<>();
+        ticketList.add(new Ticket(
+                BigDecimal.TEN,
+                BudgetClass.BUSINESS,
+                new Passenger(
+                        "Joris",
+                        "Boschmans"
+                ),
+                new Flight(
+                        "New Flight",
+                        new Date(),
+                        new Date(),
+                        availableSeats,
+                        prices,
+                        volDiscounts,
+                        new Company(
+                                "new Company",
+                                "Best company ever"
+                        ),
+                        new Airport(
+                                "Dubai Central",
+                                "UAE",
+                                "Asia",
+                                "DAI",
+                                "Dubai"
+                        ),
+                        new Airport(
+                                "Dubai Central",
+                                "UAE",
+                                "Asia",
+                                "DAI",
+                                "Dubai"
+                        )
+                )
+        ));
+
         Booking booking = new Booking(
                 BigDecimal.valueOf(112),
                 BigDecimal.valueOf(11.2),
@@ -104,6 +210,7 @@ public class BookingRepositoryTest extends AbstractPersistenceTest {
                         DateUtils.createDate("1990-12-12 12:12:12"),
                         Role.CLIENT,
                         null),
+                ticketList,
                 BookingStatus.RESERVED
         );
         Booking test = br.save(booking);

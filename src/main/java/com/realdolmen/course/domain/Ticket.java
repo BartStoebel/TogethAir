@@ -31,10 +31,7 @@ public class Ticket implements Serializable{
 	@Embedded
 	private Passenger passenger;
 
-	@ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	private Booking booking;
-
-	@ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToOne (/*cascade = CascadeType.MERGE, */fetch = FetchType.EAGER)
 	private Flight flight;
 	
 	@Version 
@@ -44,11 +41,10 @@ public class Ticket implements Serializable{
 	public Ticket() {
 	}
 
-	public Ticket(BigDecimal ticketPrice, BudgetClass budgetClass, Passenger passenger, Booking booking, Flight flight) {
+	public Ticket(BigDecimal ticketPrice, BudgetClass budgetClass, Passenger passenger, Flight flight) {
 		this.ticketPrice = ticketPrice;
 		this.budgetClass = budgetClass;
 		this.passenger = passenger;
-		this.booking = booking;
 		this.flight = flight;
 	}
 
@@ -83,14 +79,6 @@ public class Ticket implements Serializable{
 
 	public Integer getVersion() {
 		return version;
-	}
-
-	public Booking getBooking() {
-		return booking;
-	}
-
-	public void setBooking(Booking booking) {
-		this.booking = booking;
 	}
 
 	public Flight getFlight() {

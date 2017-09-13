@@ -80,6 +80,7 @@ public class BookingBean implements Serializable {
 
             BigDecimal discountVolumePrice = searchFlightsBean.calcPriceWithoutDiscount(bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())).subtract(searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())));
 
+            List<Ticket> ticketList = new ArrayList<>();
 
             booking = new Booking(
                     searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())),
@@ -88,10 +89,11 @@ public class BookingBean implements Serializable {
                     null,
                     new Date(),
                     loggedInBean.getUser(),
+                    ticketList,
                     BookingStatus.RESERVED
             );
 
-            bookingRepository.save(booking);
+            //bookingRepository.save(booking);
 
 
 
@@ -142,16 +144,13 @@ public class BookingBean implements Serializable {
                     ticketPrice,
                     budgetClass,
                     passenger,
-                    booking,
                     flightService.findById(bookedFlight.getId())
             ));
 
         }
 
-        for (Ticket t : tickets){
-            t.setFlight(flightService.findById(t.getFlight().getId()));
-            ticketService.saveTicket(t);
-        }
+        booking.setTickets(tickets);
+        bookingRepository.save(booking);
 
         booking = null;
         bookedFlight = null;

@@ -77,7 +77,6 @@ public class LoggedInBean implements Serializable {
 
 	public String goToMyPastBookings(){
 		myPastBookings = bookingService.findByUser(user);
-		myPastTickets = ticketService.findByUser(user);
 		return "pastbookings";
 	}
 
