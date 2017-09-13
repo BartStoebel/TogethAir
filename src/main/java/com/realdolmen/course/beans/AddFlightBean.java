@@ -1,6 +1,7 @@
 package com.realdolmen.course.beans;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import com.realdolmen.course.service.FlightService;
 
 @Named
 @RequestScoped
-public class AddFlightBean {
+public class AddFlightBean implements Serializable {
 	@Inject
 	private AirportService airportService;
 	@Inject
@@ -60,6 +61,9 @@ public class AddFlightBean {
 	private BigDecimal priceBusiness = BigDecimal.ZERO;
 	@Min(0)
 	private BigDecimal priceEconomy = BigDecimal.ZERO;
+	@Min(0)
+	private int numberPersonsForDiscount;
+	
 	
 	//Construcor
 	public AddFlightBean() {
@@ -74,8 +78,18 @@ public class AddFlightBean {
         autoCompletePlaces = airportService.getCityWithCodeAutoComplete();
     }
 
+	//Properties
+	
 	public Flight getFlight() {
 		return flight;
+	}
+
+	public int getNumberPersonsForDiscount() {
+		return numberPersonsForDiscount;
+	}
+
+	public void setNumberPersonsForDiscount(int numberPersonsForDiscount) {
+		this.numberPersonsForDiscount = numberPersonsForDiscount;
 	}
 
 	public void setFlight(Flight flight) {
@@ -201,7 +215,7 @@ public class AddFlightBean {
 		
 		flightService.save(flight);
 		
-		return "";
+		return "addVolumeDiscount";
 	}
 	/**
 	 * Price can be 0. Free fligt, but we can override this price for profit
