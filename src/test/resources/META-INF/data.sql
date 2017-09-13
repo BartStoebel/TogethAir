@@ -122,10 +122,12 @@ insert into discountpervolume(Flight_id, volumeDiscounts, minPeople) values (10,
 insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version,  flight_id) VALUES (1, 'ECONOMY', 'Joris', 'Boschmans', 125.20, 1, 1);
 insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version,  flight_id) VALUES (2, 'FIRST_CLASS', 'John', 'De Smedt', 1200, 1, 2);
 insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version,  flight_id) VALUES (3, 'BUSINESS', 'Teofiel', 'Tester', 125.20, 1, 3);
+insert into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version,  flight_id) VALUES (4, 'BUSINESS', 'Johnny', 'Tester', 125.20, 1, 3);
 
 insert into booking_ticket (Booking_id, tickets_Id) VALUES (1, 1);
 insert into booking_ticket (Booking_id, tickets_Id) VALUES (2, 2);
 insert into booking_ticket (Booking_id, tickets_Id) VALUES (3, 3);
+insert into booking_ticket (Booking_id, tickets_Id) VALUES (4, 4);
 
 # INSERT into ticket(Id, budgetClass, firstName, lastName, ticketPrice, version, flight_id, booking)
 

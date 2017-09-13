@@ -29,16 +29,14 @@
                 <c:forEach items="${loggedInBean.myPastBookings}" var="booking">
 
                     <p class="subtitle-large">
-                        <i class="fa fa-plane"/> ${loggedInBean.myPastTickets.get(0).flight.airportFrom.city} (${loggedInBean.myPastTickets.get(0).flight.airportFrom.code}) <i class="fa fa-arrow-right"/> ${loggedInBean.myPastTickets.get(0).flight.airportTo.city} (${loggedInBean.myPastTickets.get(0).flight.airportTo.code}):<br/>
-                        ${searchFlightsBean.displayDate(loggedInBean.myPastTickets.get(0).flight.departureTime)} ${searchFlightsBean.displayTime(loggedInBean.myPastTickets.get(0).flight.departureTime)} <i class="fa fa-arrow-right"/> ${searchFlightsBean.displayDate(loggedInBean.myPastTickets.get(0).flight.arrivalTime)} ${searchFlightsBean.displayTime(loggedInBean.myPastTickets.get(0).flight.arrivalTime)}
+                        <i class="fa fa-plane"/> ${booking.tickets.get(0).flight.airportFrom.city} (${booking.tickets.get(0).flight.airportFrom.code}) <i class="fa fa-arrow-right"/> ${booking.tickets.get(0).flight.airportTo.city} (${booking.tickets.get(0).flight.airportTo.code}):<br/>
+                        ${searchFlightsBean.displayDate(booking.tickets.get(0).flight.departureTime)} ${searchFlightsBean.displayTime(booking.tickets.get(0).flight.departureTime)} <i class="fa fa-arrow-right"/> ${searchFlightsBean.displayDate(booking.tickets.get(0).flight.arrivalTime)} ${searchFlightsBean.displayTime(booking.tickets.get(0).flight.arrivalTime)}
                     </p>
 
 
                     <p class="subtitle">
-                        <c:forEach items="${loggedInBean.myPastTickets}" var="ticket">
-                            <c:if test="${ticket.booking.id == booking.id}">
-                                - ${ticket.passenger.firstName} ${ticket.passenger.lastName}<br/>
-                            </c:if>
+                        <c:forEach items="${booking.tickets}" var="ticket">
+                            - ${ticket.passenger.firstName} ${ticket.passenger.lastName}<br/>
                         </c:forEach>
                     </p>
 
