@@ -27,9 +27,15 @@
 					<div class="col-sm-4"></div>
 
 					<div class="col-sm-4">
-						<c:if test="#{airlineLoginBean.userNotFound}">
-							<label style="">#{err['user.notfound']}</label>
-						</c:if>
+						<div id="user-has-no-rights">
+							<c:if test="#{airlineLoginBean.userNotFound}">
+								<label style="">#{err['user.notfound']}</label>
+							</c:if>
+
+							<c:if test="#{airlineLoginBean.userHasNoRights}">
+								<label style="">#{err['user.has.no.rights']}</label>
+							</c:if>
+						</div>
 
 						<label>#{msgs['menu.email']}</label> <label><h:message
 								styleClass="errMessage" for="email" /></label>
