@@ -62,7 +62,7 @@ public class Flight implements Serializable {
 	@CollectionTable(name = "discountPerVolume")
 	@MapKeyColumn(name = "minPeople")
 	// @Column(name = "Flight_id")
-	private Map<Integer, BigDecimal> volumeDiscounts = new HashMap();
+	private Map<Integer, BigDecimal> volumeDiscounts = new HashMap<>();
 
 	@ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Company company;

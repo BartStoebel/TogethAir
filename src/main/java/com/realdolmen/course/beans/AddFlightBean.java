@@ -1,6 +1,5 @@
 package com.realdolmen.course.beans;
 
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -15,10 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.jgroups.conf.PropertyConverters.FlushInvoker;
 
 import com.realdolmen.course.domain.Airport;
 import com.realdolmen.course.domain.Flight;
@@ -28,22 +26,21 @@ import com.realdolmen.course.service.AirportService;
 import com.realdolmen.course.service.FlightService;
 
 @Named
-@RequestScoped
+@ConversationScoped
 public class AddFlightBean implements Serializable {
 	@Inject
 	private AirportService airportService;
 	@Inject
 	private LoggedInBean loggedInBean;
-	
-	private UIComponent fromNotCorrect;
-	private UIComponent toNotCorrect;
-	
 	@Inject
 	private FlightService flightService;
-	
-	private Flight flight = new Flight();
+	@Inject
+	private Flight flight;
+
 	private List<String> autoCompletePlaces;
-	
+	private UIComponent fromNotCorrect;
+	private UIComponent toNotCorrect;
+
 	@NotBlank
 	private String from;
 	@NotBlank
@@ -62,34 +59,103 @@ public class AddFlightBean implements Serializable {
 	@Min(0)
 	private BigDecimal priceEconomy = BigDecimal.ZERO;
 	@Min(0)
-	private int numberPersonsForDiscount;
-	
-	
-	//Construcor
-	public AddFlightBean() {
-		priceFirstClass.setScale(2,RoundingMode.HALF_UP);
-		priceBusiness.setScale(2,RoundingMode.HALF_UP);
-		priceEconomy.setScale(2,RoundingMode.HALF_UP);
-	}
-	
-	//@PostConstruct
-	@PostConstruct
-    public void init(){
-        autoCompletePlaces = airportService.getCityWithCodeAutoComplete();
-    }
+	private Integer numberPersonsForDiscount1;
+	@Min(0)
+	private Integer numberPersonsForDiscount2;
+	@Min(0)
+	private Integer numberPersonsForDiscount3;
+	@Min(0)
+	private Integer numberPersonsForDiscount4;
+	@Min(0)
+	private BigDecimal groupDiscount1 = BigDecimal.ZERO;
+	@Min(0)
+	private BigDecimal groupDiscount2 = BigDecimal.ZERO;
+	@Min(0)
+	private BigDecimal groupDiscount3 = BigDecimal.ZERO;
+	@Min(0)
+	private BigDecimal groupDiscount4 = BigDecimal.ZERO;
 
-	//Properties
-	
+	// Construcor
+	public AddFlightBean() {
+		priceFirstClass.setScale(2, RoundingMode.HALF_UP);
+		priceBusiness.setScale(2, RoundingMode.HALF_UP);
+		priceEconomy.setScale(2, RoundingMode.HALF_UP);
+	}
+
+	// @PostConstruct
+	@PostConstruct
+	public void init() {
+		autoCompletePlaces = airportService.getCityWithCodeAutoComplete();
+	}
+
+	// Properties
+
 	public Flight getFlight() {
 		return flight;
 	}
 
-	public int getNumberPersonsForDiscount() {
-		return numberPersonsForDiscount;
+	public int getNumberPersonsForDiscount2() {
+		return numberPersonsForDiscount2;
 	}
 
-	public void setNumberPersonsForDiscount(int numberPersonsForDiscount) {
-		this.numberPersonsForDiscount = numberPersonsForDiscount;
+	public void setNumberPersonsForDiscount2(int numberPersonsForDiscount2) {
+		this.numberPersonsForDiscount2 = numberPersonsForDiscount2;
+	}
+
+	public int getNumberPersonsForDiscount3() {
+		return numberPersonsForDiscount3;
+	}
+
+	public void setNumberPersonsForDiscount3(int numberPersonsForDiscount3) {
+		this.numberPersonsForDiscount3 = numberPersonsForDiscount3;
+	}
+
+	public int getNumberPersonsForDiscount4() {
+		return numberPersonsForDiscount4;
+	}
+
+	public void setNumberPersonsForDiscount4(int numberPersonsForDiscount4) {
+		this.numberPersonsForDiscount4 = numberPersonsForDiscount4;
+	}
+
+	public BigDecimal getGroupDiscount2() {
+		return groupDiscount2;
+	}
+
+	public void setGroupDiscount2(BigDecimal groupDiscount2) {
+		this.groupDiscount2 = groupDiscount2;
+	}
+
+	public BigDecimal getGroupDiscount3() {
+		return groupDiscount3;
+	}
+
+	public void setGroupDiscount3(BigDecimal groupDiscount3) {
+		this.groupDiscount3 = groupDiscount3;
+	}
+
+	public BigDecimal getGroupDiscount4() {
+		return groupDiscount4;
+	}
+
+	public void setGroupDiscount4(BigDecimal groupDiscount4) {
+		this.groupDiscount4 = groupDiscount4;
+	}
+
+	public BigDecimal getGroupDiscount1() {
+		return groupDiscount1;
+	}
+
+	public void setGroupDiscount1(BigDecimal groupDiscount1) {
+		this.groupDiscount1 = groupDiscount1;
+	}
+
+	public int getNumberPersonsForDiscount1() {
+		return numberPersonsForDiscount1;
+	}
+
+	public void setNumberPersonsForDiscount1(int numberPersonsForDiscount) {
+		this.numberPersonsForDiscount1 = numberPersonsForDiscount;
 	}
 
 	public void setFlight(Flight flight) {
@@ -159,7 +225,7 @@ public class AddFlightBean implements Serializable {
 	public void setTo(String to) {
 		this.to = to;
 	}
-	
+
 	public UIComponent getFromNotCorrect() {
 		return fromNotCorrect;
 	}
@@ -175,50 +241,75 @@ public class AddFlightBean implements Serializable {
 	public void setToNotCorrect(UIComponent toNotCorrect) {
 		this.toNotCorrect = toNotCorrect;
 	}
-	
-	//Methods
-	public List<String> completePlace(String query){
-        if (query == null || query.length() <= 0) return new ArrayList<String>();
-        List<String> auto = new ArrayList<>();
-        for (String s : autoCompletePlaces){
-            if (s.toLowerCase().contains(query.toLowerCase())) auto.add(s);
-        }
-        return auto;
-    }
-	
-	public String save() {
-		//set the company
+
+	// Methods
+	public List<String> completePlace(String query) {
+		if (query == null || query.length() <= 0)
+			return new ArrayList<String>();
+		List<String> auto = new ArrayList<>();
+		for (String s : autoCompletePlaces) {
+			if (s.toLowerCase().contains(query.toLowerCase()))
+				auto.add(s);
+		}
+		return auto;
+	}
+
+	public String addVolumeDiscount() {
+		// set the company
 		flight.setCompany(loggedInBean.getUser().getCompany());
-		//set the price per budgetclass
+		// set the price per budgetclass
 		setPricePerBudgetClass(BudgetClass.FIRST_CLASS, priceFirstClass);
 		setPricePerBudgetClass(BudgetClass.ECONOMY, priceEconomy);
 		setPricePerBudgetClass(BudgetClass.BUSINESS, priceBusiness);
-		//set the availableSeats per budgetclass
+		// set the availableSeats per budgetclass
 		setAvailableSeatsPerBudgetClass(BudgetClass.FIRST_CLASS, availableFirstClass);
 		setAvailableSeatsPerBudgetClass(BudgetClass.BUSINESS, availableBusiness);
 		setAvailableSeatsPerBudgetClass(BudgetClass.ECONOMY, availableEconomy);
-		//set the from
+		// set the from
 		Airport airportFrom = airportService.findAirportByCityWithCode(from);
 		Airport airportTo = airportService.findAirportByCityWithCode(to);
 		if (airportFrom == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
-		    context.addMessage(fromNotCorrect.getClientId(), new FacesMessage("Please choose an existing airport, by typing the first letters.") );
+			context.addMessage(fromNotCorrect.getClientId(),
+					new FacesMessage("Please choose an existing airport, by typing the first letters."));
 			return "";
 		}
-		if(airportTo == null) {
+		if (airportTo == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
-		    context.addMessage(toNotCorrect.getClientId(), new FacesMessage("Please choose an existing airport, by typing the first letters.") );
+			context.addMessage(toNotCorrect.getClientId(),
+					new FacesMessage("Please choose an existing airport, by typing the first letters."));
 			return "";
 		}
 		flight.setAirportFrom(airportFrom);
 		flight.setAirportTo(airportTo);
-		
-		flightService.save(flight);
-		
+
+		System.out.println("addVolumeDiscount reached");
+		return "addvolumediscount";
+	}
+
+	/**
+	 * Save the flight, with all the values of addflight.xhtml and
+	 * addValumeDiscount.xhtml
+	 * 
+	 * @return
+	 */
+	public String save() {
+		//add volumeDiscounts to object flight
+		addVolumeDiscount(numberPersonsForDiscount1, groupDiscount1);
+		addVolumeDiscount(numberPersonsForDiscount2, groupDiscount2);
+		addVolumeDiscount(numberPersonsForDiscount3, groupDiscount3);
+		addVolumeDiscount(numberPersonsForDiscount4, groupDiscount4);
+		//save the object in the database
+		Flight save = flightService.save(flight);
+		System.out.println("-------------------------" + save.getId());
+		flight = null;
+		save = null;
 		return "addVolumeDiscount";
 	}
+
 	/**
 	 * Price can be 0. Free fligt, but we can override this price for profit
+	 * 
 	 * @param budgetClass
 	 * @param pricePerBudget
 	 */
@@ -229,14 +320,22 @@ public class AddFlightBean implements Serializable {
 			flight.setPricePerBudgetClass(budgetClass, price);
 		}
 	}
+
 	/**
-	 * If the available seats for this BudgetClass are > 0, persist them in the database
+	 * If the available seats for this BudgetClass are > 0, persist them in the
+	 * database
+	 * 
 	 * @param budgetClass
 	 * @param available
 	 */
 	public void setAvailableSeatsPerBudgetClass(BudgetClass budgetClass, int available) {
 		if (available > 0) {
 			flight.setAvailableSeatsPerBudgetClass(budgetClass, available);
-		}		
+		}
+	}
+	public void addVolumeDiscount(Integer numberOfPersons, BigDecimal groupDiscount) {
+		if(numberOfPersons > 0) {
+			flight.addVolumeDiscount(numberOfPersons, groupDiscount);
+		}
 	}
 }
