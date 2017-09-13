@@ -103,7 +103,6 @@ public class AirlineLoginBean implements Serializable {
 			} else if (user.getRole() == Role.CLIENT || user.getRole() == Role.TOGETHAIR_EMPLOYEE){
 				loggedInBean.setUser(null);
 				userHasNoRights = true;
-				System.out.println("-------------------Boe");
 				return "login";
 			} 
 		}
