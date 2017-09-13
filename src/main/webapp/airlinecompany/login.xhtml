@@ -10,7 +10,11 @@
 <ui:composition template="/airlinecompany/template.xhtml">
 	<ui:define name="pageContent">
 		<div id="search-box-div">
-
+		
+			<c:if test="${loggedInBean.user.role == 'AIRLINE_EMPLOYEE'}">
+				<meta http-equiv="refresh" content="0; url=addflight.xhtml" />
+			</c:if>
+			
 			<div id="bg">
 				<img src="../resources/images/boat-2692249_1920.jpg" border="0"
 					alt="" /><A></A>
@@ -23,9 +27,15 @@
 					<div class="col-sm-4"></div>
 
 					<div class="col-sm-4">
-						<c:if test="#{airlineLoginBean.userNotFound}">
-							<label style="">#{err['user.notfound']}</label>
-						</c:if>
+						<div id="user-has-no-rights">
+							<c:if test="#{airlineLoginBean.userNotFound}">
+								<label style="">#{err['user.notfound']}</label>
+							</c:if>
+
+							<c:if test="#{airlineLoginBean.userHasNoRights}">
+								<label style="">#{err['user.has.no.rights']}</label>
+							</c:if>
+						</div>
 
 						<label>#{msgs['menu.email']}</label> <label><h:message
 								styleClass="errMessage" for="email" /></label>

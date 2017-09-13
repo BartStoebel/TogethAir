@@ -1,9 +1,13 @@
 
 package com.realdolmen.course.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
@@ -12,6 +16,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.realdolmen.course.domain.User;
+import com.realdolmen.course.enums.Role;
 import com.realdolmen.course.service.UserServiceBean;
 
 /**
@@ -29,6 +34,8 @@ public class AirlineLoginBean implements Serializable {
 	private UserServiceBean userService;
 	@Inject
 	private LoggedInBean loggedInBean;
+	
+	private boolean userHasNoRights = false;
 
 	private boolean userNotFound = false;
 
@@ -48,6 +55,14 @@ public class AirlineLoginBean implements Serializable {
 	// Properties
 	public String getEmail() {
 		return email;
+	}
+
+	public boolean isUserHasNoRights() {
+		return userHasNoRights;
+	}
+
+	public void setUserHasNoRights(boolean userHasNoRights) {
+		this.userHasNoRights = userHasNoRights;
 	}
 
 	public void setEmail(String email) {
@@ -76,10 +91,21 @@ public class AirlineLoginBean implements Serializable {
 	 */
 	public String loginUser() {
 		userNotFound = false;
+		userHasNoRights = false;
 		if (userService.isUserPasswordCorrect(email, password)) {
+			
+			
 			User user = userService.findByEmail(email);
 			loggedInBean.setUser(user);
-			return "addflight";
+			
+			if(user.getRole() == Role.AIRLINE_EMPLOYEE) {
+				return "addflight";
+			} else if (user.getRole() == Role.CLIENT || user.getRole() == Role.TOGETHAIR_EMPLOYEE){
+				loggedInBean.setUser(null);
+				userHasNoRights = true;
+				System.out.println("-------------------Boe");
+				return "login";
+			} 
 		}
 		userNotFound = true;
 		return "login";
