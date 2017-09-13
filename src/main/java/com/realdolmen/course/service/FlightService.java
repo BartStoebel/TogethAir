@@ -1,6 +1,7 @@
 package com.realdolmen.course.service;
 
 import com.realdolmen.course.domain.Flight;
+import com.realdolmen.course.domain.User;
 import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.repository.FlightRepository;
 
@@ -41,4 +42,9 @@ public class FlightService {
     public void revokeSeats(int size, Flight bookedFlight, BudgetClass budgetClass) {
         flightRepository.revokeSeats( size,  bookedFlight,  budgetClass);
     }
+    
+    public Flight save(Flight flight) {
+    	return flightRepository.save(flight);
+    }
+
 }
