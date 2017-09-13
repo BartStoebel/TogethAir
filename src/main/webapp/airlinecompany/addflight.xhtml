@@ -11,8 +11,10 @@
 	<ui:define name="pageContent">
 		<div id="search-box-div">
 
+			<div id="bg">
 			<img id="backgroundimage"
 				src="../resources/images/sunset-2582699_1920.jpg" border="0" alt="" /><A></A>
+			</div>
 
 
 			<c:if test="${loggedInBean.user.role != 'AIRLINE_EMPLOYEE'}">
@@ -34,14 +36,16 @@
 
 			<h:form>
 				<div class="row">
+
+
 					<div class="col-sm-4">
 						<label>#{msgs['from']}</label>
 						<h:message styleClass="errMessage" for="search_from" />
 						<h:outputText id="test1" binding="#{addFlightBean.fromNotCorrect}" />
 						<label><h:message styleClass="errMessage" for="test1" /></label>
 						<div class="input-group ">
-							<span class="input-group-addon "><i
-								class="fa fa-location-arrow"></i></span>
+							<span class="input-group-addon ">
+								<i class="fa fa-location-arrow"></i></span>
 							<p:autoComplete id="search_from" maxResults="8"
 								value="#{addFlightBean.from}"
 								completeMethod="#{addFlightBean.completePlace}"
@@ -50,13 +54,16 @@
 						</div>
 
 					</div>
+
 					<div class="col-sm-4">
 						<label>#{msgs['to']}</label>
 						<h:message styleClass="errMessage" for="search_to" />
 						<h:outputText id="test2" binding="#{addFlightBean.toNotCorrect}" />
 						<label><h:message styleClass="errMessage" for="test2" /></label>
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-plane"></i></span>
+							<span class="input-group-addon">
+								<i class="fa fa-plane"></i>
+							</span>
 							<p:autoComplete id="search_to" maxResults="8"
 								value="#{addFlightBean.to}"
 								completeMethod="#{addFlightBean.completePlace}"
@@ -71,7 +78,7 @@
 							<span class="input-group-addon"><i
 								class="fa fa-address-card-o"></i></span>
 							<h:inputText value="#{addFlightBean.flight.name}"
-								styleClass="form-control" id="flight_name" />
+								styleClass="form-control input-control-height" id="flight_name" />
 						</div>
 					</div>
 
@@ -83,7 +90,9 @@
 								class="glyphicon glyphicon-calendar"></span></span>
 							<p:calendar id="departure_datetime"
 								value="#{addFlightBean.flight.departureTime}"
-								pattern="dd/MM/yyyy HH:mm" />
+								pattern="dd/MM/yyyy HH:mm"
+										styleClass="autoStyle "
+										inputStyleClass="form-control autoInputStyle" />
 						</div>
 					</div>
 					<div class="col-sm-4">
@@ -93,7 +102,9 @@
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							<p:calendar id="arrival_datetime"
 								value="#{addFlightBean.flight.arrivalTime}"
-								pattern="dd/MM/yyyy HH:mm" />
+								pattern="dd/MM/yyyy HH:mm"
+										styleClass="autoStyle "
+										inputStyleClass="form-control autoInputStyle" />
 						</div>
 					</div>
 					<div class="col-sm-4">

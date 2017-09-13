@@ -9,6 +9,8 @@ $(document).ready(function() {
         dateFormat: 'dd/mm/yy',
     });
 
+    $(".datepicker").css("z-index", 3);
+
     // $('#timepicker').bootstrapMaterialDatePicker({
     //     date: false
     // });
