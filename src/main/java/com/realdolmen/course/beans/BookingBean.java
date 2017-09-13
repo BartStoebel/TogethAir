@@ -6,8 +6,6 @@ import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.enums.PaymentChoice;
 import com.realdolmen.course.repository.BookingRepository;
 import com.realdolmen.course.service.FlightService;
-import com.realdolmen.course.service.TicketService;
-import org.hibernate.Session;
 
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -15,9 +13,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.Past;
-import java.awt.print.Book;
-import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -42,9 +37,6 @@ public class BookingBean implements Serializable {
 
     @EJB
     private FlightService flightService;
-
-    @EJB
-    private TicketService ticketService;
 
     @EJB private BookingRepository bookingRepository;
 

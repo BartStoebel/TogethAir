@@ -3,8 +3,6 @@ package com.realdolmen.course.beans;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.ManagedBean;
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -13,7 +11,6 @@ import com.realdolmen.course.domain.Booking;
 import com.realdolmen.course.domain.Ticket;
 import com.realdolmen.course.domain.User;
 import com.realdolmen.course.service.BookingService;
-import com.realdolmen.course.service.TicketService;
 
 /**
  * This bean will only exist if the user is logged in. It 
@@ -32,7 +29,6 @@ public class LoggedInBean implements Serializable {
 	private List<Ticket> myPastTickets;
 
 	@EJB private BookingService bookingService;
-	@EJB private TicketService ticketService;
 	
 	//Constructors
 	public LoggedInBean() {
