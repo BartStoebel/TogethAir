@@ -70,6 +70,10 @@ public class AirlineLoginBean implements Serializable {
 		this.userNotFound = userNotFound;
 	}
 
+	/**
+	 * Login the user if user is found and password is correct
+	 * @return
+	 */
 	public String loginUser() {
 		userNotFound = false;
 		if (userService.isUserPasswordCorrect(email, password)) {
@@ -81,6 +85,10 @@ public class AirlineLoginBean implements Serializable {
 		return "login";
 	}
 
+	/**
+	 * navigate to userregistration.xhtml
+	 * @return
+	 */
 	public String newUser() {
 		return "userregistration";
 	}

@@ -25,6 +25,11 @@ import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.service.AirportService;
 import com.realdolmen.course.service.FlightService;
 
+/**
+ * Bean that is used for adding a new flight by an airline employee
+ * @author BSEBF08
+ */
+
 @Named
 @RequestScoped
 public class AddFlightBean implements Serializable {
@@ -63,7 +68,7 @@ public class AddFlightBean implements Serializable {
 	private int numberPersonsForDiscount;
 	
 	
-	//Construcor
+	//Constructor
 	public AddFlightBean() {
 		priceFirstClass.setScale(2,RoundingMode.HALF_UP);
 		priceBusiness.setScale(2,RoundingMode.HALF_UP);
@@ -175,6 +180,12 @@ public class AddFlightBean implements Serializable {
 	}
 	
 	//Methods
+
+	/**
+	 * Generates the values that must be shown in the autocomplete field
+	 * @param query
+	 * @return
+	 */
 	public List<String> completePlace(String query){
         if (query == null || query.length() <= 0) return new ArrayList<String>();
         List<String> auto = new ArrayList<>();
@@ -183,7 +194,11 @@ public class AddFlightBean implements Serializable {
         }
         return auto;
     }
-	
+
+	/**
+	 * Save the new flight to the database
+	 * @return
+	 */
 	public String save() {
 		//set the company
 		flight.setCompany(loggedInBean.getUser().getCompany());
@@ -215,6 +230,7 @@ public class AddFlightBean implements Serializable {
 		
 		return "addVolumeDiscount";
 	}
+
 	/**
 	 * Price can be 0. Free fligt, but we can override this price for profit
 	 * @param budgetClass
@@ -227,6 +243,7 @@ public class AddFlightBean implements Serializable {
 			flight.setPricePerBudgetClass(budgetClass, price);
 		}
 	}
+
 	/**
 	 * If the available seats for this BudgetClass are > 0, persist them in the database
 	 * @param budgetClass

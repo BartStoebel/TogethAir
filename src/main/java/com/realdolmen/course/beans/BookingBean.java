@@ -51,6 +51,9 @@ public class BookingBean implements Serializable {
     private BudgetClass budgetClass;
 
 
+    /**
+     * When the session is destroyed and you have reserved seats. The seats will be released.
+     */
     @PreDestroy
     public void preDestroy()/* throws IOException */{
         bookedFlight = flightService.findById(bookedFlight.getId());
@@ -58,6 +61,10 @@ public class BookingBean implements Serializable {
         System.out.println("Seats have been revoked");
     }
 
+    /**
+     * Create a booking and reserve the seats
+     * @return
+     */
     public String bookFlight(){
 
         // Check if flight still has enough seats available
@@ -101,6 +108,11 @@ public class BookingBean implements Serializable {
         return "booking";
     }
 
+    /**
+     * Create the tickets of the booking and send it permanently to the database
+     * @param paymentChoice
+     * @return
+     */
     public String payBooking(String paymentChoice){
 
         PaymentChoice choice;
@@ -157,6 +169,11 @@ public class BookingBean implements Serializable {
         return "thankyou";
     }
 
+    /**
+     * When a booking has been made and the seats reserved, the user may still choose to cancel the booking before paying.
+     * The booking is deleted and the seats released.
+     * @return
+     */
     public String cancelBooking(){
         bookedFlight = flightService.findById(bookedFlight.getId());
         flightService.revokeSeats(passengers.size(), bookedFlight, searchFlightsBean.getBudgetClass());
@@ -169,7 +186,12 @@ public class BookingBean implements Serializable {
     }
 
 
-
+    /**
+     * Calculate the price of the booking with discounts
+     * @param flight
+     * @param price
+     * @return
+     */
     public BigDecimal calcPriceWithDiscount(Flight flight, Price price){
         BigDecimal amount = price.calculatePrice();
         BigDecimal perc = BigDecimal.ZERO;
@@ -189,12 +211,23 @@ public class BookingBean implements Serializable {
         return amount;
     }
 
+    /**
+     * Calculate the price of the booking without discounts
+     * @param price
+     * @return
+     */
     public BigDecimal calcPriceWithoutDiscount(Price price){
         BigDecimal value = price.calculatePrice();
         value = value.multiply(BigDecimal.valueOf(passengers.size()));
         return value;
     }
 
+    /**
+     * Returns a boolean whether a discount is available
+     * @param flight
+     * @param price
+     * @return
+     */
     public boolean hasDiscount(Flight flight, Price price){
         Integer runner = passengers.size();
         while(runner > 0){

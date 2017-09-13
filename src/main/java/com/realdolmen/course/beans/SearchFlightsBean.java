@@ -80,6 +80,11 @@ public class SearchFlightsBean implements Serializable {
 
     // Start methods
 
+    /**
+     * returns the set of Strings that should be displayed in autocomplete. Using the query that is typed in the input.
+     * @param query
+     * @return
+     */
     public List<String> completePlace(String query){
         if (query == null || query.length() <= 0) return new ArrayList<String>();
         List<String> auto = new ArrayList<>();
@@ -89,6 +94,10 @@ public class SearchFlightsBean implements Serializable {
         return auto;
     }
 
+    /**
+     * Look for the available flights, giving the parameters chosen by the user. Sort the flights according to price.
+     * @return
+     */
     public String search(){
 
         flights = flightService.searchForAvailableFlights(from, to, numberOfPassengers, budgetClass, departureDate);
@@ -107,16 +116,32 @@ public class SearchFlightsBean implements Serializable {
         return "searchresult";
     }
 
+    /**
+     * display time in a readable fashion
+     * @param date
+     * @return
+     */
     public String displayTime(Date date){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         return simpleDateFormat.format(date);
     }
 
+    /**
+     * display date in a readable fashion
+     * @param date
+     * @return
+     */
     public String displayDate(Date date){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E dd MMMM yyyy");
         return simpleDateFormat.format(date);
     }
 
+    /**
+     * calculate the price of a given flight with discounts
+     * @param flight
+     * @param price
+     * @return
+     */
     public BigDecimal calcPriceWithDiscount(Flight flight, Price price){
         BigDecimal amount = price.calculatePrice();
         BigDecimal perc = BigDecimal.ZERO;
@@ -136,12 +161,23 @@ public class SearchFlightsBean implements Serializable {
         return amount;
     }
 
+    /**
+     * calculate the price of a given flight without discounts
+     * @param price
+     * @return
+     */
     public BigDecimal calcPriceWithoutDiscount(Price price){
         BigDecimal value = price.calculatePrice();
         value = value.multiply(BigDecimal.valueOf(numberOfPassengers));
         return value;
     }
 
+    /**
+     * returns boolean whether the flight has discount
+     * @param flight
+     * @param price
+     * @return
+     */
     public boolean hasDiscount(Flight flight, Price price){
         Integer runner = numberOfPassengers;
         while(runner > 0){
@@ -153,6 +189,12 @@ public class SearchFlightsBean implements Serializable {
         return false;
     }
 
+    /**
+     * choose a flight and set it as booked flight. navigate to inputPassengers.xhtml OR login.xhtml if not logged in
+     * @param id
+     * @param logged
+     * @return
+     */
     public String chooseFlight(Long id, boolean logged){
         if (bookingBean.getBooking() != null) return "alreadyhavebooking";
         bookingBean.setBookedFlight(flightService.findById(id));
