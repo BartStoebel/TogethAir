@@ -1,12 +1,13 @@
 package com.realdolmen.course.domain;
 
 import com.realdolmen.course.enums.BookingStatus;
+import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.enums.PaymentChoice;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -24,6 +25,61 @@ public class BookingTest {
 
     @Before
     public void init(){
+
+        Map<BudgetClass, Integer> availableSeats = new HashMap<>();
+        availableSeats.put(BudgetClass.ECONOMY, 12);
+        availableSeats.put(BudgetClass.BUSINESS, 12);
+        Map<BudgetClass, Price> prices = new HashMap<>();
+        prices.put(BudgetClass.ECONOMY, new Price(
+                BigDecimal.TEN,
+                BigDecimal.ONE,
+                null
+        ));
+        prices.put(BudgetClass.BUSINESS, new Price(
+                BigDecimal.TEN,
+                null,
+                BigDecimal.ONE
+        ));
+        Map<Integer, BigDecimal> volDiscounts = new HashMap<>();
+        volDiscounts.put(2, BigDecimal.ONE);
+        volDiscounts.put(8, BigDecimal.TEN);
+
+        List<Ticket> ticketList = new ArrayList<>();
+        ticketList.add(new Ticket(
+                BigDecimal.TEN,
+                BudgetClass.BUSINESS,
+                new Passenger(
+                        "Joris",
+                        "Boschmans"
+                ),
+                new Flight(
+                        "New Flight",
+                        new Date(),
+                        new Date(),
+                        availableSeats,
+                        prices,
+                        volDiscounts,
+                        new Company(
+                                "new Company",
+                                "Best company ever"
+                        ),
+                        new Airport(
+                                "Dubai Central",
+                                "UAE",
+                                "Asia",
+                                "DAI",
+                                "Dubai"
+                        ),
+                        new Airport(
+                                "Dubai Central",
+                                "UAE",
+                                "Asia",
+                                "DAI",
+                                "Dubai"
+                        )
+                )
+        ));
+
         booking = new Booking(
                 TEST_PRICE,
                 TEST_DISCOUNT_VOLUME,
@@ -31,6 +87,7 @@ public class BookingTest {
                 PaymentChoice.CREDIT_CARD,
                 new Date(),
                 new User(),
+                ticketList,
                 BookingStatus.RESERVED
         );
     }

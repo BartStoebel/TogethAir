@@ -4,9 +4,8 @@ import com.realdolmen.course.domain.*;
 import com.realdolmen.course.enums.BookingStatus;
 import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.enums.PaymentChoice;
+import com.realdolmen.course.repository.BookingRepository;
 import com.realdolmen.course.service.FlightService;
-import com.realdolmen.course.service.TicketService;
-import org.hibernate.Session;
 
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -14,8 +13,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.Past;
-import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -41,8 +38,7 @@ public class BookingBean implements Serializable {
     @EJB
     private FlightService flightService;
 
-    @EJB
-    private TicketService ticketService;
+    @EJB private BookingRepository bookingRepository;
 
     private Flight bookedFlight;
 
@@ -74,8 +70,9 @@ public class BookingBean implements Serializable {
             // Reserved for 20 minutes!
             FacesContext.getCurrentInstance().getExternalContext().setSessionMaxInactiveInterval(20*60);
 
-            BigDecimal discountVolumePrice = searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())).subtract(searchFlightsBean.calcPriceWithoutDiscount(bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())));
+            BigDecimal discountVolumePrice = searchFlightsBean.calcPriceWithoutDiscount(bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())).subtract(searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())));
 
+            List<Ticket> ticketList = new ArrayList<>();
 
             booking = new Booking(
                     searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())),
@@ -84,8 +81,13 @@ public class BookingBean implements Serializable {
                     null,
                     new Date(),
                     loggedInBean.getUser(),
+                    ticketList,
                     BookingStatus.RESERVED
             );
+
+            //bookingRepository.save(booking);
+
+
 
         } else { // Seats are no longer available
 
@@ -134,13 +136,13 @@ public class BookingBean implements Serializable {
                     ticketPrice,
                     budgetClass,
                     passenger,
-                    booking,
                     flightService.findById(bookedFlight.getId())
             ));
 
         }
 
-        ticketService.saveTickets(tickets);
+        booking.setTickets(tickets);
+        bookingRepository.save(booking);
 
         booking = null;
         bookedFlight = null;

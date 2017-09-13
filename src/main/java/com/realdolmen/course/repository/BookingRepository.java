@@ -1,12 +1,14 @@
 package com.realdolmen.course.repository;
 
 import com.realdolmen.course.domain.Booking;
+import com.realdolmen.course.domain.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -36,6 +38,12 @@ public class BookingRepository {
         return em.merge(b);
     }
 
+    public List<Booking> findByUser(User u){
+        Query q = em.createQuery("select b from Booking b join fetch b.user u where u = :u", Booking.class);
+        q.setParameter("u", u);
+        return q.getResultList();
+    }
+
     public Booking findById(Long id){
         return em.find(Booking.class, id);
     }
@@ -43,5 +51,4 @@ public class BookingRepository {
     public List<Booking> findAll(){
         return em.createQuery("select b from Booking b", Booking.class).getResultList();
     }
-
 }

@@ -25,6 +25,7 @@
         <style>
             body {
                 background-color: white;
+                color: white;
             }
             #search-box-div p, #search-box-div label, #search-box-div h1 {
                 color: #fff;
@@ -106,6 +107,9 @@
             .subtitle{
                 font-size: large;
             }
+            .subtitle-large{
+                font-size: x-large;
+            }
             .autoCompleteStyling{
                 border-radius: 12px;
             }
@@ -147,6 +151,10 @@
                                     <h:link value="#{msgs['my.booking']}" outcome="booking"/>
                                 </li>
                             </c:if>
+
+                            <li>
+                                <h:commandLink value="#{msgs['past.bookings']}" action="#{loggedInBean.goToMyPastBookings}"/>
+                            </li>
 
                             <li>
                                 <h:commandLink action="#{loggedInBean.logout}">#{msgs['menu.logout']}: #{loggedInBean.user.firstName}</h:commandLink>

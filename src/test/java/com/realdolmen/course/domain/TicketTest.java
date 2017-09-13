@@ -20,7 +20,7 @@ public class TicketTest {
 	@Test
 	public void checkTicketWithPassengerToStringAndTrimmed() throws Exception {
 		Passenger passenger = new Passenger("  Benny    ", "  Slim     ");
-        Ticket ticket = new Ticket(BigDecimal.valueOf(245.67), BudgetClass.ECONOMY, passenger, new Booking(), new Flight());
+        Ticket ticket = new Ticket(BigDecimal.valueOf(245.67), BudgetClass.ECONOMY, passenger, new Flight());
 		assertEquals("Slim Benny", ticket.getPassenger().toString());
 		assertEquals(BigDecimal.valueOf(245.67), ticket.getTicketPrice());
 		assertEquals(BudgetClass.ECONOMY, ticket.getBudgetClass());
@@ -28,7 +28,7 @@ public class TicketTest {
 	@Test
 	public void updateTicket() throws Exception {
 		Passenger passenger = new Passenger("  Benny    ", "  Slim     ");
-        Ticket ticket = new Ticket(BigDecimal.valueOf(245.67), BudgetClass.ECONOMY, passenger, new Booking(), new Flight());
+        Ticket ticket = new Ticket(BigDecimal.valueOf(245.67), BudgetClass.ECONOMY, passenger, new Flight());
 		ticket.setTicketPrice(BigDecimal.valueOf(120.3));
 		ticket.setBudgetClass(BudgetClass.BUSINESS);
 		assertEquals(BigDecimal.valueOf(120.3), ticket.getTicketPrice());
