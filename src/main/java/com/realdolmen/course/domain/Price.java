@@ -74,7 +74,7 @@ public class Price implements Serializable {
 	/**
 	 * This is the price, which consists of the base price, plus the default percentage, 
 	 * OR, the base price plus the fixBonus if this is set by a TogethAir employee.
-	 * If the result of the calculation < base, base will be returned.
+	 * If the result of the calculation lower than base, base will be returned.
 	 * @return
 	 */
 	public BigDecimal calculatePrice() {

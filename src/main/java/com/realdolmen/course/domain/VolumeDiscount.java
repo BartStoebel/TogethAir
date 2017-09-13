@@ -59,6 +59,7 @@ public class VolumeDiscount implements Serializable, Comparable<VolumeDiscount> 
 		result = prime * result + minPeople;
 		return result;
 	}
+
 	/**
 	 * 2 VolumeDiscount objects are the same if they have the same value
 	 * for minPeople, regardless the value of discountPercentage.

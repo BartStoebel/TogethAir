@@ -29,7 +29,6 @@ public class UserRepository {
      * @return
      */
     public User save(User u){
-        //if (u.getCompany() != null) em.merge(u.getCompany());
         return em.merge(u);
     }
 

@@ -75,7 +75,6 @@ public class FlightTest {
 		price.setBase(BigDecimal.valueOf(230.1));
 		price.setProfitPercentage(BigDecimal.valueOf(6));
         flight.setPricePerBudgetClass(BudgetClass.ECONOMY, price);
-		//assertEquals((Integer)8, flight.getAvailableSeats().get(BudgetClass.ECONOMY));
 		assertTrue(BigDecimal.valueOf(230.1 * 1.06)
 				.compareTo(flight.getPrices().get(BudgetClass.ECONOMY).calculatePrice()) == 0);
     }	
@@ -89,7 +88,6 @@ public class FlightTest {
 		price.setBase(BigDecimal.valueOf(230.1));
 		price.setFixBonus(BigDecimal.valueOf(2.3));
         flight.setPricePerBudgetClass(BudgetClass.ECONOMY, price);
-		//assertEquals((Integer)8, flight.getAvailableSeats().get(BudgetClass.ECONOMY));
 		assertTrue(BigDecimal.valueOf(230.1 + 2.3)
 				.compareTo(flight.getPrices().get(BudgetClass.ECONOMY).calculatePrice()) == 0);
     }
@@ -104,9 +102,7 @@ public class FlightTest {
 		flight.addVolumeDiscount(15, BigDecimal.valueOf(10));
 		flight.addVolumeDiscount(5, BigDecimal.valueOf(27.1));
 		assertEquals(3, flight.getVolumeDiscounts().size());
-		//check last value in list: 
 		assertEquals(BigDecimal.valueOf(27.1), flight.getVolumeDiscounts().get(5));
-		//check discount in list where minPeople = 15
 		assertEquals(BigDecimal.valueOf(10), flight.getVolumeDiscounts().get(15));
 		}
 	

@@ -350,7 +350,7 @@ public class AddFlightBean implements Serializable {
 	}
 
 	/**
-	 * If the available seats for this BudgetClass are > 0, persist them in the
+	 * If the available seats for this BudgetClass are greater than 0, persist them in the
 	 * database
 	 *
 	 * @param budgetClass

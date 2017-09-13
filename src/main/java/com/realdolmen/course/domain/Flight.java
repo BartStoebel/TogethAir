@@ -161,13 +161,6 @@ public class Flight implements Serializable {
 	}
 
 	/**
-	 * public List<VolumeDiscount> getVolumeDiscounts() { return volumeDiscounts; }
-	 * 
-	 * public void setVolumeDiscounts(List<VolumeDiscount> volumeDiscounts) {
-	 * this.volumeDiscounts = volumeDiscounts; }
-	 */
-
-	/**
 	 * To set the available seats per BudgetClass. If availableSeats is already
 	 * present, this method will overwrite this value!
 	 * 
@@ -224,7 +217,6 @@ public class Flight implements Serializable {
 	 * to the SortedSet
 	 * 
 	 * @param volumeDiscount
-	 * @return
 	 */
 	public void addVolumeDiscount(Integer minPeople, BigDecimal volumeDiscount) {
 		this.volumeDiscounts.put(minPeople, volumeDiscount);

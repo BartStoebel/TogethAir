@@ -106,7 +106,6 @@ public class UserRegistrationBean implements Serializable{
 				//user exists
 				FacesContext context = FacesContext.getCurrentInstance();
 			    context.addMessage(emailExistsInDb.getClientId(), new FacesMessage("Email already exists. Choose a unique email"));
-			    //System.out.println("User bestaat al boodschap teruggegeven ...");
 			    return "";
 			}
 				

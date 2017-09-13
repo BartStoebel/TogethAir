@@ -101,17 +101,6 @@ public class UserServiceBeanTest {
 		service.save(user1);
 		verify(repository).save(same(user1));
 	}
-//	@Test
-//	public void shouldCheckPasswordCorrect() throws Exception {
-//		List<User> users = service.findAll();
-//		User user = users.get(0);
-//		System.out.println(user.getPassword());
-//		System.out.println(Password.hashPassword(user.getPassword()));
-//		System.out.println("password");
-//		System.out.println(Password.hashPassword("password"));
-//		System.out.println(Password.checkPassword("password", (user.getPassword())));
-//		assertTrue(true);
-//	}
 	
 	
 	

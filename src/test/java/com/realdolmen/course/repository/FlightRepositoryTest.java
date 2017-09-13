@@ -23,6 +23,7 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		flightRepository = new FlightRepository();
 		flightRepository.em = em;
 	}
+
 	/**
 	 * Save a Flight, with prices and availableSeats. Afterwards, retrieve this Flight,
 	 * and check if the values are correct.
@@ -86,11 +87,6 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		assertNotNull(flight.getId());
 		assertEquals("AB17", flight.getName());
 	}
-	/*@Test
-	public void shouldRemoveAFlight() {
-		flightRepository.remove(TEST_FLIGHT_ID);
-		assertEquals(2, count(Flight.class));
-	}*/
 	@Test
 	public void shouldGetAvailableSeatsInEconomyClass() {
 		Flight flight = flightRepository.findById(2L);
@@ -113,8 +109,6 @@ public class FlightRepositoryTest extends AbstractPersistenceTest{
 		Flight flight = flightRepository.findById(TEST_FLIGHT_ID);
 		assertTrue(BigDecimal.valueOf(10).compareTo(
 				flight.getVolumeDiscounts().get(5)) == 0);
-		//VolumeDiscount volumeDiscount = new VolumeDiscount(5, BigDecimal.valueOf(17.25));
-		//flight.addVolumeDiscount(volumeDiscount);
 		flight.addVolumeDiscount(5, BigDecimal.valueOf(17.25));
 		flight = flightRepository.save(flight);
 		assertEquals(0.0, BigDecimal.valueOf(17.25).compareTo(flight.getVolumeDiscounts()

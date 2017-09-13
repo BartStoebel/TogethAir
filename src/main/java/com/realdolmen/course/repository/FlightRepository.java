@@ -25,11 +25,7 @@ public class FlightRepository {
 	 * @return
 	 */
 	public Flight save(Flight flight) {
-		/*em.merge(flight.getCompany());
-		em.merge(flight.getAirportFrom());
-		em.merge(flight.getAirportTo());*/
 		return em.merge(flight);
-		//em.flush();
 	}
 
 	/**
@@ -54,8 +50,6 @@ public class FlightRepository {
 	 * @param flightId
 	 */
 	public void remove(long flightId) {
-        //logger.info("Removing flight with id " + flightId);
-		// TODO fix cascading manually OR keep flight for archiving
         em.remove(em.getReference(Flight.class, flightId));
     }
 
@@ -70,8 +64,6 @@ public class FlightRepository {
 	 */
 	public List<Flight> searchForAvailableFlights(String from, String to, Integer numberOfPassengers, BudgetClass budgetClass, Date departureDate){
 
-//		Date startDepDate = departureDate;
-//		Date endDepDate = departureDate;
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(departureDate);

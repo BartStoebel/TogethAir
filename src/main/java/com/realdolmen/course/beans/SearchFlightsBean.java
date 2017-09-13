@@ -50,7 +50,6 @@ public class SearchFlightsBean implements Serializable {
     @NotBlank(message = "{req.destination}")
     private String to;
 
-    //@Digits(integer = 2, fraction = 0, message = "{passengers.needs.number}")
     @Min(1)
     @NotNull(message = "{req.number.of.passengers}")
     private Integer numberOfPassengers;
