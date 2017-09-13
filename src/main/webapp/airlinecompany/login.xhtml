@@ -27,11 +27,10 @@
 					<div class="col-sm-4"></div>
 
 					<div class="col-sm-4">
-						<div id="user-has-no-rights">
+						<div id="login-failed">
 							<c:if test="#{airlineLoginBean.userNotFound}">
 								<label style="">#{err['user.notfound']}</label>
 							</c:if>
-
 							<c:if test="#{airlineLoginBean.userHasNoRights}">
 								<label style="">#{err['user.has.no.rights']}</label>
 							</c:if>
@@ -65,11 +64,8 @@
 					</div>
 					<div class="col-sm-4"></div>
 				</div>
-
 			</h:form>
 		</div>
-
 	</ui:define>
 </ui:composition>
-
 </html>
