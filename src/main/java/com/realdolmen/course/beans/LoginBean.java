@@ -94,7 +94,6 @@ public class LoginBean implements Serializable{
 		if (userService.isUserPasswordCorrect(email, password)) {
 			user = userService.findByEmail(email);
 			loggedInBean.setUser(user);
-			System.out.println(user.getEmail() + " aangelogd!");
 			if (bookingBean.getBooking() != null){
 				return "booking";
 			}
