@@ -3,7 +3,6 @@ package com.realdolmen.course.beans;
 import com.realdolmen.course.domain.Flight;
 import com.realdolmen.course.domain.Passenger;
 import com.realdolmen.course.domain.Price;
-import com.realdolmen.course.domain.VolumeDiscount;
 import com.realdolmen.course.enums.BudgetClass;
 import com.realdolmen.course.service.AirportService;
 import com.realdolmen.course.service.FlightService;
@@ -11,13 +10,10 @@ import org.hibernate.validator.constraints.NotBlank;
 
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.PostLoad;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
