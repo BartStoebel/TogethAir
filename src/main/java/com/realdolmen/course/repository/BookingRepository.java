@@ -43,7 +43,7 @@ public class BookingRepository {
 
     /**
      * Find all bookings of a user
-     * @param u
+     * @param ub
      * @return
      */
     public List<Booking> findByUser(User u){

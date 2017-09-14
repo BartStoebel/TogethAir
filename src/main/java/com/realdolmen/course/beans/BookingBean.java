@@ -13,6 +13,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.OptimisticLockException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -67,37 +68,49 @@ public class BookingBean implements Serializable {
      */
     public String bookFlight(){
 
-        // Check if flight still has enough seats available
-        if (flightService.checkIfSeatsAvailable(passengers.size(), bookedFlight, searchFlightsBean.getBudgetClass())){ // Seats are still available
+        boolean versionException = true;
+
+        while (versionException) {
+
+            // Check if flight still has enough seats available
+            if (flightService.checkIfSeatsAvailable(passengers.size(), bookedFlight, searchFlightsBean.getBudgetClass())) { // Seats are still available
 
 
-            // Immediately reserve the seats
-            flightService.reserveSeats(passengers.size(), bookedFlight, searchFlightsBean.getBudgetClass());
-            seatsReserved = passengers.size();
-            // Reserved for 20 minutes!
-            FacesContext.getCurrentInstance().getExternalContext().setSessionMaxInactiveInterval(20*60);
-
-            BigDecimal discountVolumePrice = searchFlightsBean.calcPriceWithoutDiscount(bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())).subtract(searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())));
-
-            List<Ticket> ticketList = new ArrayList<>();
-
-            booking = new Booking(
-                    searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())),
-                    discountVolumePrice,
-                    BigDecimal.ZERO,
-                    null,
-                    new Date(),
-                    loggedInBean.getUser(),
-                    ticketList,
-                    BookingStatus.RESERVED
-            );
+                // Immediately reserve the seats
+                try{
+                    flightService.reserveSeats(passengers.size(), bookedFlight, searchFlightsBean.getBudgetClass());
+                    versionException = false;
+                } catch (OptimisticLockException e){
+                    continue;
+                }
 
 
+                seatsReserved = passengers.size();
+                // Reserved for 20 minutes!
+                FacesContext.getCurrentInstance().getExternalContext().setSessionMaxInactiveInterval(20 * 60);
 
-        } else { // Seats are no longer available
+                BigDecimal discountVolumePrice = searchFlightsBean.calcPriceWithoutDiscount(bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())).subtract(searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())));
 
-            System.out.println("No longer available");
-            return "noMoreSeats";
+                List<Ticket> ticketList = new ArrayList<>();
+
+                booking = new Booking(
+                        searchFlightsBean.calcPriceWithDiscount(bookedFlight, bookedFlight.getPrices().get(searchFlightsBean.getBudgetClass())),
+                        discountVolumePrice,
+                        BigDecimal.ZERO,
+                        null,
+                        new Date(),
+                        loggedInBean.getUser(),
+                        ticketList,
+                        BookingStatus.RESERVED
+                );
+
+
+            } else { // Seats are no longer available
+
+                System.out.println("No longer available");
+                return "noMoreSeats";
+
+            }
 
         }
 
